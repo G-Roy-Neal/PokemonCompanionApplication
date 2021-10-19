@@ -8,7 +8,7 @@ public class UrlBuilderTest {
     @Test
         public void testBuildUrl() {
         UrlBuilder builder = new UrlBuilder();
-        String result = builder.buildUrl("Ralts");
-        Assertions.assertEquals("", result);
+        String result = builder.buildSearchUrl("Ralts");
+        Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/ralts", result);
     }
 }
