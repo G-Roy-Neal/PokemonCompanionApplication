@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class QuerySearcher {
-    public ByteArrayOutputStream JsonFromUrl (String stringUrl) throws IOException {
+    public ByteArrayOutputStream DataFromUrl (String stringUrl) throws IOException {
         URL Url = new URL(stringUrl);
         URLConnection connection = Url.openConnection();
         ByteArrayOutputStream tempByteArray = new ByteArrayOutputStream();
