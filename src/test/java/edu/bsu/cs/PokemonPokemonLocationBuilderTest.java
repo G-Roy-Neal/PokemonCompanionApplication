@@ -19,12 +19,12 @@ public class PokemonPokemonLocationBuilderTest {
     }
 
     @Test
-    public void TestBuildLocationList () {
+    public void TestBuildLocationList () throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        PokemonLocation knownLocation = new PokemonLocation("");
+        PokemonLocation knownLocation = new PokemonLocation("sinnoh-route-209-area");
         PokemonLocationBuilder locationBuilder = new PokemonLocationBuilder(testingData);
         List<PokemonLocation> locations = locationBuilder.buildLocationList();
-        Assertions.assertEquals(knownLocation, locations.get(0));
+        Assertions.assertEquals(knownLocation, locations.get(3));
     }
 }
