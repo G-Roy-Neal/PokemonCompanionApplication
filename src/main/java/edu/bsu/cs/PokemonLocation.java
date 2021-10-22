@@ -1,20 +1,24 @@
 package edu.bsu.cs;
 
+import java.util.Objects;
+
 public class PokemonLocation {
+    private final String location;
 
-    private String locationDescription;
-    private int encounterChance;
-    private String requiredAction;
-
-    public PokemonLocation() {}
-
-    public void setLocationDescription(String locationDescription){
-        this.locationDescription = locationDescription;
+    public PokemonLocation(String location){
+        this.location = location;
     }
-    public void setEncounterChance(int encounterChance){
-        this.encounterChance = encounterChance;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PokemonLocation that = (PokemonLocation) o;
+        return Objects.equals(location, that.location);
     }
-    public void setMethod(String requiredAction){
-        this.requiredAction = requiredAction;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(location);
     }
 }
