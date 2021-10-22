@@ -1,7 +1,17 @@
 package edu.bsu.cs;
 
-import com.sun.glass.ui.Application;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public abstract class PokeMonApp extends Application {
+public class PokeMonApp extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        Scene scene = new Scene(LocationsGUI());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
 
 }

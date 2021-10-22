@@ -1,3 +1,5 @@
+package edu.bsu.cs;
+
 import edu.bsu.cs.CheckGeneration;
 import edu.bsu.cs.QuerySearcher;
 import edu.bsu.cs.UrlBuilder;

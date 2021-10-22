@@ -18,6 +18,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
 }
 
+application {
+    mainClassName("edu.bsu.cs.PokeMonApp")
+}
+
 javafx {
     version = "17"
     modules = [ 'javafx.controls' ]
