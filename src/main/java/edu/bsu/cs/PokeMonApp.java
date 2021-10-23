@@ -9,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -54,11 +58,18 @@ public class PokeMonApp extends Application {
 
             UrlBuilder urlBuilder = new UrlBuilder();
             QuerySearcher querySearcher = new QuerySearcher();
-
+            PokemonLocationFormatter pokemonLocationFormatter = new PokemonLocationFormatter();
 
             String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
-            String locations = "locations";
-            locationOutput.setText(locations);
+            try {
+                InputStream rawData = querySearcher.DataFromUrl(formattedURL);
+                PokemonLocationBuilder pokemonLocationBuilder = new PokemonLocationBuilder(rawData);
+                List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
+                String formattedLocationString = pokemonLocationFormatter.formatLocationList(locationsList);
+                locationOutput.setText(formattedLocationString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             enableEditing();
         }
 

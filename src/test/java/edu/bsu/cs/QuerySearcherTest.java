@@ -29,7 +29,7 @@ public class QuerySearcherTest {
         testingData.transferTo(tempByteArray);
 
         QuerySearcher querySearcher = new QuerySearcher();
-        ByteArrayOutputStream outputStream = querySearcher.DataFromUrl("https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png");
+        InputStream inputStream = querySearcher.DataFromUrl("https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png");
 
         Assertions.assertEquals(tempByteArray.toString(), outputStream.toString());
     }
