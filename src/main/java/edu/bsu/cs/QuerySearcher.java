@@ -10,8 +10,6 @@ public class QuerySearcher {
     public InputStream DataFromUrl (String stringUrl) throws IOException {
         URL Url = new URL(stringUrl);
         URLConnection connection = Url.openConnection();
-        ByteArrayOutputStream tempByteArray = new ByteArrayOutputStream();
-        connection.getInputStream().transferTo(tempByteArray);
-        return tempByteArray;
+        return connection.getInputStream();
     }
 }

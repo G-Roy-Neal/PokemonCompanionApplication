@@ -16,9 +16,9 @@ public class QuerySearcherTest {
         testingData.transferTo(tempByteArray);
 
         QuerySearcher querySearcher = new QuerySearcher();
-        ByteArrayOutputStream outputStream = querySearcher.DataFromUrl("https://pokeapi.co/api/v2/pokemon/ralts");
+        InputStream inputStream = querySearcher.DataFromUrl("https://pokeapi.co/api/v2/pokemon/ralts");
 
-        Assertions.assertEquals(tempByteArray.toString(), outputStream.toString());
+        Assertions.assertEquals(tempByteArray.toString(), inputStream.toString());
     }
 
     @Test
@@ -31,6 +31,6 @@ public class QuerySearcherTest {
         QuerySearcher querySearcher = new QuerySearcher();
         InputStream inputStream = querySearcher.DataFromUrl("https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png");
 
-        Assertions.assertEquals(tempByteArray.toString(), outputStream.toString());
+        Assertions.assertEquals(tempByteArray.toString(), inputStream.toString());
     }
 }
