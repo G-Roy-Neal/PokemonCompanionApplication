@@ -51,7 +51,13 @@ public class PokeMonApp extends Application {
         public void run() {
             disableEditing();
             pauseThreadFor1Second();
-            String locations = "location";
+
+            UrlBuilder urlBuilder = new UrlBuilder();
+            QuerySearcher querySearcher = new QuerySearcher();
+
+
+            String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
+            String locations = "locations";
             locationOutput.setText(locations);
             enableEditing();
         }
