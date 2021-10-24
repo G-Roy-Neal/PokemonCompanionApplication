@@ -22,6 +22,19 @@ public class QuerySearcherTest {
     }
 
     @Test
+    public void querySearcherTest2() throws IOException {
+        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
+        assert testingData != null;
+        ByteArrayOutputStream tempByteArray = new ByteArrayOutputStream();
+        testingData.transferTo(tempByteArray);
+
+        QuerySearcher querySearcher = new QuerySearcher();
+        InputStream inputStream = querySearcher.DataFromUrl("https://pokeapi.co/api/v2/pokemon/kashdkjahskjd");
+
+        Assertions.assertEquals(tempByteArray.toString(), inputStream.toString());
+    }
+
+    @Test
     public void imageSearcherTest() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("Squirtle.png");
         assert testingData != null;

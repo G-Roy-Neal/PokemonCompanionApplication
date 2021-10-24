@@ -19,9 +19,8 @@ public class PokemonLocationBuilder {
     public List<PokemonLocation> buildLocationList () throws IOException {
         List<PokemonLocation> list = new ArrayList<>();
         String locationUrl = getUrl();
-        URL Url = new URL(locationUrl);
-        URLConnection connection = Url.openConnection();
-        InputStream rawLocations = connection.getInputStream();
+        QuerySearcher searcher = new QuerySearcher();
+        InputStream rawLocations = searcher.DataFromUrl(locationUrl);
         JsonPath locationPath = JsonPath.compile("$..location_area..name");
         JSONArray locationsArray = locationPath.read(rawLocations);
         for (Object o : locationsArray) {

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PokeMonApp extends Application {
+public class PokemonApp extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable revisionTask = new locationTask();
 
@@ -30,7 +30,7 @@ public class PokeMonApp extends Application {
         primaryStage.show();
     }
 
-    public PokeMonApp() {
+    public PokemonApp() {
         userInput = new TextField();
         searchLocationsButton = new Button("Search Locations");
         locationOutput = new TextArea();
@@ -66,7 +66,7 @@ public class PokeMonApp extends Application {
                 String formattedLocationString = PokemonLocationFormatter.formatLocationList(locationsList);
                 locationOutput.setText(formattedLocationString);
             } catch (IOException e) {
-                e.printStackTrace();
+                locationOutput.setText("Search is not a valid Pokemon");
             }
             enableEditing();
         }
