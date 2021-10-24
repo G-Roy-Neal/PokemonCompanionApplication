@@ -13,6 +13,9 @@ public class PokemonLocationFormatter {
                 locationsString += formattedLocation + "\n";
             }
         }
+        if (locationsString.isBlank()){
+            locationsString = "This Pokemon can not be captured in the wild in the Sinnoh region";
+        }
         return locationsString;
     }
 
@@ -31,5 +34,4 @@ public class PokemonLocationFormatter {
     private static Object checkIfLocationInGame(String rawLocation) {
         return rawLocation.contains("sinnoh");
     }
-
 }

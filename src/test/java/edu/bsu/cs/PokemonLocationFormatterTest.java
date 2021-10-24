@@ -39,5 +39,4 @@ public class PokemonLocationFormatterTest {
                 Route 212 north towards hearthome city
                 """, formattedOutput);
     }
-
 }

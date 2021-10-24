@@ -3,7 +3,7 @@ package edu.bsu.cs;
 import java.util.Objects;
 
 public class PokemonLocation {
-    private final String location;
+    public final String location;
 
     public PokemonLocation(String location){
         this.location = location;

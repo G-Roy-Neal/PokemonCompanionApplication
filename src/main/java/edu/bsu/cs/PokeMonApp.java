@@ -54,7 +54,7 @@ public class PokeMonApp extends Application {
         @Override
         public void run() {
             disableEditing();
-            pauseThreadFor1Second();
+            locationOutput.setText("");
 
             UrlBuilder urlBuilder = new UrlBuilder();
             QuerySearcher querySearcher = new QuerySearcher();
