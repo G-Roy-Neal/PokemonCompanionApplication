@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -58,14 +57,13 @@ public class PokeMonApp extends Application {
 
             UrlBuilder urlBuilder = new UrlBuilder();
             QuerySearcher querySearcher = new QuerySearcher();
-            PokemonLocationFormatter pokemonLocationFormatter = new PokemonLocationFormatter();
 
             String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
             try {
                 InputStream rawData = querySearcher.DataFromUrl(formattedURL);
                 PokemonLocationBuilder pokemonLocationBuilder = new PokemonLocationBuilder(rawData);
                 List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
-                String formattedLocationString = pokemonLocationFormatter.formatLocationList(locationsList);
+                String formattedLocationString = PokemonLocationFormatter.formatLocationList(locationsList);
                 locationOutput.setText(formattedLocationString);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -73,9 +71,6 @@ public class PokeMonApp extends Application {
             enableEditing();
         }
 
-        private void pauseThreadFor1Second () {
-            try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-        }
         private void enableEditing() {
             userInput.setEditable(true);
             searchLocationsButton.setDisable(false);
