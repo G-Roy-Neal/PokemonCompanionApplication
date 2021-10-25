@@ -19,7 +19,7 @@ dependencies {
 }
 
 application {
-    mainClassName("edu.bsu.cs.PokeMonApp")
+    mainClassName("edu.bsu.cs.PokemonApp")
 }
 
 javafx {
