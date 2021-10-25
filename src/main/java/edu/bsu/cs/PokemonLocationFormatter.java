@@ -6,17 +6,17 @@ public class PokemonLocationFormatter {
 
 
     public static String formatLocationList(List<PokemonLocation> locationsList) {
-        String locationsString = "";
+        StringBuilder locationsString = new StringBuilder();
         for (PokemonLocation location: locationsList){
             String formattedLocation = transformLocationDescription(location.getLocation());
             if (!formattedLocation.equals("")){
-                locationsString += formattedLocation + "\n";
+                locationsString.append(formattedLocation).append("\n");
             }
         }
-        if (locationsString.isBlank()){
-            locationsString = "This Pokemon can not be captured in the wild in the Sinnoh region";
+        if (locationsString.toString().isBlank()){
+            locationsString = new StringBuilder("This Pokemon can not be captured in the wild in the Sinnoh region");
         }
-        return locationsString;
+        return locationsString.toString();
     }
 
     public static String transformLocationDescription(String rawLocation) {
