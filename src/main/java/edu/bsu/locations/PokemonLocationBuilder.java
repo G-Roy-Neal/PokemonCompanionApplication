@@ -2,7 +2,6 @@ package edu.bsu.locations;
 
 import com.jayway.jsonpath.JsonPath;
 import edu.bsu.cs.QuerySearcher;
-import edu.bsu.locations.PokemonLocation;
 import net.minidev.json.JSONArray;
 
 import java.io.*;
@@ -20,7 +19,7 @@ public class PokemonLocationBuilder {
         List<PokemonLocation> list = new ArrayList<>();
         String locationUrl = getUrl();
         QuerySearcher searcher = new QuerySearcher();
-        InputStream rawLocations = searcher.DataFromUrl(locationUrl);
+        InputStream rawLocations = searcher.getInputStream(locationUrl);
         JsonPath locationPath = JsonPath.compile("$..location_area..name");
         JSONArray locationsArray = locationPath.read(rawLocations);
         for (Object o : locationsArray) {
