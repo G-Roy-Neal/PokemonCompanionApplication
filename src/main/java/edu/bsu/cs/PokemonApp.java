@@ -79,6 +79,7 @@ public class PokemonApp extends Application {
             userInput.setEditable(true);
             searchLocationsButton.setDisable(false);
         }
+
         private void disableEditing() {
             userInput.setEditable(false);
             searchLocationsButton.setDisable(true);
