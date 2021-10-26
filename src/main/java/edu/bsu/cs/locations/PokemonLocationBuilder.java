@@ -1,4 +1,4 @@
-package edu.bsu.locations;
+package edu.bsu.cs.locations;
 
 import com.jayway.jsonpath.JsonPath;
 import edu.bsu.cs.QuerySearcher;

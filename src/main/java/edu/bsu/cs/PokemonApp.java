@@ -1,8 +1,8 @@
 package edu.bsu.cs;
 
-import edu.bsu.locations.PokemonLocation;
-import edu.bsu.locations.PokemonLocationBuilder;
-import edu.bsu.locations.PokemonLocationFormatter;
+import edu.bsu.cs.locations.PokemonLocation;
+import edu.bsu.cs.locations.PokemonLocationBuilder;
+import edu.bsu.cs.locations.PokemonLocationFormatter;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

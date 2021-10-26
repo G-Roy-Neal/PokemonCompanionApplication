@@ -1,6 +1,6 @@
 package edu.bsu.cs;
 
-import edu.bsu.locations.PokemonLocation;
+import edu.bsu.cs.locations.PokemonLocation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
