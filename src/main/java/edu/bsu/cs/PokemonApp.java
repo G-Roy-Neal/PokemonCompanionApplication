@@ -61,7 +61,7 @@ public class PokemonApp extends Application {
             PokemonLocationFormatter formatter = new PokemonLocationFormatter();
             String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
             try {
-                InputStream rawData = querySearcher.DataFromUrl(formattedURL);
+                InputStream rawData = querySearcher.getInputStream(formattedURL);
                 PokemonLocationBuilder pokemonLocationBuilder = new PokemonLocationBuilder(rawData);
                 List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
                 String formattedLocationString = formatter.formatLocationList(locationsList);
