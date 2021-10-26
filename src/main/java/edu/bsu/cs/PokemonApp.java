@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 public class PokemonApp extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable revisionTask = new locationTask();
-
     private final TextField userInput;
     private final Button searchLocationsButton;
     private final TextArea locationOutput;
@@ -57,11 +56,9 @@ public class PokemonApp extends Application {
         public void run() {
             disableEditing();
             locationOutput.setText("");
-
             UrlBuilder urlBuilder = new UrlBuilder();
             QuerySearcher querySearcher = new QuerySearcher();
             PokemonLocationFormatter formatter = new PokemonLocationFormatter();
-
             String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
             try {
                 InputStream rawData = querySearcher.getInputStream(formattedURL);
