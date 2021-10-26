@@ -9,7 +9,9 @@ public class PokemonLocation {
         this.location = location;
     }
 
-    public String getLocation() {return location;}
+    public String getLocation() {
+        return location;
+    }
 
     @Override
     public boolean equals(Object o) {
