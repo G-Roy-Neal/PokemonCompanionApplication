@@ -11,4 +11,11 @@ public class UrlBuilderTest {
         String result = builder.buildSearchUrl("Ralts");
         Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/ralts", result);
     }
+
+    @Test
+    public void testBuildUrl2() {
+        UrlBuilder builder = new UrlBuilder();
+        String result = builder.buildSearchUrl("Mr. Mime");
+        Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/mr-mime", result);
+    }
 }

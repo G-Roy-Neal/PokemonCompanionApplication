@@ -6,7 +6,16 @@ import java.util.Locale;
 
 public class UrlBuilder {
     public String buildSearchUrl(String search) {
-        String formattedSearch = URLEncoder.encode(search.toLowerCase(Locale.ROOT), StandardCharsets.UTF_8);
+        String formattedSearch = formatSearch(search);
         return "https://pokeapi.co/api/v2/pokemon/" + formattedSearch;
+    }
+
+    private String formatSearch(String unformattedSearch){
+        String formattedSearch;
+        String lowerCase = unformattedSearch.toLowerCase(Locale.ROOT);
+        String noSpace = lowerCase.replace(" ", "-");
+        String noChar = noSpace.replace(".", "");
+        formattedSearch = URLEncoder.encode(noChar, StandardCharsets.UTF_8);
+        return formattedSearch;
     }
 }
