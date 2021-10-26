@@ -1,6 +1,7 @@
 package edu.bsu.cs;
 
 import java.util.List;
+import java.util.Locale;
 
 public class PokemonLocationFormatter {
 
@@ -28,7 +29,9 @@ public class PokemonLocationFormatter {
 
     private static String formatLocationDescription(String rawLocation) {
          rawLocation = rawLocation.replace('-',' ');
-         return rawLocation.replace("sinnoh r", "R");
+         String replacedLocation =  rawLocation.replace("sinnoh ", "");
+         String formattedLocation = replacedLocation.substring(0, 1).toUpperCase() + replacedLocation.substring(1);
+         return formattedLocation;
     }
 
     private static Object checkIfLocationInGame(String rawLocation) {

@@ -15,7 +15,6 @@ public class PokemonLocationFormatterTest {
     @ParameterizedTest
     @CsvSource({
             "sinnoh-route-203-area, Route 203 area",
-            "hoenn-route-102-area,",
             "sinnoh-route-204-south-towards-jubilife-city, Route 204 south towards jubilife city"
     })
     public void testFormatLocation(String location, String expected) {
