@@ -1,4 +1,4 @@
-package edu.bsu.cs;
+package edu.bsu.locations;
 
 import java.util.Objects;
 

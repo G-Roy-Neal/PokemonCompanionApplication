@@ -1,4 +1,6 @@
-package edu.bsu.cs;
+package edu.bsu.locations;
+
+import edu.bsu.locations.PokemonLocation;
 
 import java.util.List;
 

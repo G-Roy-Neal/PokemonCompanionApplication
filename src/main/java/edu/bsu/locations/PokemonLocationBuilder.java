@@ -1,6 +1,8 @@
-package edu.bsu.cs;
+package edu.bsu.locations;
 
 import com.jayway.jsonpath.JsonPath;
+import edu.bsu.cs.QuerySearcher;
+import edu.bsu.locations.PokemonLocation;
 import net.minidev.json.JSONArray;
 
 import java.io.*;
@@ -10,7 +12,7 @@ import java.util.List;
 public class PokemonLocationBuilder {
     private final InputStream inputData;
 
-    PokemonLocationBuilder(InputStream inputData){
+    public PokemonLocationBuilder(InputStream inputData){
         this.inputData = inputData;
     }
 
