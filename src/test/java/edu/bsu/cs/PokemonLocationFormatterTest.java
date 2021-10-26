@@ -29,7 +29,8 @@ public class PokemonLocationFormatterTest {
         assert testingData != null;
         PokemonLocationBuilder locationBuilder = new PokemonLocationBuilder(testingData);
         List<PokemonLocation> locationsList = locationBuilder.buildLocationList();
-        String formattedOutput = PokemonLocationFormatter.formatLocationList(locationsList);
+        PokemonLocationFormatter formatter = new PokemonLocationFormatter();
+        String formattedOutput = formatter.formatLocationList(locationsList);
         Assertions.assertEquals("""
                 Route 203 area
                 Route 204 south towards jubilife city

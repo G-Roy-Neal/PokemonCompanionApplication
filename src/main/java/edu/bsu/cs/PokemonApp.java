@@ -57,13 +57,14 @@ public class PokemonApp extends Application {
 
             UrlBuilder urlBuilder = new UrlBuilder();
             QuerySearcher querySearcher = new QuerySearcher();
+            PokemonLocationFormatter formatter = new PokemonLocationFormatter();
 
             String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
             try {
                 InputStream rawData = querySearcher.DataFromUrl(formattedURL);
                 PokemonLocationBuilder pokemonLocationBuilder = new PokemonLocationBuilder(rawData);
                 List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
-                String formattedLocationString = PokemonLocationFormatter.formatLocationList(locationsList);
+                String formattedLocationString = formatter.formatLocationList(locationsList);
                 locationOutput.setText(formattedLocationString);
             } catch (IOException e) {
                 locationOutput.setText("Search is not a valid Pokemon");
