@@ -26,7 +26,6 @@ public class PokemonLocationBuilder {
             list.add(new PokemonLocation(o.toString()));
         }
         return list;
-
     }
 
     public String getUrl() throws IOException {
