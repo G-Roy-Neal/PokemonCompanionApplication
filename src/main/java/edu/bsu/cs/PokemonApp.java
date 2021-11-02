@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -31,8 +33,8 @@ public class PokemonApp extends Application {
     private Label pokemonType;
     private Label pokemonWeight;
     private final ComboBox<String> dropdownMenu;
+    private final ImageView imageView;
     private final TextArea locationOutput;
-    private final TextArea image;
     private final Button searchButton;
 
     @Override
@@ -50,7 +52,14 @@ public class PokemonApp extends Application {
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
         locationOutput = new TextArea();
-        image = new TextArea("Image");
+
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("C:\\Users\\m910g\\OneDrive\\Desktop\\CS222\\PokemonCompanionApplication-wallace-vaal-neal-kring\\src\\main\\resources\\Squirtle.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("javaFX sucks");
+        }
+        imageView = new ImageView(image);
 
         locationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(revisionTask));
