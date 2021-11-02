@@ -8,10 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,10 +26,10 @@ public class PokemonApp extends Application {
     private final Runnable revisionTask = new locationTask();
 
     private final TextField userInput;
-    private final TextField pokemonName;
-    private final TextField pokemonHeight;
-    private final TextField pokemonType;
-    private final TextField pokemonWeight;
+    private Label pokemonName;
+    private Label pokemonHeight;
+    private Label pokemonType;
+    private Label pokemonWeight;
     private final ComboBox<String> dropdownMenu;
     private final TextArea locationOutput;
     private final TextArea image;
@@ -40,16 +39,14 @@ public class PokemonApp extends Application {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(LocationsGUI());
         primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 
     public PokemonApp() {
         ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves", "Type Advantages");
         userInput = new TextField("Search");
-        pokemonName = new TextField("Name");
-        pokemonHeight = new TextField("Height");
-        pokemonType = new TextField("Type");
-        pokemonWeight = new TextField("Weight");
+        setDataLabels();
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
         locationOutput = new TextArea();
@@ -57,6 +54,13 @@ public class PokemonApp extends Application {
 
         locationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(revisionTask));
+    }
+
+    private void setDataLabels(){
+        pokemonName = new Label("Name");
+        pokemonHeight = new Label("Height");
+        pokemonType = new Label("Type");
+        pokemonWeight = new Label("Weight");
     }
 
     private Parent LocationsGUI() {
@@ -67,26 +71,34 @@ public class PokemonApp extends Application {
         VBox dropDownOutputBox = new VBox();
         VBox searchImageDataBox = new VBox();
 
-        parentBox.getChildren().add(dropDownOutputBox);
-        parentBox.getChildren().add(searchImageDataBox);
+        parentBox.prefWidth(Double.MAX_VALUE);
+        parentBox.prefHeight(Double.MAX_VALUE);
 
-        dropDownOutputBox.getChildren().add(dropdownMenu);
-        dropDownOutputBox.getChildren().add(locationOutput);
+        dropDownOutputBox.prefWidthProperty().bind(parentBox.widthProperty().multiply(0.5));
+        dropDownOutputBox.prefHeightProperty().bind(parentBox.heightProperty().multiply(0.1));
 
-        searchImageDataBox.getChildren().add(querySearchButtonBox);
-        searchImageDataBox.getChildren().add(image);
-        searchImageDataBox.getChildren().add(nameHeightBox);
-        searchImageDataBox.getChildren().add(typeWeightBox);
+        searchImageDataBox.prefWidthProperty().bind(parentBox.widthProperty().multiply(0.5));
+        searchImageDataBox.prefHeightProperty().bind(parentBox.heightProperty().multiply(0.5));
 
-        querySearchButtonBox.getChildren().add(userInput);
-        querySearchButtonBox.getChildren().add(searchButton);
 
-        nameHeightBox.getChildren().add(pokemonName);
-        nameHeightBox.getChildren().add(pokemonHeight);
+        parentBox.getChildren().addAll(dropDownOutputBox, searchImageDataBox);
+        dropDownOutputBox.getChildren().addAll(dropdownMenu, locationOutput);
+        searchImageDataBox.getChildren().addAll(querySearchButtonBox, imageView, nameHeightBox, typeWeightBox);
+        querySearchButtonBox.getChildren().addAll(userInput, searchButton);
+        nameHeightBox.getChildren().addAll(pokemonName, pokemonHeight);
+        typeWeightBox.getChildren().addAll(pokemonType, pokemonWeight);
 
-        typeWeightBox.getChildren().add(pokemonType);
-        typeWeightBox.getChildren().add(pokemonWeight);
-
+        double height = imageView.getImage().heightProperty().getValue();
+        double width = imageView.getImage().widthProperty().getValue();
+        System.out.println(height);
+        System.out.println(width);
+        double imageRatio = height/width;
+        System.out.println(imageRatio);
+        dropdownMenu.prefWidthProperty().bind(locationOutput.widthProperty());
+        locationOutput.prefHeightProperty().bind(parentBox.heightProperty());
+        userInput.prefWidthProperty().bind((parentBox.widthProperty().multiply(0.5)).subtract(30));
+        imageView.fitWidthProperty().bind(parentBox.heightProperty().multiply(0.8));
+        imageView.fitHeightProperty().bind((parentBox.heightProperty().multiply(0.8)));
         return parentBox;
     }
 
