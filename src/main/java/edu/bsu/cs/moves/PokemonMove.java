@@ -27,4 +27,7 @@ public class PokemonMove {
         this.name = builder.name;
         this.level = builder.level;
     }
+
+    public String getName() {return name;}
+    public Integer getLevel() {return level;}
 }
