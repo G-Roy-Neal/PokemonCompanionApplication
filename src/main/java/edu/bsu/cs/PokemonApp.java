@@ -97,12 +97,7 @@ public class PokemonApp extends Application {
         nameHeightBox.getChildren().addAll(pokemonName, pokemonHeight);
         typeWeightBox.getChildren().addAll(pokemonType, pokemonWeight);
 
-        double height = imageView.getImage().heightProperty().getValue();
-        double width = imageView.getImage().widthProperty().getValue();
-        System.out.println(height);
-        System.out.println(width);
-        double imageRatio = height/width;
-        System.out.println(imageRatio);
+
         dropdownMenu.prefWidthProperty().bind(locationOutput.widthProperty());
         locationOutput.prefHeightProperty().bind(parentBox.heightProperty());
         userInput.prefWidthProperty().bind((parentBox.widthProperty().multiply(0.5)).subtract(30));
