@@ -11,10 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokemonMoveBuilder {
-    private final InputStream inputData;
+    private final InputStream firstClone;
+    private final InputStream secondClone;
+    private final InputStream thirdClone;
 
-    public PokemonMoveBuilder(InputStream inputData) {
-        this.inputData = inputData;
+    public PokemonMoveBuilder(InputStream inputData) throws IOException {
+        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
+        inputData.transferTo(temporaryByteArray);
+        this.firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+        this.secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+        this.thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
     }
 
     public List<Integer> getSelectLevels() throws IOException {
@@ -22,8 +28,10 @@ public class PokemonMoveBuilder {
         List<String> rawGenerations = getRawGenerations();
         List<Integer> moveIndexes = getMoveIndexes(rawGenerations);
         List<Integer> rawLevels = getRawLevels();
-        for (Integer moveIndex : moveIndexes) {
-            selectLevels.add(rawLevels.get(moveIndex));
+        for (int i = 0; i < moveIndexes.size(); i++) {
+            int index = moveIndexes.get(i);
+            int selectedLevel = rawLevels.get(index);
+            selectLevels.add(selectedLevel);
         }
         return selectLevels;
     }
@@ -70,11 +78,8 @@ public class PokemonMoveBuilder {
 
     public List<String> getRawGenerations() throws IOException {
         List<String> rawGenerationList = new ArrayList<>();
-        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-        this.inputData.transferTo(temporaryByteArray);
-        InputStream clone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
         JsonPath generationPath = JsonPath.compile("$..moves..version_group_details..version_group..name");
-        JSONArray generationsArray = generationPath.read(clone);
+        JSONArray generationsArray = generationPath.read(firstClone);
         for (Object o : generationsArray) {
             rawGenerationList.add(o.toString());
         }
@@ -83,11 +88,8 @@ public class PokemonMoveBuilder {
 
     public List<String> getMoveNames() throws IOException {
         List<String> movesList = new ArrayList<>();
-        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-        this.inputData.transferTo(temporaryByteArray);
-        InputStream clone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
         JsonPath moveNamePath = JsonPath.compile("$..moves..move..name");
-        JSONArray moveArray = moveNamePath.read(clone);
+        JSONArray moveArray = moveNamePath.read(secondClone);
         for (Object o : moveArray) {
             movesList.add(o.toString());
         }
@@ -96,11 +98,8 @@ public class PokemonMoveBuilder {
 
     public List<Integer> getRawLevels() throws IOException {
         List<Integer> rawLevelLearned = new ArrayList<>();
-        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-        this.inputData.transferTo(temporaryByteArray);
-        InputStream clone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
         JsonPath levelLearnedPath = JsonPath.compile("$..moves..level_learned_at");
-        JSONArray rawLevels = levelLearnedPath.read(clone);
+        JSONArray rawLevels = levelLearnedPath.read(thirdClone);
         for (Object rawLevel : rawLevels) {
             rawLevelLearned.add((Integer) rawLevel);
         }

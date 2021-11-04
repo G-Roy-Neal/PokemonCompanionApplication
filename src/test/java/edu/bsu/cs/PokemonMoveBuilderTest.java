@@ -18,7 +18,7 @@ public class PokemonMoveBuilderTest {
             "heartgold-soulsilver, 10",
             "x-y, 15"
     })
-    public void testFormatLocation(String location, Integer expected) {
+    public void testFormatLocation(String location, Integer expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
         Integer result = moveBuilder.convertGeneration(location);
@@ -70,6 +70,21 @@ public class PokemonMoveBuilderTest {
         List<String> rawGenerations = moveBuilder.getRawGenerations();
         List<Integer> moveIndexes = moveBuilder.getMoveIndexes(rawGenerations);
         Integer result = moveIndexes.get(index);
+        Assertions.assertEquals(result, expected);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "3, 1",
+            "13, 7",
+            "19, 16",
+            "86, 46",
+    })
+    public void testGetSelectLevels(Integer index, Integer expected) throws IOException {
+        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
+        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        List<Integer> selectLevels = moveBuilder.getSelectLevels();
+        Integer result = selectLevels.get(index);
         Assertions.assertEquals(result, expected);
     }
 }
