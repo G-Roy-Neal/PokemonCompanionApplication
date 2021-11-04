@@ -23,13 +23,24 @@ public class PokemonMoveBuilder {
         this.thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
     }
 
+    public List<PokemonMove> buildMoves() throws IOException {
+        List<PokemonMove> pokemonMoves = new ArrayList<>();
+        List <Integer> selectLevels = getSelectLevels();
+        List <String> moveNames = getMoveNames();
+        int length = Math.min(moveNames.size(), selectLevels.size());
+        for (int i = 0; i < length; i++){
+            PokemonMove newMove = new PokemonMove.Builder().withLevel(selectLevels.get(i)).withName(moveNames.get(i)).build();
+            pokemonMoves.add(newMove);
+        }
+        return pokemonMoves;
+    }
+
     public List<Integer> getSelectLevels() throws IOException {
         List<Integer> selectLevels = new ArrayList<>();
         List<String> rawGenerations = getRawGenerations();
         List<Integer> moveIndexes = getMoveIndexes(rawGenerations);
         List<Integer> rawLevels = getRawLevels();
-        for (int i = 0; i < moveIndexes.size(); i++) {
-            int index = moveIndexes.get(i);
+        for (int index : moveIndexes) {
             int selectedLevel = rawLevels.get(index);
             selectLevels.add(selectedLevel);
         }
