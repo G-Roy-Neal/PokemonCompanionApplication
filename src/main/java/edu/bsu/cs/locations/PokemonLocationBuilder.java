@@ -11,7 +11,7 @@ import java.util.List;
 public class PokemonLocationBuilder {
     private final InputStream inputData;
 
-    public PokemonLocationBuilder(InputStream inputData){
+    public PokemonLocationBuilder(InputStream inputData) {
         this.inputData = inputData;
     }
 
