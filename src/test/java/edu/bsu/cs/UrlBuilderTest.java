@@ -18,4 +18,11 @@ public class UrlBuilderTest {
         String result = builder.buildSearchUrl("Mr. Mime");
         Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/mr-mime", result);
     }
+
+    @Test
+    public void testBuildImageUrl() {
+        UrlBuilder builder = new UrlBuilder();
+        String result = builder.buildImageUrl("Ralts");
+        Assertions.assertEquals("https://assets.pokemon.com/assets/cms2/img/pokedex/full/ralts.png", result);
+    }
 }

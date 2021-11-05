@@ -15,10 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -40,6 +37,7 @@ public class PokemonApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(LocationsGUI());
+        primaryStage.setTitle("Brilliant Diamond & Shining Pearl Companion App");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.show();
@@ -55,7 +53,7 @@ public class PokemonApp extends Application {
 
         Image image = null;
         try {
-            image = new Image(new FileInputStream("C:\\Users\\m910g\\OneDrive\\Desktop\\CS222\\PokemonCompanionApplication-wallace-vaal-neal-kring\\src\\main\\resources\\Squirtle.png"));
+            image = new Image(new FileInputStream("src/main/resources/Squirtle.png"));
         } catch (FileNotFoundException e) {
             System.out.println("javaFX sucks");
         }
@@ -122,6 +120,7 @@ public class PokemonApp extends Application {
                 List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
                 String formattedLocationString = formatter.formatLocationList(locationsList);
                 locationOutput.setText(formattedLocationString);
+
             } catch (IOException e) {
                 locationOutput.setText("Search is not a valid Pokemon");
             }
@@ -136,6 +135,7 @@ public class PokemonApp extends Application {
         private void disableEditing() {
             userInput.setEditable(false);
             searchButton.setDisable(true);
+
         }
     }
 }

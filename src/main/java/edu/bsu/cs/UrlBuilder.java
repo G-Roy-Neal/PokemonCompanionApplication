@@ -10,6 +10,11 @@ public class UrlBuilder {
         return "https://pokeapi.co/api/v2/pokemon/" + formattedSearch;
     }
 
+    public String buildImageUrl(String pokemonId) {
+        String formsttedSearch = formatSearch(pokemonId);
+        return "https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ formsttedSearch + ".png";
+    }
+
     private String formatSearch(String unformattedSearch){
         String formattedSearch;
         String lowerCase = unformattedSearch.toLowerCase(Locale.ROOT);

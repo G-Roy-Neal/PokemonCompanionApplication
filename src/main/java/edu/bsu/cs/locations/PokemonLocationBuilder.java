@@ -29,11 +29,8 @@ public class PokemonLocationBuilder {
     }
 
     public String getUrl() throws IOException {
-        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-        inputData.transferTo(temporaryByteArray);
-        InputStream clone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
         JsonPath encountersPath = JsonPath.compile("$..location_area_encounters");
-        JSONArray locationUrl = encountersPath.read(clone);
+        JSONArray locationUrl = encountersPath.read(this.inputData);
         return locationUrl.get(0).toString();
     }
 }
