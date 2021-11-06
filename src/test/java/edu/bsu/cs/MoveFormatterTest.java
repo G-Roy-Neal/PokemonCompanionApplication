@@ -20,8 +20,8 @@ public class MoveFormatterTest {
     @Test
     public void testBuildMoveWaterCannon(){
         MoveFormatter moveFormatter = new MoveFormatter();
-        PokemonMove move1 = new PokemonMove.Builder().withName("Water Cannon").withLevel(0).build();
-        Assertions.assertEquals("Water Cannon", moveFormatter.format(move1));
+        PokemonMove move2 = new PokemonMove.Builder().withName("Water Cannon").withLevel(0).build();
+        Assertions.assertEquals("Water Cannon", moveFormatter.format(move2));
     }
 
     @Test
