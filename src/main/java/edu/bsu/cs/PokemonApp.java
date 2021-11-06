@@ -34,6 +34,7 @@ public class PokemonApp extends Application {
     private final TextArea locationOutput;
     private final Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
+    private final QueryEngine queryEngine = new OnlineQueryEngine();
 
     @Override
     public void start(Stage primaryStage) {
@@ -112,8 +113,13 @@ public class PokemonApp extends Application {
         public void run() {
             disableEditing();
             locationOutput.setText("");
-            String result = locationEngine.getLocations(userInput.getText());
-            locationOutput.setText(result);
+            try {
+                InputStream inputData = queryEngine.getInputStream(userInput.getText());
+                String result = locationEngine.getLocations(inputData);
+                locationOutput.setText(result);
+            } catch (IOException e) {
+                locationOutput.setText("Search is not a valid Pokemon");
+            }
             enableEditing();
         }
 
