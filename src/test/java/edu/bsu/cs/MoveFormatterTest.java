@@ -12,10 +12,16 @@ import java.io.InputStream;
 public class MoveFormatterTest {
 
     @Test
-    public void testBuildMove(){
+    public void testBuildMoveHyperbeam(){
         MoveFormatter moveFormatter = new MoveFormatter();
         PokemonMove move1 = new PokemonMove.Builder().withName("Hyperbeam").withLevel(20).build();
         Assertions.assertEquals("20, Hyperbeam", moveFormatter.format(move1));
+    }
+    @Test
+    public void testBuildMoveWaterCannon(){
+        MoveFormatter moveFormatter = new MoveFormatter();
+        PokemonMove move1 = new PokemonMove.Builder().withName("Water Cannon").withLevel(0).build();
+        Assertions.assertEquals("Water Cannon", moveFormatter.format(move1));
     }
 
 
