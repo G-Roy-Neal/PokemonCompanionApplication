@@ -4,34 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveFormatter {
-    private final List<PokemonMove> taughtMoves;
-    private final List<PokemonMove> movesThatWillBeLearned;
+    private final List<String> formattedLearnedMoves;
+    private final List<String> formattedTaughtMoves;
 
-    public MoveFormatter() {
-        taughtMoves = new ArrayList<>();
-        movesThatWillBeLearned = new ArrayList<>();
+    public MoveFormatter(){
+        this.formattedTaughtMoves = new ArrayList<>();
+        this.formattedLearnedMoves = new ArrayList<>();
     }
 
-    public StringBuilder formatTaughtMoves() {
-        StringBuilder taughtMovesString = new StringBuilder("These are the moves it can be taught:\n");
-        for (PokemonMove move: taughtMoves){
-            String formattedMove = String.format("%s\n", move.getName());
-            taughtMovesString.append(formattedMove);
+    public String buildFormattedMoves(List<PokemonMove> moveList){
+        StringBuilder formattedString = new StringBuilder("Moves that can be Learned:\n");
+        seperateMoves(moveList);
+        for (String learned: this.formattedLearnedMoves){
+            formattedString.append(learned).append("\n");
         }
-        return taughtMovesString;
+        formattedString.append("Moves that can be Taught:\n");
+        for (String taught: this.formattedTaughtMoves){
+            formattedString.append(taught).append("\n");
+        }
+        return formattedString.toString();
     }
 
-    private void classifyMoves(PokemonMove move){
-        if (discernIfTaught(move)) {
-            taughtMoves.add(move);
-        } else {
-            movesThatWillBeLearned.add(move);
+    private void seperateMoves(List<PokemonMove> movesList){
+        for(PokemonMove move: movesList){
+            if (move.getLevel() > 0){
+                this.formattedLearnedMoves.add(format(move));
+            }
+            else{
+                this.formattedTaughtMoves.add(format(move));
+            }
         }
     }
 
-    private boolean discernIfTaught(PokemonMove move) {
-        return move.getLevel() > 0;
+    public String format(PokemonMove move) {
+        String moveName = move.getName().replace('-', ' ');
+        String formattedName = moveName.substring(0, 1).toUpperCase() + moveName.substring(1);
+        if (move.getLevel() > 0) {
+            return move.getLevel() + ", " + formattedName;
+        }else {
+            return formattedName;
+        }
     }
-
-
 }
