@@ -13,10 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.xml.stream.Location;
 import java.io.*;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -74,37 +71,21 @@ public class PokemonApp extends Application {
     }
 
     private Parent createLocationsGUI() {
-        HBox parentBox = new HBox();
-        HBox nameHeightBox = new HBox();
-        HBox typeWeightBox = new HBox();
+        GridPane grid = new GridPane();
         HBox querySearchButtonBox = new HBox();
-        VBox dropDownOutputBox = new VBox();
-        VBox searchImageDataBox = new VBox();
-
-        parentBox.prefWidth(Double.MAX_VALUE);
-        parentBox.prefHeight(Double.MAX_VALUE);
-
-        dropDownOutputBox.prefWidthProperty().bind(parentBox.widthProperty().multiply(0.5));
-        dropDownOutputBox.prefHeightProperty().bind(parentBox.heightProperty().multiply(0.1));
-
-        searchImageDataBox.prefWidthProperty().bind(parentBox.widthProperty().multiply(0.5));
-        searchImageDataBox.prefHeightProperty().bind(parentBox.heightProperty().multiply(0.5));
-
-
-        parentBox.getChildren().addAll(dropDownOutputBox, searchImageDataBox);
-        dropDownOutputBox.getChildren().addAll(dropdownMenu, locationOutput);
-        searchImageDataBox.getChildren().addAll(querySearchButtonBox, imageView, nameHeightBox, typeWeightBox);
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
-        nameHeightBox.getChildren().addAll(pokemonName, pokemonHeight);
-        typeWeightBox.getChildren().addAll(pokemonType, pokemonWeight);
+        
+        grid.setGridLinesVisible(true);
+        grid.add(dropdownMenu, 0,0,2,1);
+        grid.add(locationOutput, 0,1,2,3);
+        grid.add(querySearchButtonBox, 2,0,2,1);
+        grid.add(imageView, 2,1,2,1);
+        grid.add(pokemonName, 2,2,1,1);
+        grid.add(pokemonType, 2,3,1,1);
+        grid.add(pokemonHeight, 3,2,1,1);
+        grid.add(pokemonWeight, 3,3,1,1);
 
-
-        dropdownMenu.prefWidthProperty().bind(locationOutput.widthProperty());
-        locationOutput.prefHeightProperty().bind(parentBox.heightProperty());
-        userInput.prefWidthProperty().bind((parentBox.widthProperty().multiply(0.5)).subtract(30));
-        imageView.fitWidthProperty().bind(parentBox.heightProperty().multiply(0.8));
-        imageView.fitHeightProperty().bind((parentBox.heightProperty().multiply(0.8)));
-        return parentBox;
+        return grid;
     }
 
     private final class locationTask implements Runnable {
