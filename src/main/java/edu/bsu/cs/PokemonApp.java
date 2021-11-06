@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,7 +37,7 @@ public class PokemonApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(LocationsGUI());
+        Scene scene = new Scene(createLocationsGUI());
         primaryStage.setTitle("Brilliant Diamond & Shining Pearl Companion App");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -71,7 +72,7 @@ public class PokemonApp extends Application {
         pokemonWeight = new Label("Weight");
     }
 
-    private Parent LocationsGUI() {
+    private Parent createLocationsGUI() {
         HBox parentBox = new HBox();
         HBox nameHeightBox = new HBox();
         HBox typeWeightBox = new HBox();
