@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 
 public class PokemonApp extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable revisionTask = new locationTask();
+    private final Runnable locationTask = new locationTask();
 
     private final TextField userInput;
     private Label pokemonName;
@@ -61,7 +61,8 @@ public class PokemonApp extends Application {
         imageView = new ImageView(image);
 
         locationOutput.setEditable(false);
-        searchButton.setOnAction(event -> executor.execute(revisionTask));
+        searchButton.setOnAction(event -> executor.execute(locationTask));
+        userInput.setOnAction(event -> executor.execute(locationTask));
     }
 
     private void setDataLabels(){
