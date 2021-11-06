@@ -1,8 +1,6 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.locations.PokemonLocation;
-import edu.bsu.cs.locations.PokemonLocationBuilder;
-import edu.bsu.cs.locations.PokemonLocationFormatter;
+import edu.bsu.cs.locations.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.xml.stream.Location;
 import java.io.*;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -33,6 +32,7 @@ public class PokemonApp extends Application {
     private final ImageView imageView;
     private final TextArea locationOutput;
     private final Button searchButton;
+    private final LocationEngine locationEngine = new OnlineLocationEngine();
 
     @Override
     public void start(Stage primaryStage) {
@@ -111,20 +111,8 @@ public class PokemonApp extends Application {
         public void run() {
             disableEditing();
             locationOutput.setText("");
-            UrlBuilder urlBuilder = new UrlBuilder();
-            QuerySearcher querySearcher = new QuerySearcher();
-            PokemonLocationFormatter formatter = new PokemonLocationFormatter();
-            String formattedURL = urlBuilder.buildSearchUrl(userInput.getText());
-            try {
-                InputStream rawData = querySearcher.getInputStream(formattedURL);
-                PokemonLocationBuilder pokemonLocationBuilder = new PokemonLocationBuilder(rawData);
-                List<PokemonLocation> locationsList = pokemonLocationBuilder.buildLocationList();
-                String formattedLocationString = formatter.formatLocationList(locationsList);
-                locationOutput.setText(formattedLocationString);
-
-            } catch (IOException e) {
-                locationOutput.setText("Search is not a valid Pokemon");
-            }
+            String result = locationEngine.getLocations(userInput.getText());
+            locationOutput.setText(result);
             enableEditing();
         }
 
