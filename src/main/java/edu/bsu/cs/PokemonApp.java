@@ -1,5 +1,7 @@
 package edu.bsu.cs;
 
+import edu.bsu.cs.PokemonImage.ImageEngine;
+import edu.bsu.cs.PokemonImage.OnlineImageEngine;
 import edu.bsu.cs.locations.*;
 import edu.bsu.cs.moves.MoveEngine;
 import edu.bsu.cs.moves.OnlineMoveEngine;
@@ -35,6 +37,7 @@ public class PokemonApp extends Application {
     private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final MoveEngine moveEngine = new OnlineMoveEngine();
+    private final ImageEngine imageEngine = new OnlineImageEngine();
     private String moveResult;
     private String locationResult;
 
@@ -118,8 +121,11 @@ public class PokemonApp extends Application {
                 inputData.transferTo(temporaryByteArray);
                 InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                imageView.setImage(imageEngine.getImage(thirdClone));
                 locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
+
                 locationOutput.setText(locationResult);
             } catch (IOException e) {
                 locationOutput.setText("Search is not a valid Pokemon");

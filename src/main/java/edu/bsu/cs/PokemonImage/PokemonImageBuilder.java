@@ -14,7 +14,11 @@ public class PokemonImageBuilder {
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         inputData.transferTo(temporaryByteArray);
         JsonPath idPath = JsonPath.compile("$.id");
-        return idPath.read(new ByteArrayInputStream(temporaryByteArray.toByteArray())).toString();
+        StringBuilder id = new StringBuilder(idPath.read(new ByteArrayInputStream(temporaryByteArray.toByteArray())).toString());
+        while (id.length() < 3){
+            id.insert(0, "0");
+        }
+        return id.toString();
     }
 
     public InputStream getPokemonImage (String pokemonId) throws IOException {
