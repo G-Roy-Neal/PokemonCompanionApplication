@@ -1,6 +1,8 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.locations.*;
+import edu.bsu.cs.moves.MoveEngine;
+import edu.bsu.cs.moves.OnlineMoveEngine;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import java.util.concurrent.Executors;
 public class PokemonApp extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable locationTask = new locationTask();
+    private final Runnable dropdownTask = new dropdownTask();
 
     private final TextField userInput;
     private Label pokemonName;
@@ -31,6 +34,9 @@ public class PokemonApp extends Application {
     private final Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
+    private final MoveEngine moveEngine = new OnlineMoveEngine();
+    private String moveResult;
+    private String locationResult;
 
     @Override
     public void start(Stage primaryStage) {
@@ -42,7 +48,7 @@ public class PokemonApp extends Application {
     }
 
     public PokemonApp() {
-        ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves", "Type Advantages");
+        ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
         userInput = new TextField("Search");
         setDataLabels();
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
@@ -60,6 +66,7 @@ public class PokemonApp extends Application {
         locationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(locationTask));
         userInput.setOnAction(event -> executor.execute(locationTask));
+        dropdownMenu.setOnAction(event -> executor.execute(dropdownTask));
     }
 
     private void setDataLabels(){
@@ -86,6 +93,18 @@ public class PokemonApp extends Application {
 
         return grid;
     }
+    private final class dropdownTask implements Runnable {
+        @Override
+        public void run(){
+            int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
+            if (selectedIndex == 0){
+                locationOutput.setText(locationResult);
+            }
+            else if (selectedIndex == 1){
+                locationOutput.setText(moveResult);
+            }
+        }
+    }
 
     private final class locationTask implements Runnable {
 
@@ -95,8 +114,13 @@ public class PokemonApp extends Application {
             locationOutput.setText("");
             try {
                 InputStream inputData = queryEngine.getInputStream(userInput.getText());
-                String result = locationEngine.getLocations(inputData);
-                locationOutput.setText(result);
+                ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
+                inputData.transferTo(temporaryByteArray);
+                InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                locationResult = locationEngine.getLocations(firstClone);
+                moveResult = moveEngine.getMoves(secondClone);
+                locationOutput.setText(locationResult);
             } catch (IOException e) {
                 locationOutput.setText("Search is not a valid Pokemon");
             }
