@@ -1,8 +1,5 @@
 package edu.bsu.cs.locations;
 
-import edu.bsu.cs.QuerySearcher;
-import edu.bsu.cs.UrlBuilder;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;

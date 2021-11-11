@@ -2,7 +2,8 @@ package edu.bsu.cs;
 
 import edu.bsu.cs.PokemonImage.ImageEngine;
 import edu.bsu.cs.PokemonImage.OnlineImageEngine;
-import edu.bsu.cs.locations.*;
+import edu.bsu.cs.locations.LocationEngine;
+import edu.bsu.cs.locations.OnlineLocationEngine;
 import edu.bsu.cs.moves.MoveEngine;
 import edu.bsu.cs.moves.OnlineMoveEngine;
 import javafx.application.Application;
@@ -17,7 +18,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import java.io.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -69,6 +74,7 @@ public class PokemonApp extends Application {
         searchButton.setOnAction(event -> executor.execute(locationTask));
         userInput.setOnAction(event -> executor.execute(locationTask));
         dropdownMenu.setOnAction(event -> executor.execute(dropdownTask));
+        userInput.setOnMouseClicked(event -> userInput.clear());
     }
 
     private void setDataLabels(){
@@ -104,7 +110,6 @@ public class PokemonApp extends Application {
         grid.getColumnConstraints().addAll(column1, column2, column3, column4);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(500);
-        userInput.setOnMouseClicked(event -> userInput.clear());
 
         return grid;
     }
