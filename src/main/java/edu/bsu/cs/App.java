@@ -33,8 +33,8 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable queryTask = new locationTask();
-    private final Runnable dropdownTask = new dropdownTask();
+    private final Runnable queryTask = new QueryTask();
+    private final Runnable dropdownTask = new DropdownTask();
 
     private final TextField userInput;
     private Label pokemonName;
@@ -78,6 +78,7 @@ public class App extends Application {
         searchButton.setOnAction(event -> executor.execute(queryTask));
         searchButton.setOnAction(event -> executor.execute(dropdownTask));
         userInput.setOnAction(event -> executor.execute(queryTask));
+        userInput.setOnAction(event -> executor.execute(dropdownTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
     }
 
@@ -126,7 +127,7 @@ public class App extends Application {
 
         return grid;
     }
-    private final class dropdownTask implements Runnable {
+    private final class DropdownTask implements Runnable {
         @Override
         public void run(){
             int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
@@ -139,7 +140,7 @@ public class App extends Application {
         }
     }
 
-    private final class locationTask implements Runnable {
+    private final class QueryTask implements Runnable {
 
         @Override
         public void run() {
