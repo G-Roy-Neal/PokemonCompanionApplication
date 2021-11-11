@@ -13,10 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -58,13 +60,10 @@ public class PokemonApp extends Application {
         searchButton = new Button("\uD83D\uDD0E");
         locationOutput = new TextArea();
 
-        Image image = null;
-        try {
-            image = new Image(new FileInputStream("src/main/resources/Squirtle.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("javaFX sucks");
-        }
+        Image image;
+        image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
         imageView = new ImageView(image);
+
 
         locationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(locationTask));
@@ -83,7 +82,7 @@ public class PokemonApp extends Application {
         GridPane grid = new GridPane();
         HBox querySearchButtonBox = new HBox();
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
-        
+
         grid.setGridLinesVisible(true);
         grid.add(dropdownMenu, 0,0,2,1);
         grid.add(locationOutput, 0,1,2,3);
@@ -93,6 +92,19 @@ public class PokemonApp extends Application {
         grid.add(pokemonType, 2,3,1,1);
         grid.add(pokemonHeight, 3,2,1,1);
         grid.add(pokemonWeight, 3,3,1,1);
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        ColumnConstraints column2 = new ColumnConstraints();
+        ColumnConstraints column3 = new ColumnConstraints();
+        ColumnConstraints column4 = new ColumnConstraints();
+        column1.setPercentWidth(25);
+        column2.setPercentWidth(25);
+        column3.setPercentWidth(25);
+        column4.setPercentWidth(25);
+        grid.getColumnConstraints().addAll(column1, column2, column3, column4);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(500);
+        userInput.setOnMouseClicked(event -> userInput.clear());
 
         return grid;
     }

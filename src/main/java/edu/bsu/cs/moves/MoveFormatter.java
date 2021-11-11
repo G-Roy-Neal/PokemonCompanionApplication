@@ -18,7 +18,7 @@ public class MoveFormatter {
         for (String learned: this.formattedLearnedMoves){
             formattedString.append(learned).append("\n");
         }
-        formattedString.append("Moves that can be Taught:\n");
+        formattedString.append("\nMoves that can be Taught:\n");
         for (String taught: this.formattedTaughtMoves){
             formattedString.append(taught).append("\n");
         }
