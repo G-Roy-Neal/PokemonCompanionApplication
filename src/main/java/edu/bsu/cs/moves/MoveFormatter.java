@@ -1,20 +1,24 @@
 package edu.bsu.cs.moves;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MoveFormatter {
     private final List<String> formattedLearnedMoves;
     private final List<String> formattedTaughtMoves;
+    private final List<Move> sortedMoves;
 
     public MoveFormatter(){
         this.formattedTaughtMoves = new ArrayList<>();
         this.formattedLearnedMoves = new ArrayList<>();
+        this.sortedMoves = new ArrayList<>();
     }
 
     public String buildFormattedMoves(List<Move> moveList){
         StringBuilder formattedString = new StringBuilder("Moves that can be Learned:\n");
         seperateMoves(moveList);
+        formatLearnedMoves();
         for (String learned: this.formattedLearnedMoves){
             formattedString.append(learned).append("\n");
         }
@@ -28,11 +32,19 @@ public class MoveFormatter {
     private void seperateMoves(List<Move> movesList){
         for(Move move: movesList){
             if (move.getLevel() > 0){
-                this.formattedLearnedMoves.add(format(move));
+                this.sortedMoves.add(move);
             }
             else{
                 this.formattedTaughtMoves.add(format(move));
             }
+        }
+    }
+
+    private void formatLearnedMoves(){
+        LevelComparator comparator = new LevelComparator();
+        sortedMoves.sort(comparator); // We think the IDE is wrong
+        for (Move move: sortedMoves){
+            this.formattedLearnedMoves.add(format(move));
         }
     }
 

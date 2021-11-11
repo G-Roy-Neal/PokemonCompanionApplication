@@ -35,17 +35,18 @@ public class MoveFormatterTest {
                 Moves that can be Learned:
                 1, Growl
                 4, Confusion
-                37, Hypnosis
                 9, Teleport
-                34, Charm
-                32, Future sight
-                29, Imprison
-                17, Magical leaf
-                14, Lucky chant
-                42, Echoed voice
-                19, Ally switch
                 11, Heal pulse
+                14, Lucky chant
+                17, Magical leaf
+                19, Ally switch
                 22, Disarming voice
+                29, Imprison
+                32, Future sight
+                34, Charm
+                37, Hypnosis
+                42, Echoed voice
+               
                 Moves that can be Taught:
                 Fire punch
                 Ice punch
