@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable locationTask = new locationTask();
+    private final Runnable queryTask = new locationTask();
     private final Runnable dropdownTask = new dropdownTask();
 
     private final TextField userInput;
@@ -39,14 +39,13 @@ public class App extends Application {
     private Label pokemonWeight;
     private final ComboBox<String> dropdownMenu;
     private final ImageView imageView;
-    private final TextArea locationOutput;
+    private final TextArea informationOutput;
     private final Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
     private String moveResult;
-    private String locationResult;
 
     @Override
     public void start(Stage primaryStage) {
@@ -63,17 +62,16 @@ public class App extends Application {
         setDataLabels();
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
-        locationOutput = new TextArea();
+        informationOutput = new TextArea();
 
         Image image;
         image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
         imageView = new ImageView(image);
 
 
-        locationOutput.setEditable(false);
-        searchButton.setOnAction(event -> executor.execute(locationTask));
-        userInput.setOnAction(event -> executor.execute(locationTask));
-        dropdownMenu.setOnAction(event -> executor.execute(dropdownTask));
+        informationOutput.setEditable(false);
+        searchButton.setOnAction(event -> executor.execute(queryTask));
+        userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
     }
 
@@ -91,7 +89,7 @@ public class App extends Application {
 
         grid.setGridLinesVisible(true);
         grid.add(dropdownMenu, 0,0,2,1);
-        grid.add(locationOutput, 0,1,2,3);
+        grid.add(informationOutput, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
         grid.add(imageView, 2,1,2,1);
         grid.add(pokemonName, 2,2,1,1);
@@ -118,10 +116,10 @@ public class App extends Application {
         public void run(){
             int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
             if (selectedIndex == 0){
-                locationOutput.setText(locationResult);
+                informationOutput.setText(moveResult);
             }
-            else if (selectedIndex == 1){
-                locationOutput.setText(moveResult);
+            if (selectedIndex == 1){
+                informationOutput.setText(moveResult);
             }
         }
     }
@@ -131,7 +129,7 @@ public class App extends Application {
         @Override
         public void run() {
             disableEditing();
-            locationOutput.setText("");
+            informationOutput.setText("");
             try {
                 InputStream inputData = queryEngine.getInputStream(userInput.getText());
                 ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
@@ -140,12 +138,12 @@ public class App extends Application {
                 InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 imageView.setImage(imageEngine.getImage(thirdClone));
-                locationResult = locationEngine.getLocations(firstClone);
+                String locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
+                executor.execute(dropdownTask);
 
-                locationOutput.setText(locationResult);
             } catch (IOException e) {
-                locationOutput.setText("Search is not a valid Pokemon");
+                informationOutput.setText("Search is not a valid Pokemon");
             }
             enableEditing();
         }
