@@ -9,7 +9,7 @@ public class OnlineImageEngine implements ImageEngine {
 
     @Override
     public Image getImage(InputStream inputData) throws IOException {
-        PokemonImageBuilder imageBuilder = new PokemonImageBuilder();
+        ImageBuilder imageBuilder = new ImageBuilder();
         String id = imageBuilder.getPokemonId(inputData);
         return new Image(imageBuilder.getPokemonImage(id));
     }

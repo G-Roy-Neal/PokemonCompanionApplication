@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PokemonImageBuilder {
+public class ImageBuilder {
     public String getPokemonId (InputStream inputData) throws IOException {
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         inputData.transferTo(temporaryByteArray);

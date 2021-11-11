@@ -8,22 +8,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PokemonLocationBuilder {
+public class LocationBuilder {
     private final InputStream inputData;
 
-    public PokemonLocationBuilder(InputStream inputData) {
+    public LocationBuilder(InputStream inputData) {
         this.inputData = inputData;
     }
 
-    public List<PokemonLocation> buildLocationList () throws IOException {
-        List<PokemonLocation> list = new ArrayList<>();
+    public List<Location> buildLocationList () throws IOException {
+        List<Location> list = new ArrayList<>();
         String locationUrl = getUrl();
         QuerySearcher searcher = new QuerySearcher();
         InputStream rawLocations = searcher.getInputStream(locationUrl);
         JsonPath locationPath = JsonPath.compile("$..location_area..name");
         JSONArray locationsArray = locationPath.read(rawLocations);
         for (Object o : locationsArray) {
-            list.add(new PokemonLocation(o.toString()));
+            list.add(new Location(o.toString()));
         }
         return list;
     }

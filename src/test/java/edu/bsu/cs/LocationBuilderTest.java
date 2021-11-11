@@ -1,7 +1,7 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.locations.PokemonLocation;
-import edu.bsu.cs.locations.PokemonLocationBuilder;
+import edu.bsu.cs.locations.Location;
+import edu.bsu.cs.locations.LocationBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class PokemonLocationBuilderTest {
+public class LocationBuilderTest {
 
     @Test
     public void TestGetUrl () throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        PokemonLocationBuilder locationBuilder = new PokemonLocationBuilder(testingData);
+        LocationBuilder locationBuilder = new LocationBuilder(testingData);
         String locationUrl = locationBuilder.getUrl();
         Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/280/encounters", locationUrl);
     }
@@ -24,9 +24,9 @@ public class PokemonLocationBuilderTest {
     public void TestBuildLocationList () throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        PokemonLocation knownLocation = new PokemonLocation("sinnoh-route-209-area");
-        PokemonLocationBuilder locationBuilder = new PokemonLocationBuilder(testingData);
-        List<PokemonLocation> locations = locationBuilder.buildLocationList();
+        Location knownLocation = new Location("sinnoh-route-209-area");
+        LocationBuilder locationBuilder = new LocationBuilder(testingData);
+        List<Location> locations = locationBuilder.buildLocationList();
         Assertions.assertEquals(knownLocation, locations.get(3));
     }
 }

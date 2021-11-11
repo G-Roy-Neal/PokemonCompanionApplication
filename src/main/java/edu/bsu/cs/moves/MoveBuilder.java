@@ -10,12 +10,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PokemonMoveBuilder {
+public class MoveBuilder {
     private final InputStream firstClone;
     private final InputStream secondClone;
     private final InputStream thirdClone;
 
-    public PokemonMoveBuilder(InputStream inputData) throws IOException {
+    public MoveBuilder(InputStream inputData) throws IOException {
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         inputData.transferTo(temporaryByteArray);
         this.firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
@@ -23,13 +23,13 @@ public class PokemonMoveBuilder {
         this.thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
     }
 
-    public List<PokemonMove> buildMoves() throws IOException {
-        List<PokemonMove> pokemonMoves = new ArrayList<>();
+    public List<Move> buildMoves() throws IOException {
+        List<Move> pokemonMoves = new ArrayList<>();
         List <Integer> selectLevels = getSelectLevels();
         List <String> moveNames = getMoveNames();
         int length = Math.min(moveNames.size(), selectLevels.size());
         for (int i = 0; i < length; i++){
-            PokemonMove newMove = new PokemonMove.Builder().withLevel(selectLevels.get(i)).withName(moveNames.get(i)).build();
+            Move newMove = new Move.Builder().withLevel(selectLevels.get(i)).withName(moveNames.get(i)).build();
             pokemonMoves.add(newMove);
         }
         return pokemonMoves;

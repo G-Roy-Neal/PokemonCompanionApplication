@@ -1,6 +1,6 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.PokemonImage.PokemonImageBuilder;
+import edu.bsu.cs.PokemonImage.ImageBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,12 +8,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PokemonImageBuilderTest {
+public class ImageBuilderTest {
     @Test
     public void testGetPokemonId() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
-        PokemonImageBuilder pokemonImageBuilder = new PokemonImageBuilder();
-        Assertions.assertEquals("280", pokemonImageBuilder.getPokemonId(testingData));
+        assert testingData != null;
+        ImageBuilder imageBuilder = new ImageBuilder();
+        Assertions.assertEquals("280", imageBuilder.getPokemonId(testingData));
     }
 
     @Test
@@ -21,10 +22,10 @@ public class PokemonImageBuilderTest {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("Squirtle.png");
         ByteArrayOutputStream testingByteArray = new ByteArrayOutputStream();
 
-        PokemonImageBuilder pokemonImageBuilder = new PokemonImageBuilder();
+        ImageBuilder imageBuilder = new ImageBuilder();
         ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
 
         assert testingData != null;
-        Assertions.assertEquals(testingData.transferTo(testingByteArray), pokemonImageBuilder.getPokemonImage("007").transferTo(imageByteArray));
+        Assertions.assertEquals(testingData.transferTo(testingByteArray), imageBuilder.getPokemonImage("007").transferTo(imageByteArray));
     }
 }

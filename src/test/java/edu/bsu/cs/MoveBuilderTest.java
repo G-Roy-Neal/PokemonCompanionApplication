@@ -1,7 +1,7 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.moves.PokemonMove;
-import edu.bsu.cs.moves.PokemonMoveBuilder;
+import edu.bsu.cs.moves.Move;
+import edu.bsu.cs.moves.MoveBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class PokemonMoveBuilderTest {
+public class MoveBuilderTest {
 
     @ParameterizedTest
     @CsvSource({
@@ -23,7 +23,7 @@ public class PokemonMoveBuilderTest {
     public void testFormatLocation(String location, Integer expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         Integer result = moveBuilder.convertGeneration(location);
         Assertions.assertEquals(expected, result);
     }
@@ -38,7 +38,7 @@ public class PokemonMoveBuilderTest {
     public void testGetRawGenerations(Integer index, String expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> generationsList = moveBuilder.getRawGenerations();
         String result = generationsList.get(index);
         Assertions.assertEquals(expected, result);
@@ -55,7 +55,7 @@ public class PokemonMoveBuilderTest {
     public void testGetMoveNames(Integer index, String expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> moveList = moveBuilder.getMoveNames();
         String result = moveList.get(index);
         Assertions.assertEquals(expected, result);
@@ -72,7 +72,7 @@ public class PokemonMoveBuilderTest {
     public void testGetMoveIndexes(Integer index, Integer expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> rawGenerations = moveBuilder.getRawGenerations();
         List<Integer> moveIndexes = moveBuilder.getMoveIndexes(rawGenerations);
         Integer result = moveIndexes.get(index);
@@ -89,7 +89,7 @@ public class PokemonMoveBuilderTest {
     public void testGetSelectLevels(Integer index, Integer expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<Integer> selectLevels = moveBuilder.getSelectLevels();
         Integer result = selectLevels.get(index);
         Assertions.assertEquals(result, expected);
@@ -99,9 +99,9 @@ public class PokemonMoveBuilderTest {
     public void testBuildMoves() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
-        List<PokemonMove> moves = moveBuilder.buildMoves();
-        PokemonMove expected = new PokemonMove.Builder().withLevel(1).withName("scratch").build();
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
+        List<Move> moves = moveBuilder.buildMoves();
+        Move expected = new Move.Builder().withLevel(1).withName("scratch").build();
         Assertions.assertEquals(expected, moves.get(3));
     }
 }

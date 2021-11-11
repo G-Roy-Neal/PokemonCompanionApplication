@@ -12,7 +12,7 @@ public class MoveFormatter {
         this.formattedLearnedMoves = new ArrayList<>();
     }
 
-    public String buildFormattedMoves(List<PokemonMove> moveList){
+    public String buildFormattedMoves(List<Move> moveList){
         StringBuilder formattedString = new StringBuilder("Moves that can be Learned:\n");
         seperateMoves(moveList);
         for (String learned: this.formattedLearnedMoves){
@@ -25,8 +25,8 @@ public class MoveFormatter {
         return formattedString.toString();
     }
 
-    private void seperateMoves(List<PokemonMove> movesList){
-        for(PokemonMove move: movesList){
+    private void seperateMoves(List<Move> movesList){
+        for(Move move: movesList){
             if (move.getLevel() > 0){
                 this.formattedLearnedMoves.add(format(move));
             }
@@ -36,7 +36,7 @@ public class MoveFormatter {
         }
     }
 
-    public String format(PokemonMove move) {
+    public String format(Move move) {
         String moveName = move.getName().replace('-', ' ');
         String formattedName = moveName.substring(0, 1).toUpperCase() + moveName.substring(1);
         if (move.getLevel() > 0) {

@@ -2,7 +2,7 @@ package edu.bsu.cs.moves;
 
 import java.util.Objects;
 
-public class PokemonMove {
+public class Move {
 
     public static final class Builder{
         public String name;
@@ -17,15 +17,15 @@ public class PokemonMove {
             return this;
         }
 
-        public PokemonMove build(){
-            return new PokemonMove(this);
+        public Move build(){
+            return new Move(this);
         }
     }
 
     private final String name;
     private final Integer level;
 
-    private PokemonMove(Builder builder){
+    private Move(Builder builder){
         this.name = builder.name;
         this.level = builder.level;
     }
@@ -37,7 +37,7 @@ public class PokemonMove {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PokemonMove that = (PokemonMove) o;
+        Move that = (Move) o;
         return Objects.equals(name, that.name) && Objects.equals(level, that.level);
     }
 

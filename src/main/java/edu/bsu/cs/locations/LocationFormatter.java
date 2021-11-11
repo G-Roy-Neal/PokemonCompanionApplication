@@ -2,12 +2,12 @@ package edu.bsu.cs.locations;
 
 import java.util.List;
 
-public class PokemonLocationFormatter {
+public class LocationFormatter {
 
 
-    public String formatLocationList(List<PokemonLocation> locationsList) {
+    public String formatLocationList(List<Location> locationsList) {
         StringBuilder locationsString = new StringBuilder();
-        for (PokemonLocation location : locationsList) {
+        for (Location location : locationsList) {
             String formattedLocation = transformLocationDescription(location.getLocation());
             if (!formattedLocation.equals("")) {
                 locationsString.append(formattedLocation).append("\n");

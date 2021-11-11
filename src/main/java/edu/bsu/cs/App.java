@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PokemonApp extends Application {
+public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable locationTask = new locationTask();
     private final Runnable dropdownTask = new dropdownTask();
@@ -50,7 +50,7 @@ public class PokemonApp extends Application {
         primaryStage.show();
     }
 
-    public PokemonApp() {
+    public App() {
         ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
         userInput = new TextField("Search");
         setDataLabels();

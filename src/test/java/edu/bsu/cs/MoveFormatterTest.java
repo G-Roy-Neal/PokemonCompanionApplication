@@ -1,8 +1,8 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.moves.MoveFormatter;
-import edu.bsu.cs.moves.PokemonMove;
-import edu.bsu.cs.moves.PokemonMoveBuilder;
+import edu.bsu.cs.moves.Move;
+import edu.bsu.cs.moves.MoveBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +14,13 @@ public class MoveFormatterTest {
     @Test
     public void testBuildMoveHyperbeam(){
         MoveFormatter moveFormatter = new MoveFormatter();
-        PokemonMove move1 = new PokemonMove.Builder().withName("Hyperbeam").withLevel(20).build();
+        Move move1 = new Move.Builder().withName("Hyperbeam").withLevel(20).build();
         Assertions.assertEquals("20, Hyperbeam", moveFormatter.format(move1));
     }
     @Test
     public void testBuildMoveWaterCannon(){
         MoveFormatter moveFormatter = new MoveFormatter();
-        PokemonMove move2 = new PokemonMove.Builder().withName("Water Cannon").withLevel(0).build();
+        Move move2 = new Move.Builder().withName("Water Cannon").withLevel(0).build();
         Assertions.assertEquals("Water Cannon", moveFormatter.format(move2));
     }
 
@@ -28,7 +28,7 @@ public class MoveFormatterTest {
     public void testBuildFormattedMoves() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        PokemonMoveBuilder moveBuilder = new PokemonMoveBuilder(testingData);
+        MoveBuilder moveBuilder = new MoveBuilder(testingData);
         MoveFormatter moveFormatter = new MoveFormatter();
         String result = moveFormatter.buildFormattedMoves(moveBuilder.buildMoves());
         Assertions.assertEquals("""

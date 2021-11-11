@@ -1,8 +1,8 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.locations.PokemonLocation;
-import edu.bsu.cs.locations.PokemonLocationBuilder;
-import edu.bsu.cs.locations.PokemonLocationFormatter;
+import edu.bsu.cs.locations.Location;
+import edu.bsu.cs.locations.LocationBuilder;
+import edu.bsu.cs.locations.LocationFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class PokemonLocationFormatterTest {
+public class LocationFormatterTest {
 
 
     @ParameterizedTest
@@ -21,7 +21,7 @@ public class PokemonLocationFormatterTest {
             "sinnoh-route-204-south-towards-jubilife-city, Route 204 south towards jubilife city"
     })
     public void testFormatLocation(String location, String expected) {
-        PokemonLocationFormatter formatter = new PokemonLocationFormatter();
+        LocationFormatter formatter = new LocationFormatter();
         String result = formatter.transformLocationDescription(location);
         Assertions.assertEquals(expected, result);
     }
@@ -30,9 +30,9 @@ public class PokemonLocationFormatterTest {
     public void testBuildFormattedOutput() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        PokemonLocationBuilder locationBuilder = new PokemonLocationBuilder(testingData);
-        List<PokemonLocation> locationsList = locationBuilder.buildLocationList();
-        PokemonLocationFormatter formatter = new PokemonLocationFormatter();
+        LocationBuilder locationBuilder = new LocationBuilder(testingData);
+        List<Location> locationsList = locationBuilder.buildLocationList();
+        LocationFormatter formatter = new LocationFormatter();
         String formattedOutput = formatter.formatLocationList(locationsList);
         Assertions.assertEquals("""
                 Route 203 area
