@@ -50,6 +50,7 @@ public class App extends Application {
     private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
     private String moveResult;
+    private String locationResult;
 
     @Override
     public void start(Stage primaryStage) {
@@ -75,6 +76,7 @@ public class App extends Application {
 
         informationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(queryTask));
+        searchButton.setOnAction(event -> executor.execute(dropdownTask));
         userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
     }
@@ -129,7 +131,7 @@ public class App extends Application {
         public void run(){
             int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
             if (selectedIndex == 0){
-                informationOutput.setText(moveResult);
+                informationOutput.setText(locationResult);
             }
             if (selectedIndex == 1){
                 informationOutput.setText(moveResult);
@@ -151,9 +153,8 @@ public class App extends Application {
                 InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 imageView.setImage(imageEngine.getImage(thirdClone));
-                String locationResult = locationEngine.getLocations(firstClone);
+                locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
-                executor.execute(dropdownTask);
 
             } catch (IOException e) {
                 informationOutput.setText("Search is not a valid Pokemon");
