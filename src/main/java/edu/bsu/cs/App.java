@@ -9,9 +9,6 @@ import edu.bsu.cs.moves.OnlineMoveEngine;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -33,7 +30,7 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable queryTask = new locationTask();
+    private final Runnable queryTask = new queryTask();
     private final Runnable dropdownTask = new dropdownTask();
 
     private final TextField userInput;
@@ -50,6 +47,7 @@ public class App extends Application {
     private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
     private String moveResult;
+    private String locationResult;
 
     @Override
     public void start(Stage primaryStage) {
@@ -75,6 +73,7 @@ public class App extends Application {
 
         informationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(queryTask));
+        searchButton.setOnAction(event -> executor.execute(dropdownTask));
         userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
     }
@@ -92,6 +91,7 @@ public class App extends Application {
         HBox querySearchButtonBox = new HBox();
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
 
+        grid.setGridLinesVisible(true);
         grid.add(dropdownMenu, 0,0,2,1);
         grid.add(informationOutput, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
@@ -101,16 +101,12 @@ public class App extends Application {
         grid.add(pokemonHeight, 3,2,1,1);
         grid.add(pokemonWeight, 3,3,1,1);
 
-        querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
-
         ColumnConstraints columnWidthConstraint = new ColumnConstraints();
         columnWidthConstraint.setPercentWidth(25);
-        columnWidthConstraint.setHalignment(HPos.CENTER);
         grid.getColumnConstraints().addAll(columnWidthConstraint, columnWidthConstraint, columnWidthConstraint, columnWidthConstraint);
 
         RowConstraints smallRowConstraint = new RowConstraints();
         RowConstraints largeRowConstraint = new RowConstraints();
-        smallRowConstraint.setValignment(VPos.CENTER);
         smallRowConstraint.setPercentHeight(5);
         largeRowConstraint.setPercentHeight(85);
         grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
@@ -119,9 +115,6 @@ public class App extends Application {
         imageView.fitHeightProperty().bind(informationOutput.heightProperty().multiply(.85));
         imageView.fitWidthProperty().bind(informationOutput.widthProperty().multiply(.85));
 
-        dropdownMenu.prefWidthProperty().bind(informationOutput.widthProperty());
-        userInput.prefWidthProperty().bind(informationOutput.widthProperty().subtract(searchButton.widthProperty()));
-
         return grid;
     }
     private final class dropdownTask implements Runnable {
@@ -129,7 +122,7 @@ public class App extends Application {
         public void run(){
             int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
             if (selectedIndex == 0){
-                informationOutput.setText(moveResult);
+                informationOutput.setText(locationResult);
             }
             if (selectedIndex == 1){
                 informationOutput.setText(moveResult);
@@ -137,7 +130,7 @@ public class App extends Application {
         }
     }
 
-    private final class locationTask implements Runnable {
+    private final class queryTask implements Runnable {
 
         @Override
         public void run() {
@@ -151,9 +144,8 @@ public class App extends Application {
                 InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 imageView.setImage(imageEngine.getImage(thirdClone));
-                String locationResult = locationEngine.getLocations(firstClone);
+                locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
-                executor.execute(dropdownTask);
 
             } catch (IOException e) {
                 informationOutput.setText("Search is not a valid Pokemon");
