@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -84,6 +85,7 @@ public class App extends Application {
 
     private Parent createLocationsGUI() {
         GridPane grid = new GridPane();
+        grid.setPrefSize(852, 480);
         HBox querySearchButtonBox = new HBox();
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
 
@@ -97,17 +99,19 @@ public class App extends Application {
         grid.add(pokemonHeight, 3,2,1,1);
         grid.add(pokemonWeight, 3,3,1,1);
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        ColumnConstraints column2 = new ColumnConstraints();
-        ColumnConstraints column3 = new ColumnConstraints();
-        ColumnConstraints column4 = new ColumnConstraints();
-        column1.setPercentWidth(25);
-        column2.setPercentWidth(25);
-        column3.setPercentWidth(25);
-        column4.setPercentWidth(25);
-        grid.getColumnConstraints().addAll(column1, column2, column3, column4);
+        ColumnConstraints columnWidthConstraint = new ColumnConstraints();
+        columnWidthConstraint.setPercentWidth(25);
+        grid.getColumnConstraints().addAll(columnWidthConstraint, columnWidthConstraint, columnWidthConstraint, columnWidthConstraint);
+
+        RowConstraints smallRowConstraint = new RowConstraints();
+        RowConstraints largeRowConstraint = new RowConstraints();
+        smallRowConstraint.setPercentHeight(5);
+        largeRowConstraint.setPercentHeight(85);
+        grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
+
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(500);
+        imageView.fitHeightProperty().bind(locationOutput.heightProperty().multiply(.85));
+        imageView.fitWidthProperty().bind(locationOutput.widthProperty().multiply(.85));
 
         return grid;
     }
