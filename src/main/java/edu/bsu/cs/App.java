@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable queryTask = new locationTask();
+    private final Runnable queryTask = new queryTask();
     private final Runnable dropdownTask = new dropdownTask();
 
     private final TextField userInput;
@@ -76,9 +76,9 @@ public class App extends Application {
 
         informationOutput.setEditable(false);
         searchButton.setOnAction(event -> executor.execute(queryTask));
-        searchButton.setOnAction(event -> executor.execute(dropdownTask));
         userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
+        dropdownMenu.setOnAction(event -> executor.execute(queryTask));
     }
 
     private void setDataLabels(){
@@ -133,13 +133,13 @@ public class App extends Application {
             if (selectedIndex == 0){
                 informationOutput.setText(locationResult);
             }
-            if (selectedIndex == 1){
+            else if (selectedIndex == 1){
                 informationOutput.setText(moveResult);
             }
         }
     }
 
-    private final class locationTask implements Runnable {
+    private final class queryTask implements Runnable {
 
         @Override
         public void run() {
@@ -155,6 +155,7 @@ public class App extends Application {
                 imageView.setImage(imageEngine.getImage(thirdClone));
                 locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
+                executor.execute(dropdownTask);
 
             } catch (IOException e) {
                 informationOutput.setText("Search is not a valid Pokemon");
