@@ -9,6 +9,9 @@ import edu.bsu.cs.moves.OnlineMoveEngine;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -29,7 +33,7 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable locationTask = new locationTask();
+    private final Runnable queryTask = new queryTask();
     private final Runnable dropdownTask = new dropdownTask();
 
     private final TextField userInput;
@@ -39,7 +43,7 @@ public class App extends Application {
     private Label pokemonWeight;
     private final ComboBox<String> dropdownMenu;
     private final ImageView imageView;
-    private final TextArea locationOutput;
+    private final TextArea informationOutput;
     private final Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
@@ -63,18 +67,18 @@ public class App extends Application {
         setDataLabels();
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
-        locationOutput = new TextArea();
+        informationOutput = new TextArea();
 
         Image image;
         image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
         imageView = new ImageView(image);
 
 
-        locationOutput.setEditable(false);
-        searchButton.setOnAction(event -> executor.execute(locationTask));
-        userInput.setOnAction(event -> executor.execute(locationTask));
-        dropdownMenu.setOnAction(event -> executor.execute(dropdownTask));
+        informationOutput.setEditable(false);
+        searchButton.setOnAction(event -> executor.execute(queryTask));
+        userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
+        dropdownMenu.setOnAction(event -> executor.execute(queryTask));
     }
 
     private void setDataLabels(){
@@ -86,12 +90,12 @@ public class App extends Application {
 
     private Parent createLocationsGUI() {
         GridPane grid = new GridPane();
+        grid.setPrefSize(852, 480);
         HBox querySearchButtonBox = new HBox();
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
 
-        grid.setGridLinesVisible(true);
         grid.add(dropdownMenu, 0,0,2,1);
-        grid.add(locationOutput, 0,1,2,3);
+        grid.add(informationOutput, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
         grid.add(imageView, 2,1,2,1);
         grid.add(pokemonName, 2,2,1,1);
@@ -99,17 +103,26 @@ public class App extends Application {
         grid.add(pokemonHeight, 3,2,1,1);
         grid.add(pokemonWeight, 3,3,1,1);
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        ColumnConstraints column2 = new ColumnConstraints();
-        ColumnConstraints column3 = new ColumnConstraints();
-        ColumnConstraints column4 = new ColumnConstraints();
-        column1.setPercentWidth(25);
-        column2.setPercentWidth(25);
-        column3.setPercentWidth(25);
-        column4.setPercentWidth(25);
-        grid.getColumnConstraints().addAll(column1, column2, column3, column4);
+        querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
+
+        ColumnConstraints columnWidthConstraint = new ColumnConstraints();
+        columnWidthConstraint.setPercentWidth(25);
+        columnWidthConstraint.setHalignment(HPos.CENTER);
+        grid.getColumnConstraints().addAll(columnWidthConstraint, columnWidthConstraint, columnWidthConstraint, columnWidthConstraint);
+
+        RowConstraints smallRowConstraint = new RowConstraints();
+        RowConstraints largeRowConstraint = new RowConstraints();
+        smallRowConstraint.setValignment(VPos.CENTER);
+        smallRowConstraint.setPercentHeight(5);
+        largeRowConstraint.setPercentHeight(85);
+        grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
+
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(500);
+        imageView.fitHeightProperty().bind(informationOutput.heightProperty().multiply(.85));
+        imageView.fitWidthProperty().bind(informationOutput.widthProperty().multiply(.85));
+
+        dropdownMenu.prefWidthProperty().bind(informationOutput.widthProperty());
+        userInput.prefWidthProperty().bind(informationOutput.widthProperty().subtract(searchButton.widthProperty()));
 
         return grid;
     }
@@ -118,20 +131,20 @@ public class App extends Application {
         public void run(){
             int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
             if (selectedIndex == 0){
-                locationOutput.setText(locationResult);
+                informationOutput.setText(locationResult);
             }
             else if (selectedIndex == 1){
-                locationOutput.setText(moveResult);
+                informationOutput.setText(moveResult);
             }
         }
     }
 
-    private final class locationTask implements Runnable {
+    private final class queryTask implements Runnable {
 
         @Override
         public void run() {
             disableEditing();
-            locationOutput.setText("");
+            informationOutput.setText("");
             try {
                 InputStream inputData = queryEngine.getInputStream(userInput.getText());
                 ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
@@ -142,10 +155,10 @@ public class App extends Application {
                 imageView.setImage(imageEngine.getImage(thirdClone));
                 locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
+                executor.execute(dropdownTask);
 
-                locationOutput.setText(locationResult);
             } catch (IOException e) {
-                locationOutput.setText("Search is not a valid Pokemon");
+                informationOutput.setText("Search is not a valid Pokemon");
             }
             enableEditing();
         }
