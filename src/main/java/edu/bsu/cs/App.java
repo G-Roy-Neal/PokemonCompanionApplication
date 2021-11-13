@@ -26,6 +26,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -41,6 +44,8 @@ public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final Runnable queryTask = new queryTask();
     private final Runnable dropdownTask = new dropdownTask();
+    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
+    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
 
     private TextField userInput;
     private Label pokemonName;
@@ -59,7 +64,7 @@ public class App extends Application {
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
-    private final BasicInfoEngine baisicInfoEngine = new OnlineBasicInfoEngine();
+    private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
     private String moveResult;
     private String locationResult;
 
@@ -112,7 +117,16 @@ public class App extends Application {
         pokemonHeight = new Label("Height: ");
         pokemonType = new Label("Type: ");
         pokemonWeight = new Label("Weight: ");
+        setDataLabelFont();
     }
+
+    private void setDataLabelFont(){
+        pokemonName.setFont(labelFont);
+        pokemonHeight.setFont(labelFont);
+        pokemonType.setFont(labelFont);
+        pokemonWeight.setFont(labelFont);
+    }
+
     private void initializeBasicInfoTextFields() {
         pokemonNameOutput = new TextField();
         pokemonHeightOutput = new TextField();
@@ -227,11 +241,19 @@ public class App extends Application {
         }
 
         private void setBasicInfo(InputStream fourthClone) throws IOException {
-            List<String> infoList = baisicInfoEngine.getBaisicInfo(fourthClone);
+            List<String> infoList = basicInfoEngine.getBaisicInfo(fourthClone);
             pokemonNameOutput.setText(infoList.get(0));
             pokemonTypeOutput.setText(infoList.get(1));
             pokemonHeightOutput.setText(infoList.get(2));
             pokemonWeightOutput.setText(infoList.get(3));
+            setBasicInfoFont();
+        }
+
+        private void setBasicInfoFont() {
+            pokemonNameOutput.setFont(dataFont);
+            pokemonTypeOutput.setFont(dataFont);
+            pokemonHeightOutput.setFont(dataFont);
+            pokemonWeightOutput.setFont(dataFont);
         }
 
         private void enableEditing() {

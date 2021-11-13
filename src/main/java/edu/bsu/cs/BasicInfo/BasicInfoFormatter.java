@@ -11,7 +11,22 @@ public class BasicInfoFormatter {
     }
 
     public String formatName() {
-        return basicInfo.getName().substring(0, 1).toUpperCase() + basicInfo.getName().substring(1);
+        String spacesAdded = basicInfo.getName().replace('-', ' ');
+        char[] charArray = spacesAdded.toCharArray();
+        boolean foundSpace = true;
+
+        for(int i = 0; i < charArray.length; i++) {
+            if(Character.isLetter(charArray[i])) {
+                if(foundSpace) {
+                    charArray[i] = Character.toUpperCase(charArray[i]);
+                    foundSpace = false;
+                }
+            }
+            else {
+                foundSpace = true;
+            }
+        }
+        return String.valueOf(charArray);
     }
 
     public String formatTypes() {
