@@ -163,6 +163,11 @@ public class App extends Application {
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
 
+        pokemonNameOutput.prefWidthProperty().bind(pokemonNameBox.widthProperty().multiply(.5));
+        pokemonHeightOutput.prefWidthProperty().bind(pokemonHeightBox.widthProperty().multiply(.5));
+        pokemonWeightOutput.prefWidthProperty().bind(pokemonWeightBox.widthProperty().multiply(.5));
+        pokemonTypeOutput.prefWidthProperty().bind(pokemonTypeBox.widthProperty().multiply(.5));
+
         grid.add(dropdownMenu, 0,0,2,1);
         grid.add(informationOutput, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
