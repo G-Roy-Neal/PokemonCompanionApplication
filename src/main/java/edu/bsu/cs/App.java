@@ -42,8 +42,12 @@ public class App extends Application {
     private Label pokemonHeight;
     private Label pokemonType;
     private Label pokemonWeight;
+    private TextField pokemonNameOutput;
+    private TextField pokemonHeightOutput;
+    private TextField pokemonTypeOutput;
+    private TextField pokemonWeightOutput;
     private final ComboBox<String> dropdownMenu;
-    private final ImageView imageView;
+    private ImageView imageView = null;
     private final TextArea informationOutput;
     private final Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
@@ -69,15 +73,14 @@ public class App extends Application {
 
     public App() {
         ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
-        userInput = new TextField("Search");
+        initializeBasicInfoTextFields();
+        initializePokeballImage();
         setDataLabels();
+
+        userInput = new TextField("Search");
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
         informationOutput = new TextArea();
-
-        Image image;
-        image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
-        imageView = new ImageView(image);
 
 
         informationOutput.setEditable(false);
@@ -87,27 +90,62 @@ public class App extends Application {
         dropdownMenu.setOnAction(event -> executor.execute(queryTask));
     }
 
+    private void initializePokeballImage() {
+        Image image;
+        image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
+        imageView = new ImageView(image);
+    }
+
     private void setDataLabels(){
-        pokemonName = new Label("Name");
-        pokemonHeight = new Label("Height");
-        pokemonType = new Label("Type");
-        pokemonWeight = new Label("Weight");
+        pokemonName = new Label("Name: ");
+        pokemonHeight = new Label("Height: ");
+        pokemonType = new Label("Type: ");
+        pokemonWeight = new Label("Weight: ");
+    }
+    private void initializeBasicInfoTextFields() {
+        pokemonNameOutput = new TextField();
+        pokemonHeightOutput = new TextField();
+        pokemonWeightOutput = new TextField();
+        pokemonTypeOutput = new TextField();
+        disableEditingBasicInfoTextFields();
+    }
+
+    private void disableEditingBasicInfoTextFields () {
+        pokemonNameOutput.setEditable(false);
+        pokemonHeightOutput.setEditable(false);
+        pokemonWeightOutput.setEditable(false);
+        pokemonTypeOutput.setEditable(false);
     }
 
     private Parent createLocationsGUI() {
         GridPane grid = new GridPane();
         grid.setPrefSize(852, 480);
+
         HBox querySearchButtonBox = new HBox();
+        HBox pokemonNameBox = new HBox();
+        HBox pokemonHeightBox = new HBox();
+        HBox pokemonWeightBox = new HBox();
+        HBox pokemonTypeBox = new HBox();
+
+        pokemonNameBox.alignmentProperty().setValue(Pos.CENTER);
+        pokemonHeightBox.alignmentProperty().setValue(Pos.CENTER);
+        pokemonWeightBox.alignmentProperty().setValue(Pos.CENTER);
+        pokemonTypeBox.alignmentProperty().setValue(Pos.CENTER);
+
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
+        pokemonNameBox.getChildren().addAll(pokemonName, pokemonNameOutput);
+        pokemonHeightBox.getChildren().addAll(pokemonHeight, pokemonHeightOutput);
+        pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
+        pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
 
         grid.add(dropdownMenu, 0,0,2,1);
         grid.add(informationOutput, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
         grid.add(imageView, 2,1,2,1);
-        grid.add(pokemonName, 2,2,1,1);
-        grid.add(pokemonType, 2,3,1,1);
-        grid.add(pokemonHeight, 3,2,1,1);
-        grid.add(pokemonWeight, 3,3,1,1);
+        grid.add(pokemonNameBox, 2,2,1,1);
+        grid.add(pokemonTypeBox, 2,3,1,1);
+        grid.add(pokemonHeightBox, 3,2,1,1);
+        grid.add(pokemonWeightBox, 3,3,1,1);
 
         querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
 
@@ -151,6 +189,7 @@ public class App extends Application {
         public void run() {
             disableEditing();
             informationOutput.setText("");
+            checkIfEmpty();
             try {
                 InputStream inputData = queryEngine.getInputStream(userInput.getText());
                 ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
@@ -161,6 +200,7 @@ public class App extends Application {
                 imageView.setImage(imageEngine.getImage(thirdClone));
                 locationResult = locationEngine.getLocations(firstClone);
                 moveResult = moveEngine.getMoves(secondClone);
+
                 executor.execute(dropdownTask);
 
             } catch (IOException e) {
@@ -178,6 +218,13 @@ public class App extends Application {
             userInput.setEditable(false);
             searchButton.setDisable(true);
 
+        }
+
+        private void checkIfEmpty() {
+            if (userInput.getText().equals("")) {
+                informationOutput.setText("The Search Box is Empty");
+                enableEditing();
+            }
         }
     }
 }
