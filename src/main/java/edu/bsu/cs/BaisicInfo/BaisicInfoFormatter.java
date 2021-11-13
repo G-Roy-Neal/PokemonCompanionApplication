@@ -17,16 +17,12 @@ public class BaisicInfoFormatter {
     public String formatTypes() {
         List<String> typesList = baisicInfo.getTypes();
         StringBuilder formattedTypeString = new StringBuilder();
+        String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
         if (typesList.size() > 1){
-            String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
             formattedTypeString.append(formattedType).append(", ");
             formattedType = typesList.get(1).substring(0, 1).toUpperCase() + typesList.get(1).substring(1);
-            formattedTypeString.append(formattedType);
         }
-        else{
-            String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
-            formattedTypeString.append(formattedType);
-        }
+        formattedTypeString.append(formattedType);
         return formattedTypeString.toString();
     }
 
