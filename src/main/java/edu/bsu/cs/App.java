@@ -7,6 +7,7 @@ import edu.bsu.cs.locations.OnlineLocationEngine;
 import edu.bsu.cs.moves.MoveEngine;
 import edu.bsu.cs.moves.OnlineMoveEngine;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -59,6 +60,11 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public App() {
