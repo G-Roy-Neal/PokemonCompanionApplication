@@ -72,7 +72,7 @@ public class App extends Application {
     }
 
     public App() {
-        initializeSearchComponetes();
+        initializeSearchComponents();
         initializeBasicInfoTextFields();
         initializePokeballImage();
         setDataLabels();
@@ -92,7 +92,7 @@ public class App extends Application {
         imageView = new ImageView(image);
     }
 
-    private void initializeSearchComponetes() {
+    private void initializeSearchComponents() {
         ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
         userInput = new TextField("Search");
         dropdownMenu = new ComboBox<>(comboBoxArrayList);
