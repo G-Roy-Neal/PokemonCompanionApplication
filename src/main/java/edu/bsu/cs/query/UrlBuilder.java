@@ -20,6 +20,10 @@ public class UrlBuilder {
         String lowerCase = unformattedSearch.toLowerCase(Locale.ROOT);
         String noSpace = lowerCase.replace(" ", "-");
         String noChar = noSpace.replace(".", "");
+        noChar = noChar.replace("/", "");
+        if (noChar.isBlank()){
+            noChar = "foo";
+        }
         formattedSearch = URLEncoder.encode(noChar, StandardCharsets.UTF_8);
         return formattedSearch;
     }
