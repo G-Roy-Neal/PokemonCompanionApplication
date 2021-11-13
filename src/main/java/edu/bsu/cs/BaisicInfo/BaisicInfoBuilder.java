@@ -43,6 +43,9 @@ public class BaisicInfoBuilder {
             typeList.add(typesArray.get(0).toString());
             typeList.add(typesArray.get(1).toString());
         }
+        else {
+            typeList.add(typesArray.get(0).toString());
+        }
         return typeList;
     }
 
