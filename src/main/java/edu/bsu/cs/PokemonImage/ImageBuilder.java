@@ -1,8 +1,8 @@
 package edu.bsu.cs.PokemonImage;
 
 import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs.QuerySearcher;
-import edu.bsu.cs.UrlBuilder;
+import edu.bsu.cs.query.QuerySearcher;
+import edu.bsu.cs.query.UrlBuilder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

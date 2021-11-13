@@ -1,4 +1,4 @@
-package edu.bsu.cs;
+package edu.bsu.cs.query;
 
 import java.io.IOException;
 import java.io.InputStream;

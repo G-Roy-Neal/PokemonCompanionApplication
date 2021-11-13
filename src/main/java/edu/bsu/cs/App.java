@@ -8,6 +8,8 @@ import edu.bsu.cs.locations.LocationEngine;
 import edu.bsu.cs.locations.OnlineLocationEngine;
 import edu.bsu.cs.moves.MoveEngine;
 import edu.bsu.cs.moves.OnlineMoveEngine;
+import edu.bsu.cs.query.OnlineQueryEngine;
+import edu.bsu.cs.query.QueryEngine;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

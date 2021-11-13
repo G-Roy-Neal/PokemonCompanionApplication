@@ -1,7 +1,7 @@
 package edu.bsu.cs.locations;
 
 import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs.QuerySearcher;
+import edu.bsu.cs.query.QuerySearcher;
 import net.minidev.json.JSONArray;
 
 import java.io.IOException;
