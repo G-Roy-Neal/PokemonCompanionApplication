@@ -1,42 +1,38 @@
-package edu.bsu.cs.BaisicInfo;
+package edu.bsu.cs.BasicInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaisicInfoFormatter {
-    private final BaisicInfo baisicInfo;
+public class BasicInfoFormatter {
+    private final BasicInfo basicInfo;
 
-    public BaisicInfoFormatter(BaisicInfo baisicInfo){
-        this.baisicInfo = baisicInfo;
+    public BasicInfoFormatter(BasicInfo basicInfo){
+        this.basicInfo = basicInfo;
     }
 
     public String formatName() {
-        return baisicInfo.getName().substring(0, 1).toUpperCase() + baisicInfo.getName().substring(1);
+        return basicInfo.getName().substring(0, 1).toUpperCase() + basicInfo.getName().substring(1);
     }
 
     public String formatTypes() {
-        List<String> typesList = baisicInfo.getTypes();
+        List<String> typesList = basicInfo.getTypes();
         StringBuilder formattedTypeString = new StringBuilder();
+        String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
         if (typesList.size() > 1){
-            String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
             formattedTypeString.append(formattedType).append(", ");
             formattedType = typesList.get(1).substring(0, 1).toUpperCase() + typesList.get(1).substring(1);
-            formattedTypeString.append(formattedType);
         }
-        else{
-            String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
-            formattedTypeString.append(formattedType);
-        }
+        formattedTypeString.append(formattedType);
         return formattedTypeString.toString();
     }
 
     public String formatHeight() {
-        double adjustedHeight = (double) baisicInfo.getHeight() / 10;
+        double adjustedHeight = (double) basicInfo.getHeight() / 10;
         return (adjustedHeight) + " m";
     }
 
     public String formatWeight() {
-        double adjustedWeight = (double) baisicInfo.getWeight() / 10;
+        double adjustedWeight = (double) basicInfo.getWeight() / 10;
         return (adjustedWeight) + " Kg";
     }
 

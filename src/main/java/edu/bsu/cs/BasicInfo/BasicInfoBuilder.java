@@ -1,4 +1,4 @@
-package edu.bsu.cs.BaisicInfo;
+package edu.bsu.cs.BasicInfo;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
@@ -10,13 +10,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaisicInfoBuilder {
+public class BasicInfoBuilder {
     private final InputStream firstClone;
     private final InputStream secondClone;
     private final InputStream thirdClone;
     private final InputStream fourthClone;
 
-    public BaisicInfoBuilder(InputStream inputData) throws IOException {
+    public BasicInfoBuilder(InputStream inputData) throws IOException {
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         inputData.transferTo(temporaryByteArray);
         this.firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
@@ -25,8 +25,8 @@ public class BaisicInfoBuilder {
         this.fourthClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
     }
 
-    public BaisicInfo buildBaisicInfo() throws IOException {
-        return new BaisicInfo.Builder().withName(readName()).withHeight(readHeight()).withWeight(readWeight()).withTypes(readTypes()).build();
+    public BasicInfo buildBasicInfo() throws IOException {
+        return new BasicInfo.Builder().withName(readName()).withHeight(readHeight()).withWeight(readWeight()).withTypes(readTypes()).build();
     }
 
     public String readName() throws IOException {

@@ -1,34 +1,34 @@
-package edu.bsu.cs.BaisicInfo;
+package edu.bsu.cs.BasicInfo;
 
 import java.util.List;
 import java.util.Objects;
 
-public class BaisicInfo {
+public class BasicInfo {
     public static final class Builder{
         public String name;
         public int height;
         public int weight;
         public List<String> types;
 
-        public BaisicInfo.Builder withName(String name){
+        public BasicInfo.Builder withName(String name){
             this.name = name;
             return this;
         }
-        public BaisicInfo.Builder withHeight(int height){
+        public BasicInfo.Builder withHeight(int height){
             this.height = height;
             return this;
         }
-        public BaisicInfo.Builder withWeight(int weight){
+        public BasicInfo.Builder withWeight(int weight){
             this.weight = weight;
             return this;
         }
-        public BaisicInfo.Builder withTypes(List<String> types){
+        public BasicInfo.Builder withTypes(List<String> types){
             this.types = types;
             return this;
         }
 
-        public BaisicInfo build(){
-            return new BaisicInfo(this);
+        public BasicInfo build(){
+            return new BasicInfo(this);
         }
     }
 
@@ -37,7 +37,7 @@ public class BaisicInfo {
     private final int weight;
     private final List<String> types;
 
-    private BaisicInfo(BaisicInfo.Builder builder){
+    private BasicInfo(BasicInfo.Builder builder){
         this.name = builder.name;
         this.height = builder.height;
         this.weight = builder.weight;
@@ -64,7 +64,7 @@ public class BaisicInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaisicInfo that = (BaisicInfo) o;
+        BasicInfo that = (BasicInfo) o;
         return height == that.height && weight == that.weight && Objects.equals(name, that.name) && Objects.equals(types, that.types);
     }
 

@@ -1,8 +1,8 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.BaisicInfo.BaisicInfo;
-import edu.bsu.cs.BaisicInfo.BaisicInfoBuilder;
-import edu.bsu.cs.BaisicInfo.BaisicInfoFormatter;
+import edu.bsu.cs.BasicInfo.BasicInfo;
+import edu.bsu.cs.BasicInfo.BasicInfoBuilder;
+import edu.bsu.cs.BasicInfo.BasicInfoFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,51 +11,51 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaisicInfoFormatterTest {
+public class BasicInfoFormatterTest {
     @Test
     public void testFormatName() throws IOException {
-        BaisicInfo baisicInfo = initilizeData1();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+        BasicInfo basicInfo = initilizeData1();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedName = infoFormatter.formatName();
         Assertions.assertEquals("Ralts", formattedName);
     }
 
     @Test
     public void testFormatTypes1() throws IOException {
-        BaisicInfo baisicInfo = initilizeData1();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+        BasicInfo basicInfo = initilizeData1();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedTypes = infoFormatter.formatTypes();
         Assertions.assertEquals("Psychic, Fairy", formattedTypes);
     }
 
     @Test
     public void testFormatTypes2() throws IOException {
-        BaisicInfo baisicInfo = initilizeData2();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+        BasicInfo basicInfo = initilizeData2();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedTypes = infoFormatter.formatTypes();
         Assertions.assertEquals("Fire", formattedTypes);
     }
 
     @Test
     public void testFormatHeight() throws IOException {
-        BaisicInfo baisicInfo = initilizeData1();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+        BasicInfo basicInfo = initilizeData1();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedHeight = infoFormatter.formatHeight();
         Assertions.assertEquals("0.4 m", formattedHeight);
     }
 
     @Test
     public void testFormatWeight() throws IOException {
-        BaisicInfo baisicInfo = initilizeData1();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+        BasicInfo basicInfo = initilizeData1();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedWeight = infoFormatter.formatWeight();
         Assertions.assertEquals("6.6 Kg", formattedWeight);
     }
 
     @Test
-    public void testFormatBaisicInfo() throws IOException {
-        BaisicInfo baisicInfo = initilizeData1();
-        BaisicInfoFormatter infoFormatter = new BaisicInfoFormatter(baisicInfo);
+    public void testFormatBasicInfo() throws IOException {
+        BasicInfo basicInfo = initilizeData1();
+        BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         List<String> formattedInfo = infoFormatter.formatInfo();
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Ralts");
@@ -65,16 +65,16 @@ public class BaisicInfoFormatterTest {
         Assertions.assertEquals(expectedList, formattedInfo);
     }
 
-    public BaisicInfo initilizeData1() throws IOException {
+    public BasicInfo initilizeData1() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        BaisicInfoBuilder infoBuilder = new BaisicInfoBuilder(testingData);
-        return infoBuilder.buildBaisicInfo();
+        BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
+        return infoBuilder.buildBasicInfo();
     }
-    public BaisicInfo initilizeData2() throws IOException {
+    public BasicInfo initilizeData2() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        BaisicInfoBuilder infoBuilder = new BaisicInfoBuilder(testingData);
-        return infoBuilder.buildBaisicInfo();
+        BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
+        return infoBuilder.buildBasicInfo();
     }
 }
