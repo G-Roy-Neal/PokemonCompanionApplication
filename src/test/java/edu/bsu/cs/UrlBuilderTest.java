@@ -1,5 +1,6 @@
 package edu.bsu.cs;
 
+import edu.bsu.cs.query.UrlBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package edu.bsu.cs;
+package edu.bsu.cs.query;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
