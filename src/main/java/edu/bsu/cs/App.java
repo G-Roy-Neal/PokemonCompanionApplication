@@ -1,5 +1,7 @@
 package edu.bsu.cs;
 
+import edu.bsu.cs.BasicInfo.BasicInfoEngine;
+import edu.bsu.cs.BasicInfo.OnlineBasicInfoEngine;
 import edu.bsu.cs.PokemonImage.ImageEngine;
 import edu.bsu.cs.PokemonImage.OnlineImageEngine;
 import edu.bsu.cs.locations.LocationEngine;
@@ -28,6 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -54,6 +57,7 @@ public class App extends Application {
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
+    private final BasicInfoEngine baisicInfoEngine = new OnlineBasicInfoEngine();
     private String moveResult;
     private String locationResult;
 
@@ -200,18 +204,27 @@ public class App extends Application {
                 ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
                 inputData.transferTo(temporaryByteArray);
                 InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                locationResult = locationEngine.getLocations(firstClone);
                 InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                moveResult = moveEngine.getMoves(secondClone);
                 InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
                 imageView.setImage(imageEngine.getImage(thirdClone));
-                locationResult = locationEngine.getLocations(firstClone);
-                moveResult = moveEngine.getMoves(secondClone);
-
+                InputStream fourthClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+                setBasicInfo(fourthClone);
                 executor.execute(dropdownTask);
 
             } catch (IOException e) {
                 informationOutput.setText("Search is not a valid Pokemon");
             }
             enableEditing();
+        }
+
+        private void setBasicInfo(InputStream fourthClone) throws IOException {
+            List<String> infoList = baisicInfoEngine.getBaisicInfo(fourthClone);
+            pokemonNameOutput.setText(infoList.get(0));
+            pokemonTypeOutput.setText(infoList.get(1));
+            pokemonHeightOutput.setText(infoList.get(2));
+            pokemonWeightOutput.setText(infoList.get(3));
         }
 
         private void enableEditing() {
