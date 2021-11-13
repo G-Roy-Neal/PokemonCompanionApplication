@@ -37,7 +37,7 @@ public class App extends Application {
     private final Runnable queryTask = new queryTask();
     private final Runnable dropdownTask = new dropdownTask();
 
-    private final TextField userInput;
+    private TextField userInput;
     private Label pokemonName;
     private Label pokemonHeight;
     private Label pokemonType;
@@ -46,10 +46,10 @@ public class App extends Application {
     private TextField pokemonHeightOutput;
     private TextField pokemonTypeOutput;
     private TextField pokemonWeightOutput;
-    private final ComboBox<String> dropdownMenu;
+    private ComboBox<String> dropdownMenu;
     private ImageView imageView = null;
-    private final TextArea informationOutput;
-    private final Button searchButton;
+    private TextArea informationOutput;
+    private Button searchButton;
     private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final MoveEngine moveEngine = new OnlineMoveEngine();
@@ -72,18 +72,14 @@ public class App extends Application {
     }
 
     public App() {
-        ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
+        initializeSearchComponetes();
         initializeBasicInfoTextFields();
         initializePokeballImage();
         setDataLabels();
+        setActionEvents();
+    }
 
-        userInput = new TextField("Search");
-        dropdownMenu = new ComboBox<>(comboBoxArrayList);
-        searchButton = new Button("\uD83D\uDD0E");
-        informationOutput = new TextArea();
-
-
-        informationOutput.setEditable(false);
+    private void setActionEvents() {
         searchButton.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnAction(event -> executor.execute(queryTask));
         userInput.setOnMouseClicked(event -> userInput.clear());
@@ -94,6 +90,15 @@ public class App extends Application {
         Image image;
         image = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("pokeball-clipart-silhouette-5.png")));
         imageView = new ImageView(image);
+    }
+
+    private void initializeSearchComponetes() {
+        ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
+        userInput = new TextField("Search");
+        dropdownMenu = new ComboBox<>(comboBoxArrayList);
+        searchButton = new Button("\uD83D\uDD0E");
+        informationOutput = new TextArea();
+        informationOutput.setEditable(false);
     }
 
     private void setDataLabels(){
