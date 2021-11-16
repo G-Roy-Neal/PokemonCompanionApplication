@@ -18,6 +18,7 @@ public class MoveFormatter {
         StringBuilder formattedString = new StringBuilder("Moves that can be Learned:\n");
         seperateMoves(moveList);
         formatLearnedMoves();
+        java.util.Collections.sort(formattedTaughtMoves);
         for (String learned: this.formattedLearnedMoves){
             formattedString.append(learned).append("\n");
         }
