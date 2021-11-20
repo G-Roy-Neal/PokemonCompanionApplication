@@ -69,13 +69,13 @@ public class MoveBuilderTest {
             "67, 764",
             "90, 937"
     })
-    public void testGetMoveIndexes(Integer index, Integer expected) throws IOException {
+    public void testGetMoveIndecies(Integer index, Integer expected) throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> rawGenerations = moveBuilder.getRawGenerations();
-        List<Integer> moveIndexes = moveBuilder.getMoveIndexes(rawGenerations);
-        Integer result = moveIndexes.get(index);
+        List<Integer> moveIndecies = moveBuilder.getMoveIndices(rawGenerations);
+        Integer result = moveIndecies.get(index);
         Assertions.assertEquals(result, expected);
     }
 

@@ -38,7 +38,7 @@ public class MoveBuilder {
     public List<Integer> getSelectLevels() throws IOException {
         List<Integer> selectLevels = new ArrayList<>();
         List<String> rawGenerations = getRawGenerations();
-        List<Integer> moveIndexes = getMoveIndexes(rawGenerations);
+        List<Integer> moveIndexes = getMoveIndices(rawGenerations);
         List<Integer> rawLevels = getRawLevels();
         for (int index : moveIndexes) {
             int selectedLevel = rawLevels.get(index);
@@ -47,7 +47,7 @@ public class MoveBuilder {
         return selectLevels;
     }
 
-    public List<Integer> getMoveIndexes(List<String> rawGenerations) {
+    public List<Integer> getMoveIndices(List<String> rawGenerations) {
         List<Integer> generationsNumbers = new ArrayList<>();
         for (int i = 0; i < rawGenerations.size(); i++) {
             if (i == rawGenerations.size() - 1) {

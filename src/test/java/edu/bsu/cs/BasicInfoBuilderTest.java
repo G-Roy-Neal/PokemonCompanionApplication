@@ -1,12 +1,10 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.BasicInfo.BasicInfo;
-import edu.bsu.cs.BasicInfo.BasicInfoBuilder;
+import edu.bsu.cs.basicInfo.BasicInfo;
+import edu.bsu.cs.basicInfo.BasicInfoBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

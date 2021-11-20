@@ -1,4 +1,4 @@
-package edu.bsu.cs.BasicInfo;
+package edu.bsu.cs.basicInfo;
 
 import java.util.List;
 import java.util.Objects;

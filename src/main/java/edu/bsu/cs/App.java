@@ -1,9 +1,9 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.BasicInfo.BasicInfoEngine;
-import edu.bsu.cs.BasicInfo.OnlineBasicInfoEngine;
-import edu.bsu.cs.PokemonImage.ImageEngine;
-import edu.bsu.cs.PokemonImage.OnlineImageEngine;
+import edu.bsu.cs.basicInfo.BasicInfoEngine;
+import edu.bsu.cs.basicInfo.OnlineBasicInfoEngine;
+import edu.bsu.cs.image.ImageEngine;
+import edu.bsu.cs.image.OnlineImageEngine;
 import edu.bsu.cs.locations.LocationEngine;
 import edu.bsu.cs.locations.OnlineLocationEngine;
 import edu.bsu.cs.moves.MoveEngine;

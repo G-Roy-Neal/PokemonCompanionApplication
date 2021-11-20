@@ -1,6 +1,6 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.PokemonImage.ImageBuilder;
+import edu.bsu.cs.image.ImageBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
