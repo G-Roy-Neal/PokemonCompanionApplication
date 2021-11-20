@@ -10,20 +10,17 @@ import java.io.InputStream;
 import java.util.List;
 
 public class LocationBuilderTest {
+    InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
 
     @Test
-    public void testGetUrl() throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
-        assert testingData != null;
+    public void TestGetUrl () throws IOException {
         LocationBuilder locationBuilder = new LocationBuilder(testingData);
         String locationUrl = locationBuilder.getUrl();
         Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/280/encounters", locationUrl);
     }
 
     @Test
-    public void testBuildLocationList() throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
-        assert testingData != null;
+    public void TestBuildLocationList () throws IOException {
         Location knownLocation = new Location("sinnoh-route-209-area");
         LocationBuilder locationBuilder = new LocationBuilder(testingData);
         List<Location> locations = locationBuilder.buildLocationList();

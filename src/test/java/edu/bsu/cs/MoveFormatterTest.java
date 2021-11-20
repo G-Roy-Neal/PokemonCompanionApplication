@@ -48,85 +48,85 @@ public class MoveFormatterTest {
                 42, Echoed voice
                
                 Moves that can be Taught:
-                Fire punch
-                Ice punch
-                Thunder punch
-                Headbutt
+                Attract
                 Body slam
-                Double edge
-                Disable
-                Thunderbolt
-                Thunder wave
-                Toxic
-                Psychic
-                Mimic
-                Double team
+                Calm mind
+                Captivate
+                Charge beam
+                Confide
                 Confuse ray
                 Defense curl
-                Light screen
-                Reflect
-                Swift
-                Dream eater
-                Flash
-                Rest
-                Substitute
-                Thief
-                Nightmare
-                Snore
-                Protect
-                Mud slap
                 Destiny bond
-                Icy wind
-                Endure
-                Swagger
-                Mean look
-                Attract
-                Sleep talk
-                Return
-                Frustration
-                Safeguard
-                Pain split
-                Encore
-                Hidden power
-                Rain dance
-                Sunny day
-                Psych up
-                Shadow ball
-                Torment
-                Will o wisp
-                Memento
-                Facade
-                Taunt
-                Helping hand
-                Trick
-                Magic coat
-                Recycle
-                Skill swap
-                Grudge
-                Snatch
-                Secret power
-                Hyper voice
-                Signal beam
-                Calm mind
-                Shock wave
-                Natural gift
-                Fling
-                Shadow sneak
-                Zen headbutt
-                Trick room
-                Captivate
-                Grass knot
-                Charge beam
-                Wonder room
-                Psyshock
-                Telekinesis
-                Magic room
-                Synchronoise
-                Round
-                Stored power
+                Disable
+                Double edge
+                Double team
                 Draining kiss
+                Dream eater
+                Encore
+                Endure
+                Facade
+                Fire punch
+                Flash
+                Fling
+                Frustration
+                Grass knot
+                Grudge
+                Headbutt
+                Helping hand
+                Hidden power
+                Hyper voice
+                Ice punch
+                Icy wind
+                Light screen
+                Magic coat
+                Magic room
+                Mean look
+                Memento
+                Mimic
                 Misty terrain
-                Confide
+                Mud slap
+                Natural gift
+                Nightmare
+                Pain split
+                Protect
+                Psych up
+                Psychic
+                Psyshock
+                Rain dance
+                Recycle
+                Reflect
+                Rest
+                Return
+                Round
+                Safeguard
+                Secret power
+                Shadow ball
+                Shadow sneak
+                Shock wave
+                Signal beam
+                Skill swap
+                Sleep talk
+                Snatch
+                Snore
+                Stored power
+                Substitute
+                Sunny day
+                Swagger
+                Swift
+                Synchronoise
+                Taunt
+                Telekinesis
+                Thief
+                Thunder punch
+                Thunder wave
+                Thunderbolt
+                Torment
+                Toxic
+                Trick
+                Trick room
+                Will o wisp
+                Wonder room
+                Zen headbutt
                 """, result);
     }
 }
