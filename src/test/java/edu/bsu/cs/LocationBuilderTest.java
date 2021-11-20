@@ -12,7 +12,7 @@ import java.util.List;
 public class LocationBuilderTest {
 
     @Test
-    public void TestGetUrl () throws IOException {
+    public void testGetUrl() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
         LocationBuilder locationBuilder = new LocationBuilder(testingData);
@@ -21,7 +21,7 @@ public class LocationBuilderTest {
     }
 
     @Test
-    public void TestBuildLocationList () throws IOException {
+    public void testBuildLocationList() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
         Location knownLocation = new Location("sinnoh-route-209-area");
