@@ -13,14 +13,14 @@ public class LocationBuilderTest {
     InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
 
     @Test
-    public void TestGetUrl () throws IOException {
+    public void testGetUrl() throws IOException {
         LocationBuilder locationBuilder = new LocationBuilder(testingData);
         String locationUrl = locationBuilder.getUrl();
         Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/280/encounters", locationUrl);
     }
 
     @Test
-    public void TestBuildLocationList () throws IOException {
+    public void testBuildLocationList() throws IOException {
         Location knownLocation = new Location("sinnoh-route-209-area");
         LocationBuilder locationBuilder = new LocationBuilder(testingData);
         List<Location> locations = locationBuilder.buildLocationList();
