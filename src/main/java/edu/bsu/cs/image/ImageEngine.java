@@ -1,4 +1,4 @@
-package edu.bsu.cs.PokemonImage;
+package edu.bsu.cs.image;
 
 import javafx.scene.image.Image;
 

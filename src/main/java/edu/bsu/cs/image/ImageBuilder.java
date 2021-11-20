@@ -1,4 +1,4 @@
-package edu.bsu.cs.PokemonImage;
+package edu.bsu.cs.image;
 
 import com.jayway.jsonpath.JsonPath;
 import edu.bsu.cs.query.QuerySearcher;
