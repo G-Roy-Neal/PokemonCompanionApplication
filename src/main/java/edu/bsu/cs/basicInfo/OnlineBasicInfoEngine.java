@@ -7,7 +7,7 @@ import java.util.List;
 public class OnlineBasicInfoEngine implements BasicInfoEngine {
     @Override
     public List<String> getBaisicInfo(InputStream inputData) throws IOException {
-        BasicInfoBuilder infoBuilder = new BasicInfoBuilder(inputData);
+        BasicInfoReader infoBuilder = new BasicInfoReader(inputData);
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(infoBuilder.buildBasicInfo());
         return infoFormatter.formatInfo();
     }

@@ -1,7 +1,7 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.basicinfo.BasicInfo;
-import edu.bsu.cs.basicinfo.BasicInfoBuilder;
+import edu.bsu.cs.basicinfo.BasicInfoReader;
 import edu.bsu.cs.basicinfo.BasicInfoFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -68,14 +68,14 @@ public class BasicInfoFormatterTest {
     public BasicInfo initilizeRaltsData() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
-        BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
+        BasicInfoReader infoBuilder = new BasicInfoReader(testingData);
         return infoBuilder.buildBasicInfo();
     }
 
     public BasicInfo initilizeCharmanderData() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
-        BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
+        BasicInfoReader infoBuilder = new BasicInfoReader(testingData);
         return infoBuilder.buildBasicInfo();
     }
 }
