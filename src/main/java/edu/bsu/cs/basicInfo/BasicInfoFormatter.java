@@ -1,4 +1,4 @@
-package edu.bsu.cs.basicInfo;
+package edu.bsu.cs.basicinfo;
 
 import java.util.ArrayList;
 import java.util.List;

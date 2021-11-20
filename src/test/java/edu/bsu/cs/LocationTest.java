@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class LocationTest {
 
     @Test
-    public void testPokemonLocation(){
+    public void testLocationConstructor(){
         String location = "sinnoh route 205 area";
         Location location1 = new Location(location);
         Assertions.assertEquals(location1.getLocation(), location);

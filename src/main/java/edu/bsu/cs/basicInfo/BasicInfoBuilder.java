@@ -1,4 +1,4 @@
-package edu.bsu.cs.basicInfo;
+package edu.bsu.cs.basicinfo;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;

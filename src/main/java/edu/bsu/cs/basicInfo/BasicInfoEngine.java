@@ -1,4 +1,4 @@
-package edu.bsu.cs.basicInfo;
+package edu.bsu.cs.basicinfo;
 
 import java.io.IOException;
 import java.io.InputStream;

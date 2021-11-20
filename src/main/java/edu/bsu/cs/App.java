@@ -1,7 +1,7 @@
 package edu.bsu.cs;
 
-import edu.bsu.cs.basicInfo.BasicInfoEngine;
-import edu.bsu.cs.basicInfo.OnlineBasicInfoEngine;
+import edu.bsu.cs.basicinfo.BasicInfoEngine;
+import edu.bsu.cs.basicinfo.OnlineBasicInfoEngine;
 import edu.bsu.cs.image.ImageEngine;
 import edu.bsu.cs.image.OnlineImageEngine;
 import edu.bsu.cs.locations.LocationEngine;
