@@ -14,23 +14,23 @@ import java.util.List;
 public class BasicInfoFormatterTest {
     @Test
     public void testFormatName() throws IOException {
-        BasicInfo basicInfo = initilizeData1();
+        BasicInfo basicInfo = initilizeRaltsData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedName = infoFormatter.formatName();
         Assertions.assertEquals("Ralts", formattedName);
     }
 
     @Test
-    public void testFormatTypes1() throws IOException {
-        BasicInfo basicInfo = initilizeData1();
+    public void testFormatTypesForRalts() throws IOException {
+        BasicInfo basicInfo = initilizeRaltsData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedTypes = infoFormatter.formatTypes();
         Assertions.assertEquals("Psychic, Fairy", formattedTypes);
     }
 
     @Test
-    public void testFormatTypes2() throws IOException {
-        BasicInfo basicInfo = initilizeData2();
+    public void testFormatTypesForCharmander() throws IOException {
+        BasicInfo basicInfo = initilizeCharmanderData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedTypes = infoFormatter.formatTypes();
         Assertions.assertEquals("Fire", formattedTypes);
@@ -38,7 +38,7 @@ public class BasicInfoFormatterTest {
 
     @Test
     public void testFormatHeight() throws IOException {
-        BasicInfo basicInfo = initilizeData1();
+        BasicInfo basicInfo = initilizeRaltsData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedHeight = infoFormatter.formatHeight();
         Assertions.assertEquals("0.4 m", formattedHeight);
@@ -46,7 +46,7 @@ public class BasicInfoFormatterTest {
 
     @Test
     public void testFormatWeight() throws IOException {
-        BasicInfo basicInfo = initilizeData1();
+        BasicInfo basicInfo = initilizeRaltsData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         String formattedWeight = infoFormatter.formatWeight();
         Assertions.assertEquals("6.6 Kg", formattedWeight);
@@ -54,7 +54,7 @@ public class BasicInfoFormatterTest {
 
     @Test
     public void testFormatBasicInfo() throws IOException {
-        BasicInfo basicInfo = initilizeData1();
+        BasicInfo basicInfo = initilizeRaltsData();
         BasicInfoFormatter infoFormatter = new BasicInfoFormatter(basicInfo);
         List<String> formattedInfo = infoFormatter.formatInfo();
         List<String> expectedList = new ArrayList<>();
@@ -65,13 +65,14 @@ public class BasicInfoFormatterTest {
         Assertions.assertEquals(expectedList, formattedInfo);
     }
 
-    public BasicInfo initilizeData1() throws IOException {
+    public BasicInfo initilizeRaltsData() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("ralts-test.json");
         assert testingData != null;
         BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
         return infoBuilder.buildBasicInfo();
     }
-    public BasicInfo initilizeData2() throws IOException {
+
+    public BasicInfo initilizeCharmanderData() throws IOException {
         InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         BasicInfoBuilder infoBuilder = new BasicInfoBuilder(testingData);
