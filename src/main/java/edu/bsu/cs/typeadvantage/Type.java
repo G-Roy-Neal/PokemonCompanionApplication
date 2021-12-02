@@ -30,6 +30,14 @@ public class Type {
         this.typeUrl = builder.typeURL;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public URL getTypeUrl() {
+        return typeUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
