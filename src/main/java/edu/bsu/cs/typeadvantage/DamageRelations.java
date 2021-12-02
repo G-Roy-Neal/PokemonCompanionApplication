@@ -15,12 +15,13 @@ import java.util.List;
 
 public class DamageRelations {
     private final Type type;
+    private List<Double> damageRelations;
 
     public DamageRelations(Type type) {
         this.type = type;
     }
 
-    public List<Double> formatDamage() throws IOException {
+    public void formatDamage() throws IOException {
         List<Double> damageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
         URL typeUrl = this.type.getTypeUrl();
         InputStream inputData = searchTypeUrl(typeUrl);
@@ -36,7 +37,7 @@ public class DamageRelations {
             Double newDamage = damageRelations.get(i) * doubleDamage.get(i) * halfDamage.get(i) * noDamage.get(i);
             damageRelations.set(i, newDamage);
         }
-        return damageRelations;
+        this.damageRelations = damageRelations;
     }
 
     public InputStream searchTypeUrl(URL typeUrl) throws IOException {
@@ -99,5 +100,9 @@ public class DamageRelations {
             case "fairy" -> 18;
             default -> 0;
         };
+    }
+
+    public List<Double> getDamageRelations() {
+        return damageRelations;
     }
 }
