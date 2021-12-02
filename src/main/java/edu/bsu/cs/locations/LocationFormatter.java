@@ -1,9 +1,11 @@
 package edu.bsu.cs.locations;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.util.List;
 
 public class LocationFormatter {
-
 
     public String formatLocationList(List<Location> locationsList) {
         StringBuilder locationsString = new StringBuilder();

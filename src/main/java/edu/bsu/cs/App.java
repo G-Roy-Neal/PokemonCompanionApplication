@@ -12,8 +12,6 @@ import edu.bsu.cs.query.OnlineQueryEngine;
 import edu.bsu.cs.query.QueryEngine;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -22,10 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -42,11 +37,15 @@ import java.util.concurrent.Executors;
 
 public class App extends Application {
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final Runnable queryTask = new queryTask();
-    private final Runnable dropdownTask = new dropdownTask();
     private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
     private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
 
+    private final LocationEngine locationEngine = new OnlineLocationEngine();
+    private final QueryEngine queryEngine = new OnlineQueryEngine();
+    private final MoveEngine moveEngine = new OnlineMoveEngine();
+    private final ImageEngine imageEngine = new OnlineImageEngine();
+    private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
+    private final InformationWindow window = new InformationWindow();
     private TextField userInput;
     private Label pokemonName;
     private Label pokemonHeight;
@@ -56,17 +55,17 @@ public class App extends Application {
     private TextField pokemonHeightOutput;
     private TextField pokemonTypeOutput;
     private TextField pokemonWeightOutput;
-    private ComboBox<String> dropdownMenu;
     private ImageView imageView = null;
     private TextArea informationOutput;
-    private Button searchButton;
-    private final LocationEngine locationEngine = new OnlineLocationEngine();
-    private final QueryEngine queryEngine = new OnlineQueryEngine();
-    private final MoveEngine moveEngine = new OnlineMoveEngine();
-    private final ImageEngine imageEngine = new OnlineImageEngine();
-    private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
     private String moveResult;
     private String locationResult;
+    private VBox resultWindow;
+    private Button searchButton;
+    private Button locationButton;
+    private Button movesButton;
+    private Button typeButton;
+    private Button evolutionButton;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -87,14 +86,30 @@ public class App extends Application {
         initializeBasicInfoTextFields();
         initializePokeballImage();
         setDataLabels();
-        setActionEvents();
     }
 
     private void setActionEvents() {
-        searchButton.setOnAction(event -> executor.execute(queryTask));
-        userInput.setOnAction(event -> executor.execute(queryTask));
+        searchButton.setOnAction(event -> queryTask(userInput.getText()));
+        userInput.setOnAction(event -> queryTask(userInput.getText()));
         userInput.setOnMouseClicked(event -> userInput.clear());
-        dropdownMenu.setOnAction(event -> executor.execute(queryTask));
+        setInfoButtonEvents();
+    }
+
+    private void setInfoButtonEvents() {
+        locationButton.setOnAction(event -> {
+            try {
+                window.getChildren().clear();
+                window.setLocation(queryTask(userInput.getText()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        movesButton.setOnAction(event -> moveButtonEvent());
+    }
+
+    private void moveButtonEvent(){
+        window.getChildren().clear();
+        window.getChildren().add(new Label(moveResult));
     }
 
     private void initializePokeballImage() {
@@ -104,12 +119,18 @@ public class App extends Application {
     }
 
     private void initializeSearchComponents() {
-        ObservableList<String> comboBoxArrayList = FXCollections.observableArrayList("Locations", "Moves");
         userInput = new TextField("Search");
-        dropdownMenu = new ComboBox<>(comboBoxArrayList);
         searchButton = new Button("\uD83D\uDD0E");
         informationOutput = new TextArea();
         informationOutput.setEditable(false);
+        initializeInfoButtons();
+    }
+
+    private void initializeInfoButtons(){
+        locationButton = new Button("Locations");
+        movesButton = new Button("Moves");
+        typeButton = new Button("Types");
+        evolutionButton = new Button("Evolutions");
     }
 
     private void setDataLabels(){
@@ -147,6 +168,7 @@ public class App extends Application {
         grid.setPrefSize(852, 480);
 
         HBox querySearchButtonBox = new HBox();
+        HBox infoSelectorBox = new HBox();
         HBox pokemonNameBox = new HBox();
         HBox pokemonHeightBox = new HBox();
         HBox pokemonWeightBox = new HBox();
@@ -162,14 +184,15 @@ public class App extends Application {
         pokemonHeightBox.getChildren().addAll(pokemonHeight, pokemonHeightOutput);
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
+        infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton, evolutionButton);
 
         pokemonNameOutput.prefWidthProperty().bind(pokemonNameBox.widthProperty().multiply(.5));
         pokemonHeightOutput.prefWidthProperty().bind(pokemonHeightBox.widthProperty().multiply(.5));
         pokemonWeightOutput.prefWidthProperty().bind(pokemonWeightBox.widthProperty().multiply(.5));
         pokemonTypeOutput.prefWidthProperty().bind(pokemonTypeBox.widthProperty().multiply(.5));
 
-        grid.add(dropdownMenu, 0,0,2,1);
-        grid.add(informationOutput, 0,1,2,3);
+        grid.add(infoSelectorBox, 0,0,2,1);
+        grid.add(window, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
         grid.add(imageView, 2,1,2,1);
         grid.add(pokemonNameBox, 2,2,1,1);
@@ -192,55 +215,43 @@ public class App extends Application {
         grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
 
         imageView.setPreserveRatio(true);
-        imageView.fitHeightProperty().bind(informationOutput.heightProperty().multiply(.85));
-        imageView.fitWidthProperty().bind(informationOutput.widthProperty().multiply(.85));
+        imageView.fitHeightProperty().bind(window.heightProperty().multiply(.85));
+        imageView.fitWidthProperty().bind(window.widthProperty().multiply(.85));
 
-        dropdownMenu.prefWidthProperty().bind(informationOutput.widthProperty());
-        userInput.prefWidthProperty().bind(informationOutput.widthProperty().subtract(searchButton.widthProperty()));
+        infoSelectorBox.prefWidthProperty().bind(window.widthProperty());
+        userInput.prefWidthProperty().bind(window.widthProperty().subtract(searchButton.widthProperty()));
+
+        setActionEvents();
 
         return grid;
     }
-    private final class dropdownTask implements Runnable {
-        @Override
-        public void run(){
-            int selectedIndex = dropdownMenu.getSelectionModel().getSelectedIndex();
-            if (selectedIndex == 0){
-                informationOutput.setText(locationResult);
-            }
-            else if (selectedIndex == 1){
-                informationOutput.setText(moveResult);
-            }
+
+
+    private InputStream queryTask (String text) {
+        informationOutput.setText("");
+        InputStream inputData = null;
+        try {
+            inputData = queryEngine.getInputStream(text);
+            ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
+            inputData.transferTo(temporaryByteArray);
+            InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+            imageView.setImage(imageEngine.getImage(firstClone));
+            InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+            setBasicInfo(secondClone);
+            InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+
+            window.setLocation(thirdClone);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        informationOutput.setText("Search is not a valid Pokemon");
+        enableEditing();
+        return inputData;
     }
 
-    private final class queryTask implements Runnable {
 
-        @Override
-        public void run() {
-            disableEditing();
-            informationOutput.setText("");
-            checkIfEmpty();
-            try {
-                InputStream inputData = queryEngine.getInputStream(userInput.getText());
-                ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-                inputData.transferTo(temporaryByteArray);
-                InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-                locationResult = locationEngine.getLocations(firstClone);
-                InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-                moveResult = moveEngine.getMoves(secondClone);
-                InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-                imageView.setImage(imageEngine.getImage(thirdClone));
-                InputStream fourthClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-                setBasicInfo(fourthClone);
-                executor.execute(dropdownTask);
-
-            } catch (IOException e) {
-                informationOutput.setText("Search is not a valid Pokemon");
-            }
-            enableEditing();
-        }
-
-        private void setBasicInfo(InputStream fourthClone) throws IOException {
+        private void setBasicInfo (InputStream fourthClone) throws IOException {
             List<String> infoList = basicInfoEngine.getBaisicInfo(fourthClone);
             pokemonNameOutput.setText(infoList.get(0));
             pokemonTypeOutput.setText(infoList.get(1));
@@ -249,29 +260,29 @@ public class App extends Application {
             setBasicInfoFont();
         }
 
-        private void setBasicInfoFont() {
+        private void setBasicInfoFont () {
             pokemonNameOutput.setFont(dataFont);
             pokemonTypeOutput.setFont(dataFont);
             pokemonHeightOutput.setFont(dataFont);
             pokemonWeightOutput.setFont(dataFont);
         }
 
-        private void enableEditing() {
+        private void enableEditing () {
             userInput.setEditable(true);
             searchButton.setDisable(false);
         }
 
-        private void disableEditing() {
+        private void disableEditing () {
             userInput.setEditable(false);
             searchButton.setDisable(true);
 
         }
 
-        private void checkIfEmpty() {
+        private void checkIfEmpty () {
             if (userInput.getText().equals("")) {
                 informationOutput.setText("The Search Box is Empty");
                 enableEditing();
             }
         }
     }
-}
+
