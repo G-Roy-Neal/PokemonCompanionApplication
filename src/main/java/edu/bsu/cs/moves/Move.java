@@ -2,7 +2,12 @@ package edu.bsu.cs.moves;
 
 import java.util.Objects;
 
-public class Move {
+public class Move implements Comparable<Move>{
+
+    @Override
+    public int compareTo(Move move) {
+        return this.getLevel().compareTo(move.getLevel());
+    }
 
     public static final class Builder{
         public String name;

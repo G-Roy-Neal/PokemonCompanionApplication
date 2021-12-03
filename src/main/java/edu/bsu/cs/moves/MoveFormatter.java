@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveFormatter {
-    private final List<String> formattedLearnedMoves;
-    private final List<String> formattedTaughtMoves;
+    private final List<Move> formattedLearnedMoves;
+    private final List<Move> formattedTaughtMoves;
     private final List<Move> sortedMoves;
 
     public MoveFormatter(){
@@ -14,28 +14,36 @@ public class MoveFormatter {
         this.sortedMoves = new ArrayList<>();
     }
 
+    public List<Move> buildLearnedMoves(List<Move> moveList){
+        separateMoves(moveList);
+        formatLearnedMoves();
+        java.util.Collections.sort(formattedLearnedMoves);
+        return formattedLearnedMoves;
+    }
+
     public String buildFormattedMoves(List<Move> moveList){
         StringBuilder formattedString = new StringBuilder("Moves that can be Learned:\n");
-        seperateMoves(moveList);
+        separateMoves(moveList);
         formatLearnedMoves();
         java.util.Collections.sort(formattedTaughtMoves);
-        for (String learned: this.formattedLearnedMoves){
+        for (Move learned: this.formattedLearnedMoves){
             formattedString.append(learned).append("\n");
         }
         formattedString.append("\nMoves that can be Taught:\n");
-        for (String taught: this.formattedTaughtMoves){
-            formattedString.append(taught).append("\n");
+        java.util.Collections.sort(formattedTaughtMoves);
+        for (Move taughtMove: this.formattedTaughtMoves){
+            formattedString.append(taughtMove).append("\n");
         }
         return formattedString.toString();
     }
 
-    private void seperateMoves(List<Move> movesList){
+    private void separateMoves(List<Move> movesList){
         for(Move move: movesList){
             if (move.getLevel() > 0){
                 this.sortedMoves.add(move);
             }
             else{
-                this.formattedTaughtMoves.add(format(move));
+                this.formattedTaughtMoves.add(move);
             }
         }
     }
@@ -43,9 +51,7 @@ public class MoveFormatter {
     private void formatLearnedMoves(){
         LevelComparator comparator = new LevelComparator();
         sortedMoves.sort(comparator); // We think the IDE is wrong
-        for (Move move: sortedMoves){
-            this.formattedLearnedMoves.add(format(move));
-        }
+        this.formattedLearnedMoves.addAll(sortedMoves);
     }
 
     public String format(Move move) {

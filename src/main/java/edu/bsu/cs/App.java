@@ -96,20 +96,26 @@ public class App extends Application {
     }
 
     private void setInfoButtonEvents() {
-        locationButton.setOnAction(event -> {
-            try {
-                window.getChildren().clear();
-                window.setLocation(queryTask(userInput.getText()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        locationButton.setOnAction(event -> locationButtonEvent());
         movesButton.setOnAction(event -> moveButtonEvent());
     }
 
+    private void locationButtonEvent() {
+        try {
+            window.getChildren().clear();
+            window.setLocation();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void moveButtonEvent(){
-        window.getChildren().clear();
-        window.getChildren().add(new Label(moveResult));
+        try {
+            window.getChildren().clear();
+            window.setMoves();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializePokeballImage() {
@@ -239,8 +245,8 @@ public class App extends Application {
             InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
             setBasicInfo(secondClone);
             InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-
-            window.setLocation(thirdClone);
+            window.loadData(thirdClone);
+            window.setLocation();
         } catch (IOException e) {
             e.printStackTrace();
         }
