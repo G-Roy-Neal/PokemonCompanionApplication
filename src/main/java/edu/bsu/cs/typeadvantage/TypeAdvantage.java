@@ -10,42 +10,42 @@ public class TypeAdvantage {
     private List<String> notEffective;
 
     public List<String> getFourTimesEffective() {
-        return fourTimesEffective;
+        return List.copyOf(this.fourTimesEffective);
     }
 
     public List<String> getTwoTimesEffective() {
-        return twoTimesEffective;
+        return List.copyOf(this.twoTimesEffective);
     }
 
     public List<String> getRegularEffective() {
-        return regularEffective;
+        return List.copyOf(this.regularEffective);
     }
 
     public List<String> getHalfEffective() {
-        return halfEffective;
+        return List.copyOf(this.halfEffective);
     }
 
     public List<String> getNotEffective() {
-        return notEffective;
+        return List.copyOf(this.notEffective);
     }
 
     public void setFourTimesEffective(List<String> fourTimesEffective) {
-        this.fourTimesEffective = fourTimesEffective;
+        this.fourTimesEffective = List.copyOf(fourTimesEffective);
     }
 
     public void setTwoTimesEffective(List<String> twoTimesEffective) {
-        this.twoTimesEffective = twoTimesEffective;
+        this.twoTimesEffective = List.copyOf(twoTimesEffective);
     }
 
     public void setRegularEffective(List<String> regularEffective) {
-        this.regularEffective = regularEffective;
+        this.regularEffective = List.copyOf(regularEffective);
     }
 
     public void setHalfEffective(List<String> halfEffective) {
-        this.halfEffective = halfEffective;
+        this.halfEffective = List.copyOf(halfEffective);
     }
 
     public void setNotEffective(List<String> notEffective) {
-        this.notEffective = notEffective;
+        this.notEffective = List.copyOf(notEffective);
     }
 }
