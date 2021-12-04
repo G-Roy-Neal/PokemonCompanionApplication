@@ -53,12 +53,21 @@ public class InformationWindow extends VBox {
             }
         }
         if (getChildren().isEmpty()) {
-            getChildren().add(new HBox(new Label("This Pokemon can not be captured in the wild in the Sinnoh region")));
+            Label lineOne = new Label("This Pokemon can not be captured in the wild");
+            Label lineTwo = new Label("in the Sinnoh region");
+            lineOne.setFont(labelFont);
+            lineTwo.setFont(labelFont);
+            getChildren().add(new HBox(lineOne));
+            getChildren().add(new HBox(lineTwo));
         }
     }
 
     public void setMoves() throws IOException {
         InputStream inputDataForLearnedMoves = copyData();
+        getChildren().clear();
+        Label learned = new Label("Moves That Can Be Learned:");
+        learned.setFont(labelFont);
+        getChildren().add(new HBox(learned));
         MoveBuilder moveBuilderForLearnedMoves = new MoveBuilder(inputDataForLearnedMoves);
         MoveFormatter moveFormatter = new MoveFormatter();
         List<Move> learnedMovesList = moveBuilderForLearnedMoves.buildMoves();
@@ -70,9 +79,9 @@ public class InformationWindow extends VBox {
             moveBox.prefWidthProperty().bind(movesBox.prefWidthProperty());
         }
         getChildren().add(new HBox(new Label("")));
-        getChildren().add(new HBox(new Label("Taught Moves:")));
-        getChildren().add(new HBox(new Label("")));
-
+        Label taught = new Label("Moves That Can Be Taught:");
+        taught.setFont(labelFont);
+        getChildren().add(new HBox(taught));
         InputStream inputDataForTaughtMoves = copyData();
         MoveBuilder moveBuilderForTaughtMoves = new MoveBuilder(inputDataForTaughtMoves);
         List<Move> taughtMovesList = moveBuilderForTaughtMoves.buildMoves();
@@ -90,7 +99,6 @@ public class InformationWindow extends VBox {
         List<Type> typeList = typeBuilder.buildTypes();
         TypeAdvantageBuilder advantageBuilder = new TypeAdvantageBuilder(typeList);
         TypeAdvantage typeAdvantage = advantageBuilder.buildTypeAdvantage();
-
         if (typeAdvantage.getFourTimesEffective().size() > 0){
             Label effectiveness = new Label("Four Times Effective");
             effectiveness.setFont(labelFont);
