@@ -3,6 +3,7 @@ package edu.bsu.cs.image;
 import com.jayway.jsonpath.JsonPath;
 import edu.bsu.cs.query.QuerySearcher;
 import edu.bsu.cs.query.UrlBuilder;
+import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,9 +22,9 @@ public class ImageBuilder {
         return id.toString();
     }
 
-    public InputStream getPokemonImage (String pokemonId) throws IOException {
+    public Image getPokemonImage (String pokemonId) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder();
         QuerySearcher querySearcher = new QuerySearcher();
-        return querySearcher.getInputStream(urlBuilder.buildImageUrl(pokemonId));
+        return new Image(querySearcher.getInputStream(urlBuilder.buildImageUrl(pokemonId)));
     }
 }
