@@ -54,7 +54,6 @@ public class App extends Application {
     private Button locationButton;
     private Button movesButton;
     private Button typeButton;
-    private Button evolutionButton;
 
     ScrollPane outPutDataScrollPane = new ScrollPane();
 
@@ -145,7 +144,6 @@ public class App extends Application {
         locationButton = new Button("Locations");
         movesButton = new Button("Moves");
         typeButton = new Button("Types");
-        evolutionButton = new Button("Evolutions");
     }
 
     private void setDataLabels(){
@@ -198,6 +196,7 @@ public class App extends Application {
         pokemonHeightBox.alignmentProperty().setValue(Pos.CENTER);
         pokemonWeightBox.alignmentProperty().setValue(Pos.CENTER);
         pokemonTypeBox.alignmentProperty().setValue(Pos.CENTER);
+        infoSelectorBox.alignmentProperty().setValue(Pos.CENTER);
         querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
     }
 
@@ -207,7 +206,7 @@ public class App extends Application {
         pokemonHeightBox.getChildren().addAll(pokemonHeight, pokemonHeightOutput);
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
-        infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton, evolutionButton);
+        infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton);
         outPutDataScrollPane.setContent(window);
     }
 
