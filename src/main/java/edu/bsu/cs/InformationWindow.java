@@ -34,7 +34,6 @@ public class InformationWindow extends VBox {
     }
 
     private InputStream copyData() throws IOException {
-
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         this.pokemonData.transferTo(temporaryByteArray);
         this.pokemonData = new ByteArrayInputStream(temporaryByteArray.toByteArray());
@@ -50,7 +49,9 @@ public class InformationWindow extends VBox {
         for (Location location : locationsList) {
             String formattedLocation = formatter.transformLocationDescription(location.getLocation());
             if (!formattedLocation.equals("")) {
-                getChildren().add(new HBox(new Label(formattedLocation)));
+                Label locationLabel = new Label(formattedLocation);
+                locationLabel.setFont(dataFont);
+                getChildren().add(new HBox(locationLabel));
             }
         }
         if (getChildren().isEmpty()) {
@@ -91,7 +92,6 @@ public class InformationWindow extends VBox {
         getChildren().add(new HBox(new Label("")));
         Label taught = new Label("Moves That Can Be Taught:");
         taught.setFont(labelFont);
-
         getChildren().add(new HBox(taught));
         InputStream inputDataForTaughtMoves = copyData();
         MoveBuilder moveBuilderForTaughtMoves = new MoveBuilder(inputDataForTaughtMoves);
@@ -117,7 +117,9 @@ public class InformationWindow extends VBox {
             effectiveness.setFont(labelFont);
             getChildren().add(new HBox(effectiveness));
             for (String type: typeAdvantage.getFourTimesEffective()){
-                getChildren().add(new HBox(new Label(type)));
+                Label typeLabel = new Label(type);
+                typeLabel.setFont(dataFont);
+                getChildren().add(new HBox(typeLabel));
             }
         }
         if (typeAdvantage.getTwoTimesEffective().size() > 0){
@@ -125,7 +127,9 @@ public class InformationWindow extends VBox {
             effectiveness.setFont(labelFont);
             getChildren().add(new HBox(effectiveness));
             for (String type: typeAdvantage.getTwoTimesEffective()){
-                getChildren().add(new HBox(new Label(type)));
+                Label typeLabel = new Label(type);
+                typeLabel.setFont(dataFont);
+                getChildren().add(new HBox(typeLabel));
             }
         }
         if (typeAdvantage.getRegularEffective().size() > 0){
@@ -133,7 +137,9 @@ public class InformationWindow extends VBox {
             effectiveness.setFont(labelFont);
             getChildren().add(new HBox(effectiveness));
             for (String type: typeAdvantage.getRegularEffective()){
-                getChildren().add(new HBox(new Label(type)));
+                Label typeLabel = new Label(type);
+                typeLabel.setFont(dataFont);
+                getChildren().add(new HBox(typeLabel));
             }
         }
         if (typeAdvantage.getHalfEffective().size() > 0){
@@ -141,7 +147,9 @@ public class InformationWindow extends VBox {
             effectiveness.setFont(labelFont);
             getChildren().add(new HBox(effectiveness));
             for (String type: typeAdvantage.getRegularEffective()){
-                getChildren().add(new HBox(new Label(type)));
+                Label typeLabel = new Label(type);
+                typeLabel.setFont(dataFont);
+                getChildren().add(new HBox(typeLabel));
             }
         }
         if (typeAdvantage.getNotEffective().size() > 0){
@@ -149,7 +157,9 @@ public class InformationWindow extends VBox {
             effectiveness.setFont(labelFont);
             getChildren().add(new HBox(effectiveness));
             for (String type: typeAdvantage.getNotEffective()){
-                getChildren().add(new HBox(new Label(type)));
+                Label typeLabel = new Label(type);
+                typeLabel.setFont(dataFont);
+                getChildren().add(new HBox(typeLabel));
             }
         }
     }
