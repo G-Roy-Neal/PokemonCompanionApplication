@@ -3,27 +3,19 @@ package edu.bsu.cs.moves;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveBuilder {
-    private final InputStream firstClone;
-    private final InputStream secondClone;
-    private final InputStream thirdClone;
+    private final String data;
 
     public MoveBuilder(InputStream inputData) throws IOException {
-        ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
-        inputData.transferTo(temporaryByteArray);
-        this.firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-        this.secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-        this.thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
+        this.data = new String(inputData.readAllBytes());
     }
 
-    public List<Move> buildMoves() throws IOException {
+    public List<Move> buildMoves() {
         List<Move> pokemonMoves = new ArrayList<>();
         List <Integer> selectLevels = getSelectLevels();
         List <String> moveNames = getMoveNames();
@@ -35,7 +27,7 @@ public class MoveBuilder {
         return pokemonMoves;
     }
 
-    public List<Integer> getSelectLevels() throws IOException {
+    public List<Integer> getSelectLevels() {
         List<Integer> selectLevels = new ArrayList<>();
         List<String> rawGenerations = getRawGenerations();
         List<Integer> moveIndexes = getMoveIndices(rawGenerations);
@@ -87,30 +79,30 @@ public class MoveBuilder {
         };
     }
 
-    public List<String> getRawGenerations() throws IOException {
+    public List<String> getRawGenerations() {
         List<String> rawGenerationList = new ArrayList<>();
         JsonPath generationPath = JsonPath.compile("$..moves..version_group_details..version_group..name");
-        JSONArray generationsArray = generationPath.read(firstClone);
+        JSONArray generationsArray = generationPath.read(data);
         for (Object o : generationsArray) {
             rawGenerationList.add(o.toString());
         }
         return rawGenerationList;
     }
 
-    public List<String> getMoveNames() throws IOException {
+    public List<String> getMoveNames() {
         List<String> movesList = new ArrayList<>();
         JsonPath moveNamePath = JsonPath.compile("$..moves..move..name");
-        JSONArray moveArray = moveNamePath.read(secondClone);
+        JSONArray moveArray = moveNamePath.read(data);
         for (Object o : moveArray) {
             movesList.add(o.toString());
         }
         return movesList;
     }
 
-    public List<Integer> getRawLevels() throws IOException {
+    public List<Integer> getRawLevels() {
         List<Integer> rawLevelLearned = new ArrayList<>();
         JsonPath levelLearnedPath = JsonPath.compile("$..moves..level_learned_at");
-        JSONArray rawLevels = levelLearnedPath.read(thirdClone);
+        JSONArray rawLevels = levelLearnedPath.read(data);
         for (Object rawLevel : rawLevels) {
             rawLevelLearned.add((Integer) rawLevel);
         }

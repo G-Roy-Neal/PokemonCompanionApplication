@@ -30,6 +30,7 @@ public class InformationWindow extends VBox {
     }
 
     private InputStream copyData() throws IOException {
+
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
         this.pokemonData.transferTo(temporaryByteArray);
         this.pokemonData = new ByteArrayInputStream(temporaryByteArray.toByteArray());
@@ -54,16 +55,28 @@ public class InformationWindow extends VBox {
     }
 
     public void setMoves() throws IOException {
-        InputStream inputData = copyData();
-        MoveBuilder moveBuilder = new MoveBuilder(inputData);
+        InputStream inputDataForLearnedMoves = copyData();
+        MoveBuilder moveBuilderForLearnedMoves = new MoveBuilder(inputDataForLearnedMoves);
         MoveFormatter moveFormatter = new MoveFormatter();
-        List<Move> pokemonMoves = moveBuilder.buildMoves();
-        pokemonMoves = moveFormatter.buildLearnedMoves(pokemonMoves);
+        List<Move> learnedMovesList = moveBuilderForLearnedMoves.buildMoves();
+        learnedMovesList = moveFormatter.buildLearnedMoves(learnedMovesList);
         VBox movesBox = new VBox();
-        for (Move move : pokemonMoves) {
+        for (Move move : learnedMovesList) {
             HBox moveBox = new HBox(new Label((move.getLevel().toString()), new Label(move.getName())));
             getChildren().add(moveBox);
             moveBox.prefWidthProperty().bind(movesBox.prefWidthProperty());
+        }
+        getChildren().add(new HBox(new Label("")));
+        getChildren().add(new HBox(new Label("Taught Moves:")));
+        getChildren().add(new HBox(new Label("")));
+
+        InputStream inputDataForTaughtMoves = copyData();
+        MoveBuilder moveBuilderForTaughtMoves = new MoveBuilder(inputDataForTaughtMoves);
+        List<Move> taughtMovesList = moveBuilderForTaughtMoves.buildMoves();
+        taughtMovesList = moveFormatter.buildTaughtMoves(taughtMovesList);
+        for (Move move : taughtMovesList) {
+            HBox taughtMovesBox = new HBox(new Label(move.getName()));
+            getChildren().add(taughtMovesBox);
         }
     }
 }
