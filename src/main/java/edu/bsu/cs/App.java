@@ -57,15 +57,19 @@ public class App extends Application {
     private TextField pokemonWeightOutput;
     private ImageView imageView = null;
     private TextArea informationOutput;
-    private String moveResult;
-    private String locationResult;
-    private VBox resultWindow;
     private Button searchButton;
     private Button locationButton;
     private Button movesButton;
     private Button typeButton;
     private Button evolutionButton;
 
+    HBox querySearchButtonBox = new HBox();
+    HBox infoSelectorBox = new HBox();
+    HBox pokemonNameBox = new HBox();
+    HBox pokemonHeightBox = new HBox();
+    HBox pokemonWeightBox = new HBox();
+    HBox pokemonTypeBox = new HBox();
+    GridPane grid = new GridPane();
 
     @Override
     public void start(Stage primaryStage) {
@@ -170,33 +174,45 @@ public class App extends Application {
     }
 
     private Parent createLocationsGUI() {
-        GridPane grid = new GridPane();
         grid.setPrefSize(852, 480);
 
-        HBox querySearchButtonBox = new HBox();
-        HBox infoSelectorBox = new HBox();
-        HBox pokemonNameBox = new HBox();
-        HBox pokemonHeightBox = new HBox();
-        HBox pokemonWeightBox = new HBox();
-        HBox pokemonTypeBox = new HBox();
+        alignUiBoxes();
+        addElementsToUiBoxes();
+        addElementsToGrid();
+        createColumnConstraints();
+        createRowConstraints();
+        scaleImage();
+        scaleUiElements();
+        setActionEvents();
 
+        return grid;
+    }
+
+    private void alignUiBoxes() {
         pokemonNameBox.alignmentProperty().setValue(Pos.CENTER);
         pokemonHeightBox.alignmentProperty().setValue(Pos.CENTER);
         pokemonWeightBox.alignmentProperty().setValue(Pos.CENTER);
         pokemonTypeBox.alignmentProperty().setValue(Pos.CENTER);
+        querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
+    }
 
+    private void addElementsToUiBoxes() {
         querySearchButtonBox.getChildren().addAll(userInput, searchButton);
         pokemonNameBox.getChildren().addAll(pokemonName, pokemonNameOutput);
         pokemonHeightBox.getChildren().addAll(pokemonHeight, pokemonHeightOutput);
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
         infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton, evolutionButton);
+    }
 
+    private void scaleNameHeightWeightTypeBoxes () {
         pokemonNameOutput.prefWidthProperty().bind(pokemonNameBox.widthProperty().multiply(.5));
         pokemonHeightOutput.prefWidthProperty().bind(pokemonHeightBox.widthProperty().multiply(.5));
         pokemonWeightOutput.prefWidthProperty().bind(pokemonWeightBox.widthProperty().multiply(.5));
         pokemonTypeOutput.prefWidthProperty().bind(pokemonTypeBox.widthProperty().multiply(.5));
+    }
 
+    private void addElementsToGrid() {
         grid.add(infoSelectorBox, 0,0,2,1);
         grid.add(window, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
@@ -205,36 +221,42 @@ public class App extends Application {
         grid.add(pokemonTypeBox, 2,3,1,1);
         grid.add(pokemonHeightBox, 3,2,1,1);
         grid.add(pokemonWeightBox, 3,3,1,1);
+    }
 
-        querySearchButtonBox.alignmentProperty().setValue(Pos.CENTER);
-
+    private void createColumnConstraints() {
         ColumnConstraints columnWidthConstraint = new ColumnConstraints();
         columnWidthConstraint.setPercentWidth(25);
         columnWidthConstraint.setHalignment(HPos.CENTER);
         grid.getColumnConstraints().addAll(columnWidthConstraint, columnWidthConstraint, columnWidthConstraint, columnWidthConstraint);
+    }
 
+    private void createRowConstraints() {
         RowConstraints smallRowConstraint = new RowConstraints();
         RowConstraints largeRowConstraint = new RowConstraints();
         smallRowConstraint.setValignment(VPos.CENTER);
         smallRowConstraint.setPercentHeight(5);
         largeRowConstraint.setPercentHeight(85);
         grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
+    }
 
+    private void scaleImage () {
         imageView.setPreserveRatio(true);
         imageView.fitHeightProperty().bind(window.heightProperty().multiply(.85));
         imageView.fitWidthProperty().bind(window.widthProperty().multiply(.85));
+    }
 
+    private void scaleUiElements () {
+        scaleImage();
+        scaleNameHeightWeightTypeBoxes();
         infoSelectorBox.prefWidthProperty().bind(window.widthProperty());
         userInput.prefWidthProperty().bind(window.widthProperty().subtract(searchButton.widthProperty()));
-
-        setActionEvents();
-
-        return grid;
     }
 
 
     private InputStream queryTask (String text) {
         informationOutput.setText("");
+        checkIfEmpty();
+        disableEditing();
         InputStream inputData = null;
         try {
             inputData = queryEngine.getInputStream(text);
@@ -255,8 +277,6 @@ public class App extends Application {
         enableEditing();
         return inputData;
     }
-
-
         private void setBasicInfo (InputStream fourthClone) throws IOException {
             List<String> infoList = basicInfoEngine.getBaisicInfo(fourthClone);
             pokemonNameOutput.setText(infoList.get(0));
