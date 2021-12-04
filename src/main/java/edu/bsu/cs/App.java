@@ -4,10 +4,6 @@ import edu.bsu.cs.basicinfo.BasicInfoEngine;
 import edu.bsu.cs.basicinfo.OnlineBasicInfoEngine;
 import edu.bsu.cs.image.ImageEngine;
 import edu.bsu.cs.image.OnlineImageEngine;
-import edu.bsu.cs.locations.LocationEngine;
-import edu.bsu.cs.locations.OnlineLocationEngine;
-import edu.bsu.cs.moves.MoveEngine;
-import edu.bsu.cs.moves.OnlineMoveEngine;
 import edu.bsu.cs.query.OnlineQueryEngine;
 import edu.bsu.cs.query.QueryEngine;
 import javafx.application.Application;
@@ -20,7 +16,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -32,17 +31,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class App extends Application {
-    private final Executor executor = Executors.newSingleThreadExecutor();
     private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
     private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
 
-    private final LocationEngine locationEngine = new OnlineLocationEngine();
     private final QueryEngine queryEngine = new OnlineQueryEngine();
-    private final MoveEngine moveEngine = new OnlineMoveEngine();
     private final ImageEngine imageEngine = new OnlineImageEngine();
     private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
     private final InformationWindow window = new InformationWindow();
@@ -62,6 +56,8 @@ public class App extends Application {
     private Button movesButton;
     private Button typeButton;
     private Button evolutionButton;
+
+    ScrollPane outPutDataScrollPane = new ScrollPane();
 
     HBox querySearchButtonBox = new HBox();
     HBox infoSelectorBox = new HBox();
@@ -185,6 +181,8 @@ public class App extends Application {
         scaleUiElements();
         setActionEvents();
 
+        outPutDataScrollPane.setContent(window);
+
         return grid;
     }
 
@@ -214,7 +212,7 @@ public class App extends Application {
 
     private void addElementsToGrid() {
         grid.add(infoSelectorBox, 0,0,2,1);
-        grid.add(window, 0,1,2,3);
+        grid.add(outPutDataScrollPane, 0,1,2,3);
         grid.add(querySearchButtonBox, 2,0,2,1);
         grid.add(imageView, 2,1,2,1);
         grid.add(pokemonNameBox, 2,2,1,1);
@@ -241,23 +239,23 @@ public class App extends Application {
 
     private void scaleImage () {
         imageView.setPreserveRatio(true);
-        imageView.fitHeightProperty().bind(window.heightProperty().multiply(.85));
-        imageView.fitWidthProperty().bind(window.widthProperty().multiply(.85));
+        imageView.fitHeightProperty().bind(outPutDataScrollPane.heightProperty().multiply(.85));
+        imageView.fitWidthProperty().bind(outPutDataScrollPane.widthProperty().multiply(.85));
     }
 
     private void scaleUiElements () {
         scaleImage();
         scaleNameHeightWeightTypeBoxes();
-        infoSelectorBox.prefWidthProperty().bind(window.widthProperty());
-        userInput.prefWidthProperty().bind(window.widthProperty().subtract(searchButton.widthProperty()));
+        infoSelectorBox.prefWidthProperty().bind(outPutDataScrollPane.widthProperty());
+        userInput.prefWidthProperty().bind(outPutDataScrollPane.widthProperty().subtract(searchButton.widthProperty()));
     }
 
 
-    private InputStream queryTask (String text) {
+    private void queryTask (String text) {
         informationOutput.setText("");
         checkIfEmpty();
         disableEditing();
-        InputStream inputData = null;
+        InputStream inputData;
         try {
             inputData = queryEngine.getInputStream(text);
             ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
@@ -275,7 +273,6 @@ public class App extends Application {
 
         informationOutput.setText("Search is not a valid Pokemon");
         enableEditing();
-        return inputData;
     }
         private void setBasicInfo (InputStream fourthClone) throws IOException {
             List<String> infoList = basicInfoEngine.getBaisicInfo(fourthClone);

@@ -1,6 +1,7 @@
 package edu.bsu.cs.moves;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MoveFormatter {
@@ -19,6 +20,11 @@ public class MoveFormatter {
         formatLearnedMoves();
         java.util.Collections.sort(formattedLearnedMoves);
         return formattedLearnedMoves;
+    }
+
+    public List<Move> buildTaughtMoves(List<Move> moveList) {
+        Collections.sort(formattedTaughtMoves);
+        return formattedTaughtMoves;
     }
 
     public String buildFormattedMoves(List<Move> moveList){
