@@ -1,13 +1,9 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.moves.Move;
-import edu.bsu.cs.moves.MoveBuilder;
 import edu.bsu.cs.moves.MoveFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MoveFormatterTest {
 
