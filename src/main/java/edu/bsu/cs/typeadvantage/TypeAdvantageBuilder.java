@@ -1,5 +1,6 @@
 package edu.bsu.cs.typeadvantage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,12 +14,13 @@ public class TypeAdvantageBuilder {
         this.typesList = types;
     }
 
-    public TypeAdvantage buildTypeAdvantage(){
+    public TypeAdvantage buildTypeAdvantage() throws IOException {
         List<Double> allDamageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
         for(Type type: this.typesList){
             DamageRelations damageRelations = new DamageRelations(type);
+            damageRelations.formatDamage();
             List<Double> typeDamageRelations = damageRelations.getDamageRelations();
-            for(int i = 0; i > 18; i++){
+            for(int i = 0; i < 18; i++){
                 Double newDamage = allDamageRelations.get(i) * typeDamageRelations.get(i);
                 allDamageRelations.set(i, newDamage);
             }

@@ -6,9 +6,12 @@ import edu.bsu.cs.locations.LocationFormatter;
 import edu.bsu.cs.moves.Move;
 import edu.bsu.cs.moves.MoveBuilder;
 import edu.bsu.cs.moves.MoveFormatter;
+import edu.bsu.cs.typeadvantage.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +20,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InformationWindow extends VBox {
-
+    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
 
     private InputStream pokemonData;
 
@@ -78,6 +81,62 @@ public class InformationWindow extends VBox {
             HBox taughtMovesBox = new HBox(new Label(move.getName()));
             getChildren().add(taughtMovesBox);
         }
+    }
+
+    public void setDamageRelations() throws IOException {
+        InputStream inputData = copyData();
+        getChildren().clear();
+        TypeBuilder typeBuilder = new TypeBuilder(inputData);
+        List<Type> typeList = typeBuilder.buildTypes();
+        TypeAdvantageBuilder advantageBuilder = new TypeAdvantageBuilder(typeList);
+        TypeAdvantage typeAdvantage = advantageBuilder.buildTypeAdvantage();
+
+        if (typeAdvantage.getFourTimesEffective().size() > 0){
+            Label effectiveness = new Label("Four Times Effective");
+            effectiveness.setFont(labelFont);
+            getChildren().add(new HBox(effectiveness));
+            for (String type: typeAdvantage.getFourTimesEffective()){
+                getChildren().add(new HBox(new Label(type)));
+            }
+        }
+        if (typeAdvantage.getTwoTimesEffective().size() > 0){
+            Label effectiveness = new Label("Two Times Effective");
+            effectiveness.setFont(labelFont);
+            getChildren().add(new HBox(effectiveness));
+            for (String type: typeAdvantage.getTwoTimesEffective()){
+                getChildren().add(new HBox(new Label(type)));
+            }
+        }
+        if (typeAdvantage.getRegularEffective().size() > 0){
+            Label effectiveness = new Label("Normally Effective");
+            effectiveness.setFont(labelFont);
+            getChildren().add(new HBox(effectiveness));
+            for (String type: typeAdvantage.getRegularEffective()){
+                getChildren().add(new HBox(new Label(type)));
+            }
+        }
+        if (typeAdvantage.getHalfEffective().size() > 0){
+            Label effectiveness = new Label("Half Effective");
+            effectiveness.setFont(labelFont);
+            getChildren().add(new HBox(effectiveness));
+            for (String type: typeAdvantage.getRegularEffective()){
+                getChildren().add(new HBox(new Label(type)));
+            }
+        }
+        if (typeAdvantage.getNotEffective().size() > 0){
+            Label effectiveness = new Label("Not Effective");
+            effectiveness.setFont(labelFont);
+            getChildren().add(new HBox(effectiveness));
+            for (String type: typeAdvantage.getNotEffective()){
+                getChildren().add(new HBox(new Label(type)));
+            }
+        }
+    }
+    public void setPokemonNotFound() {
+        getChildren().clear();
+        Label label = new Label("The search is not a valid Pokemon");
+        label.setFont(labelFont);
+        getChildren().add(new HBox(label));
     }
 }
 

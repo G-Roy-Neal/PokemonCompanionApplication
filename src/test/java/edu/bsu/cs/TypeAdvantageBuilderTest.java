@@ -1,11 +1,14 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.typeadvantage.Type;
+import edu.bsu.cs.typeadvantage.TypeAdvantage;
 import edu.bsu.cs.typeadvantage.TypeAdvantageBuilder;
+import edu.bsu.cs.typeadvantage.TypeBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +55,6 @@ public class TypeAdvantageBuilderTest {
         List<String> expected = new ArrayList<>(Arrays.asList("Ground","Bug", "Dark"));
         Assertions.assertEquals(expected, actual);
     }
-
 
     public List<Type> buildTypesList() throws IOException {
         Type typeOne = new Type.Builder().withType("fairy").withURL(new URL("https://pokeapi.co/api/v2/type/18/")).build();

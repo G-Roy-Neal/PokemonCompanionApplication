@@ -98,6 +98,7 @@ public class App extends Application {
     private void setInfoButtonEvents() {
         locationButton.setOnAction(event -> locationButtonEvent());
         movesButton.setOnAction(event -> moveButtonEvent());
+        typeButton.setOnAction(event -> typeButtonEvent());
     }
 
     private void locationButtonEvent() {
@@ -113,6 +114,15 @@ public class App extends Application {
         try {
             window.getChildren().clear();
             window.setMoves();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void typeButtonEvent(){
+        try {
+            window.getChildren().clear();
+            window.setDamageRelations();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,7 +278,7 @@ public class App extends Application {
             window.loadData(thirdClone);
             window.setLocation();
         } catch (IOException e) {
-            e.printStackTrace();
+            window.setPokemonNotFound();
         }
 
         informationOutput.setText("Search is not a valid Pokemon");

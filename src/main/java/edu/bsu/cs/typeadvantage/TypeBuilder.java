@@ -61,7 +61,7 @@ public class TypeBuilder {
         List<String> typeList = new ArrayList<>();
         JsonPath typePath = JsonPath.compile("$..type..name");
         JSONArray typeArray = typePath.read(secondClone);
-        if (typeArray.size() > 2){
+        if (typeArray.size() > 1){
             String typeOne = typeArray.get(typeArray.size() - 2).toString();
             typeList.add(typeOne);
             String typeTwo = typeArray.get(typeArray.size() - 1).toString();
