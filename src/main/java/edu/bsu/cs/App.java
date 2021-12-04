@@ -219,14 +219,14 @@ public class App extends Application {
     }
 
     private void addElementsToGrid() {
-        grid.add(infoSelectorBox, 0,0,2,1);
-        grid.add(outPutDataScrollPane, 0,1,2,3);
-        grid.add(querySearchButtonBox, 2,0,2,1);
-        grid.add(imageView, 2,1,2,1);
-        grid.add(pokemonNameBox, 2,2,1,1);
-        grid.add(pokemonTypeBox, 2,3,1,1);
-        grid.add(pokemonHeightBox, 3,2,1,1);
-        grid.add(pokemonWeightBox, 3,3,1,1);
+        grid.add(infoSelectorBox, 2,0,2,1);
+        grid.add(outPutDataScrollPane, 2,1,2,3);
+        grid.add(querySearchButtonBox, 0,0,2,1);
+        grid.add(imageView, 0,1,2,1);
+        grid.add(pokemonNameBox, 0,2,1,1);
+        grid.add(pokemonTypeBox, 0,3,1,1);
+        grid.add(pokemonHeightBox, 1,2,1,1);
+        grid.add(pokemonWeightBox, 1,3,1,1);
     }
 
     private void createColumnConstraints() {

@@ -20,7 +20,8 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InformationWindow extends VBox {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
+    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 18);
+    private final Font dataFont = Font.font("Verdana", 18);
 
     private InputStream pokemonData;
 
@@ -74,20 +75,32 @@ public class InformationWindow extends VBox {
         learnedMovesList = moveFormatter.buildLearnedMoves(learnedMovesList);
         VBox movesBox = new VBox();
         for (Move move : learnedMovesList) {
-            HBox moveBox = new HBox(new Label((move.getLevel().toString()), new Label(move.getName())));
+            Label name = new Label(move.getName());
+            Label level = new Label(move.getLevel().toString());
+            Label levelWord = new Label("Level ");
+            Label colon = new Label(": ");
+            name.setFont(dataFont);
+            level.setFont(labelFont);
+            levelWord.setFont(labelFont);
+            colon.setFont(labelFont);
+            HBox moveBox = new HBox(levelWord, level, colon, name);
             getChildren().add(moveBox);
             moveBox.prefWidthProperty().bind(movesBox.prefWidthProperty());
         }
+
         getChildren().add(new HBox(new Label("")));
         Label taught = new Label("Moves That Can Be Taught:");
         taught.setFont(labelFont);
+
         getChildren().add(new HBox(taught));
         InputStream inputDataForTaughtMoves = copyData();
         MoveBuilder moveBuilderForTaughtMoves = new MoveBuilder(inputDataForTaughtMoves);
         List<Move> taughtMovesList = moveBuilderForTaughtMoves.buildMoves();
         taughtMovesList = moveFormatter.buildTaughtMoves(taughtMovesList);
         for (Move move : taughtMovesList) {
-            HBox taughtMovesBox = new HBox(new Label(move.getName()));
+            Label data = new Label(move.getName());
+            data.setFont(dataFont);
+            HBox taughtMovesBox = new HBox(data);
             getChildren().add(taughtMovesBox);
         }
     }
