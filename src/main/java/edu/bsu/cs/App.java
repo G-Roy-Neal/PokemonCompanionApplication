@@ -2,8 +2,7 @@ package edu.bsu.cs;
 
 import edu.bsu.cs.basicinfo.BasicInfoEngine;
 import edu.bsu.cs.basicinfo.OnlineBasicInfoEngine;
-import edu.bsu.cs.image.ImageEngine;
-import edu.bsu.cs.image.OnlineImageEngine;
+import edu.bsu.cs.image.ImageBuilder;
 import edu.bsu.cs.query.OnlineQueryEngine;
 import edu.bsu.cs.query.QueryEngine;
 import javafx.application.Application;
@@ -37,7 +36,7 @@ public class App extends Application {
     private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
 
     private final QueryEngine queryEngine = new OnlineQueryEngine();
-    private final ImageEngine imageEngine = new OnlineImageEngine();
+    private final ImageBuilder imageBuilder = new ImageBuilder();
     private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
     private final InformationWindow window = new InformationWindow();
     private TextField userInput;
@@ -181,8 +180,6 @@ public class App extends Application {
         scaleUiElements();
         setActionEvents();
 
-        outPutDataScrollPane.setContent(window);
-
         return grid;
     }
 
@@ -201,6 +198,7 @@ public class App extends Application {
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
         infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton, evolutionButton);
+        outPutDataScrollPane.setContent(window);
     }
 
     private void scaleNameHeightWeightTypeBoxes () {
@@ -261,7 +259,7 @@ public class App extends Application {
             ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
             inputData.transferTo(temporaryByteArray);
             InputStream firstClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
-            imageView.setImage(imageEngine.getImage(firstClone));
+            imageView.setImage(imageBuilder.getPokemonImage(imageBuilder.getPokemonId(firstClone)));
             InputStream secondClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
             setBasicInfo(secondClone);
             InputStream thirdClone = new ByteArrayInputStream(temporaryByteArray.toByteArray());
