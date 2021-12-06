@@ -20,13 +20,15 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InformationWindow extends VBox {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 18);
-    private final Font dataFont = Font.font("Verdana", 18);
+    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
+    private final Font dataFont = Font.font("Verdana", 16);
 
     private InputStream pokemonData;
 
     public InformationWindow() {
-        getChildren().add(new Label("Please search For a Pokemon. "));
+        Label label = new Label("Please search For a Pokemon. ");
+        label.setFont(dataFont);
+        getChildren().add(label);
     }
 
     public void loadData(InputStream inputStream) throws IOException {
@@ -170,4 +172,3 @@ public class InformationWindow extends VBox {
         getChildren().add(new HBox(label));
     }
 }
-

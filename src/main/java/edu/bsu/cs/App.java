@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class App extends Application {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 12);
-    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
+    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
+    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 16);
 
     private final QueryEngine queryEngine = new OnlineQueryEngine();
     private final ImageBuilder imageBuilder = new ImageBuilder();
@@ -49,7 +49,6 @@ public class App extends Application {
     private TextField pokemonTypeOutput;
     private TextField pokemonWeightOutput;
     private ImageView imageView = null;
-    private TextArea informationOutput;
     private Button searchButton;
     private Button locationButton;
     private Button movesButton;
@@ -135,15 +134,16 @@ public class App extends Application {
     private void initializeSearchComponents() {
         userInput = new TextField("Search");
         searchButton = new Button("\uD83D\uDD0E");
-        informationOutput = new TextArea();
-        informationOutput.setEditable(false);
         initializeInfoButtons();
     }
 
     private void initializeInfoButtons(){
         locationButton = new Button("Locations");
+        locationButton.setFont(labelFont);
         movesButton = new Button("Moves");
+        movesButton.setFont(labelFont);
         typeButton = new Button("Types");
+        typeButton.setFont(labelFont);
     }
 
     private void setDataLabels(){
@@ -259,7 +259,6 @@ public class App extends Application {
 
 
     private void queryTask (String text) {
-        informationOutput.setText("");
         checkIfEmpty();
         disableEditing();
         InputStream inputData;
@@ -277,8 +276,6 @@ public class App extends Application {
         } catch (IOException e) {
             window.setPokemonNotFound();
         }
-
-        informationOutput.setText("Search is not a valid Pokemon");
         enableEditing();
     }
         private void setBasicInfo (InputStream fourthClone) throws IOException {
@@ -310,9 +307,7 @@ public class App extends Application {
 
         private void checkIfEmpty () {
             if (userInput.getText().equals("")) {
-                informationOutput.setText("The Search Box is Empty");
                 enableEditing();
             }
         }
     }
-
