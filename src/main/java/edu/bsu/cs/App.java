@@ -68,6 +68,8 @@ public class App extends Application {
         primaryStage.setTitle("Brilliant Diamond & Shining Pearl Companion App");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
+        primaryStage.setOnShown(e ->
+                outPutDataScrollPane.lookup(".viewport").setStyle("-fx-background-color: azure;"));
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> {
@@ -175,6 +177,7 @@ public class App extends Application {
 
     private Parent createLocationsGUI() {
         grid.setPrefSize(1080, 720);
+        grid.setStyle("-fx-background-color: azure;");
 
         alignUiBoxes();
         addElementsToUiBoxes();
@@ -204,7 +207,8 @@ public class App extends Application {
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
         infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton);
-        outPutDataScrollPane.setStyle("-fx-background-color:transparent;");
+        outPutDataScrollPane.setStyle("-fx-background-color: azure;");
+        window.setStyle("-fx-background-color: azure;");
         outPutDataScrollPane.setContent(window);
     }
 
