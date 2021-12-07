@@ -128,7 +128,9 @@ public class App extends Application {
 
     private void initializeSearchComponents() {
         userInput = new TextField("Search");
+        userInput.setFont(Font.font(14));
         searchButton = new Button("\uD83D\uDD0E");
+        searchButton.setFont(labelFont);
         initializeInfoButtons();
     }
 
@@ -251,6 +253,9 @@ public class App extends Application {
         scaleNameHeightWeightTypeBoxes();
         infoSelectorBox.prefWidthProperty().bind(outPutDataScrollPane.widthProperty());
         userInput.prefWidthProperty().bind(outPutDataScrollPane.widthProperty().subtract(searchButton.widthProperty()));
+        locationButton.prefWidthProperty().bind(infoSelectorBox.widthProperty().divide(3));
+        movesButton.prefWidthProperty().bind(infoSelectorBox.widthProperty().divide(3));
+        typeButton.prefWidthProperty().bind(infoSelectorBox.widthProperty().divide(3));
     }
 
 
