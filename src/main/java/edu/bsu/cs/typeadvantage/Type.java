@@ -30,10 +30,6 @@ public class Type {
         this.typeUrl = builder.typeURL;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public URL getTypeUrl() {
         return typeUrl;
     }
