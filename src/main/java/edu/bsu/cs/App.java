@@ -1,9 +1,7 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.basicinfo.BasicInfoEngine;
-import edu.bsu.cs.basicinfo.OnlineBasicInfoEngine;
 import edu.bsu.cs.image.ImageBuilder;
-import edu.bsu.cs.query.OnlineQueryEngine;
 import edu.bsu.cs.query.QueryEngine;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -35,9 +33,9 @@ public class App extends Application {
     private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
     private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 16);
 
-    private final QueryEngine queryEngine = new OnlineQueryEngine();
+    private final QueryEngine queryEngine = new QueryEngine();
     private final ImageBuilder imageBuilder = new ImageBuilder();
-    private final BasicInfoEngine basicInfoEngine = new OnlineBasicInfoEngine();
+    private final BasicInfoEngine basicInfoEngine = new BasicInfoEngine();
     private final InformationWindow window = new InformationWindow();
     private TextField userInput;
     private Label pokemonName;
