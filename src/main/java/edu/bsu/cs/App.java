@@ -205,6 +205,7 @@ public class App extends Application {
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
         infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton);
+        outPutDataScrollPane.setStyle("-fx-background-color:transparent;");
         outPutDataScrollPane.setContent(window);
     }
 
