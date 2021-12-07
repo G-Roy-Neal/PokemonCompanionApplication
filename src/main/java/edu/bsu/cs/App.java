@@ -31,7 +31,7 @@ import java.util.Objects;
 
 public class App extends Application {
     private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
-    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 16);
+    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
 
     private final QueryEngine queryEngine = new QueryEngine();
     private final ImageBuilder imageBuilder = new ImageBuilder();
@@ -98,7 +98,6 @@ public class App extends Application {
 
     private void locationButtonEvent() {
         try {
-            window.getChildren().clear();
             window.setLocation();
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +106,6 @@ public class App extends Application {
 
     private void moveButtonEvent(){
         try {
-            window.getChildren().clear();
             window.setMoves();
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,7 +114,6 @@ public class App extends Application {
 
     private void typeButtonEvent(){
         try {
-            window.getChildren().clear();
             window.setDamageRelations();
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,7 +172,7 @@ public class App extends Application {
     }
 
     private Parent createLocationsGUI() {
-        grid.setPrefSize(852, 480);
+        grid.setPrefSize(1080, 720);
 
         alignUiBoxes();
         addElementsToUiBoxes();
