@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DamageRelations {
@@ -22,7 +23,7 @@ public class DamageRelations {
     }
 
     public void formatDamage() throws IOException {
-        List<Double> damageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
+        List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         URL typeUrl = this.type.getTypeUrl();
         InputStream inputData = searchTypeUrl(typeUrl);
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();
@@ -46,7 +47,7 @@ public class DamageRelations {
     }
 
     public List<Double> doubleDamageFrom(InputStream inputData) throws IOException {
-        List<Double> damageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
+        List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..double_damage_from..name");
         JSONArray doubleDamageArray = typePath.read(inputData);
         for(Object type: doubleDamageArray){
@@ -57,7 +58,7 @@ public class DamageRelations {
     }
 
     public List<Double> halfDamageFrom(InputStream inputData) throws IOException {
-        List<Double> damageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
+        List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..half_damage_from..name");
         JSONArray halfDamageArray = typePath.read(inputData);
         for(Object type: halfDamageArray){
@@ -68,7 +69,7 @@ public class DamageRelations {
     }
 
     public List<Double> noDamageFrom(InputStream inputData) throws IOException {
-        List<Double> damageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
+        List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..no_damage_from..name");
         JSONArray noDamageArray = typePath.read(inputData);
         for(Object type: noDamageArray){
