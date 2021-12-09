@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TypeBuilder {
 
-    private InputStream firstClone;
-    private InputStream secondClone;
+    private final InputStream firstClone;
+    private final InputStream secondClone;
 
     public TypeBuilder(InputStream inputData) throws IOException {
         ByteArrayOutputStream temporaryByteArray = new ByteArrayOutputStream();

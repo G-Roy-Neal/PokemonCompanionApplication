@@ -18,8 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
@@ -30,8 +28,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class App extends Application {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
-    private final Font dataFont = Font.font("Verdana", FontPosture.ITALIC, 12);
+    private final Font labelFont = Font.loadFont("File:src/main/resources/fonts/november.ttf", 20);
+    private final Font dataFont = Font.loadFont("File:src/main/resources/fonts/pokemon_pixel_font.ttf", 24);
 
     private final QueryEngine queryEngine = new QueryEngine();
     private final ImageBuilder imageBuilder = new ImageBuilder();
@@ -130,18 +128,22 @@ public class App extends Application {
 
     private void initializeSearchComponents() {
         userInput = new TextField("Search");
-        userInput.setFont(Font.font(14));
+        userInput.setFont(dataFont);
         searchButton = new Button("\uD83D\uDD0E");
-        searchButton.setFont(labelFont);
+        searchButton.setFont(Font.font(17));
         initializeInfoButtons();
     }
 
     private void initializeInfoButtons(){
         locationButton = new Button("Locations");
-        locationButton.setFont(labelFont);
         movesButton = new Button("Moves");
-        movesButton.setFont(labelFont);
         typeButton = new Button("Types");
+        setInfoButtonsFont();
+    }
+
+    private void setInfoButtonsFont() {
+        locationButton.setFont(labelFont);
+        movesButton.setFont(labelFont);
         typeButton.setFont(labelFont);
     }
 

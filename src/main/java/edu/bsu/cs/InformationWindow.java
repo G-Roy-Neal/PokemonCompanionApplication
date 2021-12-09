@@ -2,12 +2,11 @@ package edu.bsu.cs;
 
 import edu.bsu.cs.locations.LocationEngine;
 import edu.bsu.cs.moves.MoveEngine;
-import edu.bsu.cs.typeadvantage.*;
+import edu.bsu.cs.typeadvantage.TypeAdvantageEngine;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,14 +15,13 @@ import java.io.InputStream;
 import java.util.List;
 
 public class InformationWindow extends VBox {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
+    private final Font labelFont = Font.loadFont("File:src/main/resources/fonts/november.ttf", 20);
 
     private InputStream pokemonData;
 
     public InformationWindow() {
         Label label = new Label("Please search For a Pokemon. ");
-        Font dataFont = Font.font("Verdana", 16);
-        label.setFont(dataFont);
+        label.setFont(labelFont);
         getChildren().add(label);
     }
 

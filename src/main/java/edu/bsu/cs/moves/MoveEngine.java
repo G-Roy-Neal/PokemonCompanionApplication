@@ -4,7 +4,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveEngine {
-    private final Font labelFont = Font.font("Verdana", FontWeight.BOLD, 16);
-    private final Font dataFont = Font.font("Verdana", 16);
+    private final Font labelFont = Font.loadFont("File:src/main/resources/fonts/november.ttf", 20);
+    private final Font dataFont = Font.loadFont("File:src/main/resources/fonts/pokemon_pixel_font.ttf", 24);
 
     public List<HBox> generateMoveList(InputStream inputData) throws IOException {
         List<HBox> moveList = new ArrayList<>();
