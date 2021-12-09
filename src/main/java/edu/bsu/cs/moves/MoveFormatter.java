@@ -28,7 +28,7 @@ public class MoveFormatter {
         return formattedTaughtMoves;
     }
 
-    private void separateMoves(List<Move> movesList){
+    public void separateMoves(List<Move> movesList){
         for(Move move: movesList){
             if (move.getLevel() > 0){
                 this.sortedMoves.add(move);
@@ -39,9 +39,17 @@ public class MoveFormatter {
         }
     }
 
-    private void formatLearnedMoves(){
+    public void formatLearnedMoves(){
         LevelComparator comparator = new LevelComparator();
         sortedMoves.sort(comparator); // We think the IDE is wrong
         this.formattedLearnedMoves.addAll(sortedMoves);
+    }
+
+    public List<Move> getFormattedLearnedMoves() {
+        return formattedLearnedMoves;
+    }
+
+    public List<Move> getFormattedTaughtMoves() {
+        return formattedTaughtMoves;
     }
 }
