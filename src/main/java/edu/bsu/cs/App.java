@@ -130,7 +130,7 @@ public class App extends Application {
 
     private void initializeSearchComponents() {
         userInput = new TextField("Search");
-        userInput.setFont(Font.font(14));
+        userInput.setFont(Font.font(16));
         searchButton = new Button("\uD83D\uDD0E");
         searchButton.setFont(labelFont);
         initializeInfoButtons();
