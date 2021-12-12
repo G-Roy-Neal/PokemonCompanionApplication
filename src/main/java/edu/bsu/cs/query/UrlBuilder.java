@@ -12,16 +12,16 @@ public class UrlBuilder {
 
     public String buildImageUrl(String pokemonId) {
         String formsttedSearch = formatSearch(pokemonId);
-        return "https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ formsttedSearch + ".png";
+        return "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" + formsttedSearch + ".png";
     }
 
-    private String formatSearch(String unformattedSearch){
+    private String formatSearch(String unformattedSearch) {
         String formattedSearch;
         String lowerCase = unformattedSearch.toLowerCase(Locale.ROOT);
         String noSpace = lowerCase.replace(" ", "-");
         String noChar = noSpace.replace(".", "");
         noChar = noChar.replace("/", "");
-        if (noChar.isBlank()){
+        if (noChar.isBlank()) {
             noChar = "foo";
         }
         formattedSearch = URLEncoder.encode(noChar, StandardCharsets.UTF_8);

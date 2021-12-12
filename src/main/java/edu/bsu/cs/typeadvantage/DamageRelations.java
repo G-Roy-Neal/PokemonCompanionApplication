@@ -33,7 +33,7 @@ public class DamageRelations {
         List<Double> doubleDamage = doubleDamageFrom(firstClone);
         List<Double> halfDamage = halfDamageFrom(secondClone);
         List<Double> noDamage = noDamageFrom(thirdClone);
-        for (int i = 0; i < damageRelations.size(); i++){
+        for (int i = 0; i < damageRelations.size(); i++) {
             Double newDamage = damageRelations.get(i) * doubleDamage.get(i) * halfDamage.get(i) * noDamage.get(i);
             damageRelations.set(i, newDamage);
         }
@@ -49,7 +49,7 @@ public class DamageRelations {
         List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..double_damage_from..name");
         JSONArray doubleDamageArray = typePath.read(inputData);
-        for(Object type: doubleDamageArray){
+        for (Object type : doubleDamageArray) {
             Integer address = formatTypeIndex((String) type);
             damageRelations.set(address - 1, 2.0);
         }
@@ -60,7 +60,7 @@ public class DamageRelations {
         List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..half_damage_from..name");
         JSONArray halfDamageArray = typePath.read(inputData);
-        for(Object type: halfDamageArray){
+        for (Object type : halfDamageArray) {
             Integer address = formatTypeIndex((String) type);
             damageRelations.set(address - 1, 0.5);
         }
@@ -71,14 +71,14 @@ public class DamageRelations {
         List<Double> damageRelations = new ArrayList<>(Collections.nCopies(18, 1.0));
         JsonPath typePath = JsonPath.compile("$..damage_relations..no_damage_from..name");
         JSONArray noDamageArray = typePath.read(inputData);
-        for(Object type: noDamageArray){
+        for (Object type : noDamageArray) {
             Integer address = formatTypeIndex((String) type);
             damageRelations.set(address - 1, 0.0);
         }
         return damageRelations;
     }
 
-    public Integer formatTypeIndex(String type){
+    public Integer formatTypeIndex(String type) {
         return switch (type) {
             case "normal" -> 1;
             case "fighting" -> 2;

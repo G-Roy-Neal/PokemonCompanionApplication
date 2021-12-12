@@ -10,13 +10,13 @@ public class MoveFormatter {
     private final List<Move> formattedTaughtMoves;
     private final List<Move> sortedMoves;
 
-    public MoveFormatter(){
+    public MoveFormatter() {
         this.formattedTaughtMoves = new ArrayList<>();
         this.formattedLearnedMoves = new ArrayList<>();
         this.sortedMoves = new ArrayList<>();
     }
 
-    public List<Move> buildLearnedMoves(List<Move> moveList){
+    public List<Move> buildLearnedMoves(List<Move> moveList) {
         separateMoves(moveList);
         formatLearnedMoves();
         Collections.sort(formattedLearnedMoves);
@@ -28,18 +28,17 @@ public class MoveFormatter {
         return formattedTaughtMoves;
     }
 
-    public void separateMoves(List<Move> movesList){
-        for(Move move: movesList){
-            if (move.getLevel() > 0){
+    public void separateMoves(List<Move> movesList) {
+        for (Move move : movesList) {
+            if (move.getLevel() > 0) {
                 this.sortedMoves.add(move);
-            }
-            else{
+            } else {
                 this.formattedTaughtMoves.add(move);
             }
         }
     }
 
-    public void formatLearnedMoves(){
+    public void formatLearnedMoves() {
         LevelComparator comparator = new LevelComparator();
         sortedMoves.sort(comparator); // We think the IDE is wrong
         this.formattedLearnedMoves.addAll(sortedMoves);

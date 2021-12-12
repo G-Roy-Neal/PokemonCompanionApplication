@@ -17,10 +17,10 @@ public class MoveBuilder {
 
     public List<Move> buildMoves() {
         List<Move> pokemonMoves = new ArrayList<>();
-        List <Integer> selectLevels = getSelectLevels();
-        List <String> moveNames = getMoveNames();
+        List<Integer> selectLevels = getSelectLevels();
+        List<String> moveNames = getMoveNames();
         int length = Math.min(moveNames.size(), selectLevels.size());
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             Move newMove = new Move.Builder().withLevel(selectLevels.get(i)).withName(moveNames.get(i)).build();
             pokemonMoves.add(newMove);
         }

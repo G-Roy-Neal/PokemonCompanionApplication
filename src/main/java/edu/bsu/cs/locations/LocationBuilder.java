@@ -16,7 +16,7 @@ public class LocationBuilder {
         this.inputData = inputData;
     }
 
-    public List<Location> buildLocationList () throws IOException {
+    public List<Location> buildLocationList() throws IOException {
         List<Location> list = new ArrayList<>();
         String locationUrl = getUrl();
         QuerySearcher searcher = new QuerySearcher();

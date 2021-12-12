@@ -27,47 +27,44 @@ public class TypeBuilder {
         List<Type> builtList = new ArrayList<>();
         List<URL> urlList = getUrl();
         List<String> typeList = getType();
-        if (urlList.size() > 1){
-            for(int i = 0; i < urlList.size(); i++){
+        if (urlList.size() > 1) {
+            for (int i = 0; i < urlList.size(); i++) {
                 Type type = new Type.Builder().withType(typeList.get(i)).withURL(urlList.get(i)).build();
                 builtList.add(type);
             }
-        }
-        else{
+        } else {
             Type type = new Type.Builder().withType(typeList.get(0)).withURL(urlList.get(0)).build();
             builtList.add(type);
         }
         return builtList;
     }
 
-    public List<URL> getUrl() throws IOException{
+    public List<URL> getUrl() throws IOException {
         List<URL> urlList = new ArrayList<>();
         JsonPath typePath = JsonPath.compile("$..type..url");
         JSONArray typeArray = typePath.read(firstClone);
-        if (typeArray.size() > 1){
-            URL urlOne = new URL (typeArray.get(typeArray.size() - 2).toString());
+        if (typeArray.size() > 1) {
+            URL urlOne = new URL(typeArray.get(typeArray.size() - 2).toString());
             urlList.add(urlOne);
-            URL urlTwo = new URL (typeArray.get(typeArray.size() - 1).toString());
+            URL urlTwo = new URL(typeArray.get(typeArray.size() - 1).toString());
             urlList.add(urlTwo);
-        }
-        else {
-            URL urlOne = new URL (typeArray.get(typeArray.size() - 1).toString());
+        } else {
+            URL urlOne = new URL(typeArray.get(typeArray.size() - 1).toString());
             urlList.add(urlOne);
         }
         return urlList;
     }
 
-    public List<String> getType() throws IOException{
+    public List<String> getType() throws IOException {
         List<String> typeList = new ArrayList<>();
         JsonPath typePath = JsonPath.compile("$..type..name");
         JSONArray typeArray = typePath.read(secondClone);
-        if (typeArray.size() > 1){
+        if (typeArray.size() > 1) {
             String typeOne = typeArray.get(typeArray.size() - 2).toString();
             typeList.add(typeOne);
             String typeTwo = typeArray.get(typeArray.size() - 1).toString();
             typeList.add(typeTwo);
-        }
-        else {
+        } else {
             String typeOne = typeArray.get(typeArray.size() - 1).toString();
             typeList.add(typeOne);
         }

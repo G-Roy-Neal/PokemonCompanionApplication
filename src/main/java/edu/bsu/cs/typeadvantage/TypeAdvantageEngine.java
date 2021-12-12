@@ -19,51 +19,51 @@ public class TypeAdvantageEngine {
         List<Type> typeList = typeBuilder.buildTypes();
         TypeAdvantageBuilder advantageBuilder = new TypeAdvantageBuilder(typeList);
         TypeAdvantage typeAdvantage = advantageBuilder.buildTypeAdvantage();
-        if (typeAdvantage.getFourTimesEffective().size() > 0){
+        if (typeAdvantage.getFourTimesEffective().size() > 0) {
             Label effectiveness = new Label("Four Times Effective");
             effectiveness.setFont(labelFont);
             damageRelationsList.add(new HBox(effectiveness));
-            for (String type: typeAdvantage.getFourTimesEffective()){
+            for (String type : typeAdvantage.getFourTimesEffective()) {
                 Label typeLabel = new Label(type);
                 typeLabel.setFont(dataFont);
                 damageRelationsList.add(new HBox(typeLabel));
             }
         }
-        if (typeAdvantage.getTwoTimesEffective().size() > 0){
+        if (typeAdvantage.getTwoTimesEffective().size() > 0) {
             Label effectiveness = new Label("Two Times Effective");
             effectiveness.setFont(labelFont);
             damageRelationsList.add(new HBox(effectiveness));
-            for (String type: typeAdvantage.getTwoTimesEffective()){
+            for (String type : typeAdvantage.getTwoTimesEffective()) {
                 Label typeLabel = new Label(type);
                 typeLabel.setFont(dataFont);
                 damageRelationsList.add(new HBox(typeLabel));
             }
         }
-        if (typeAdvantage.getRegularEffective().size() > 0){
+        if (typeAdvantage.getRegularEffective().size() > 0) {
             Label effectiveness = new Label("Normally Effective");
             effectiveness.setFont(labelFont);
             damageRelationsList.add(new HBox(effectiveness));
-            for (String type: typeAdvantage.getRegularEffective()){
+            for (String type : typeAdvantage.getRegularEffective()) {
                 Label typeLabel = new Label(type);
                 typeLabel.setFont(dataFont);
                 damageRelationsList.add(new HBox(typeLabel));
             }
         }
-        if (typeAdvantage.getHalfEffective().size() > 0){
+        if (typeAdvantage.getHalfEffective().size() > 0) {
             Label effectiveness = new Label("Half Effective");
             effectiveness.setFont(labelFont);
             damageRelationsList.add(new HBox(effectiveness));
-            for (String type: typeAdvantage.getRegularEffective()){
+            for (String type : typeAdvantage.getRegularEffective()) {
                 Label typeLabel = new Label(type);
                 typeLabel.setFont(dataFont);
                 damageRelationsList.add(new HBox(typeLabel));
             }
         }
-        if (typeAdvantage.getNotEffective().size() > 0){
+        if (typeAdvantage.getNotEffective().size() > 0) {
             Label effectiveness = new Label("Not Effective");
             effectiveness.setFont(labelFont);
             damageRelationsList.add(new HBox(effectiveness));
-            for (String type: typeAdvantage.getNotEffective()){
+            for (String type : typeAdvantage.getNotEffective()) {
                 Label typeLabel = new Label(type);
                 typeLabel.setFont(dataFont);
                 damageRelationsList.add(new HBox(typeLabel));

@@ -34,6 +34,6 @@ public class LocationEngine {
             locationList.add(new HBox(lineOne));
             locationList.add(new HBox(lineTwo));
         }
-        return  locationList;
+        return locationList;
     }
 }

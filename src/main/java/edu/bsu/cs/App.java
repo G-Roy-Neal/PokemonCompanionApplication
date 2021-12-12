@@ -10,7 +10,10 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -35,6 +38,14 @@ public class App extends Application {
     private final ImageBuilder imageBuilder = new ImageBuilder();
     private final BasicInfoEngine basicInfoEngine = new BasicInfoEngine();
     private final InformationWindow window = new InformationWindow();
+    ScrollPane outPutDataScrollPane = new ScrollPane();
+    HBox querySearchButtonBox = new HBox();
+    HBox infoSelectorBox = new HBox();
+    HBox pokemonNameBox = new HBox();
+    HBox pokemonHeightBox = new HBox();
+    HBox pokemonWeightBox = new HBox();
+    HBox pokemonTypeBox = new HBox();
+    GridPane grid = new GridPane();
     private TextField userInput;
     private Label pokemonName;
     private Label pokemonHeight;
@@ -50,15 +61,12 @@ public class App extends Application {
     private Button movesButton;
     private Button typeButton;
 
-    ScrollPane outPutDataScrollPane = new ScrollPane();
-
-    HBox querySearchButtonBox = new HBox();
-    HBox infoSelectorBox = new HBox();
-    HBox pokemonNameBox = new HBox();
-    HBox pokemonHeightBox = new HBox();
-    HBox pokemonWeightBox = new HBox();
-    HBox pokemonTypeBox = new HBox();
-    GridPane grid = new GridPane();
+    public App() {
+        initializeSearchComponents();
+        initializeBasicInfoTextFields();
+        initializePokeballImage();
+        setDataLabels();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -67,20 +75,14 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.setOnShown(e ->
-                outPutDataScrollPane.lookup(".viewport").setStyle("-fx-background-color: azure;"));
+                outPutDataScrollPane.lookup(".viewport").setStyle("-fx-background-color: mistyrose" +
+                        ";"));
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> {
             Platform.exit();
             System.exit(0);
         });
-    }
-
-    public App() {
-        initializeSearchComponents();
-        initializeBasicInfoTextFields();
-        initializePokeballImage();
-        setDataLabels();
     }
 
     private void setActionEvents() {
@@ -104,7 +106,7 @@ public class App extends Application {
         }
     }
 
-    private void moveButtonEvent(){
+    private void moveButtonEvent() {
         try {
             window.setMoves();
         } catch (IOException e) {
@@ -112,7 +114,7 @@ public class App extends Application {
         }
     }
 
-    private void typeButtonEvent(){
+    private void typeButtonEvent() {
         try {
             window.setDamageRelations();
         } catch (IOException e) {
@@ -129,12 +131,13 @@ public class App extends Application {
     private void initializeSearchComponents() {
         userInput = new TextField("Search");
         userInput.setFont(dataFont);
+        userInput.setStyle("-fx-background-color: lightcyan");
         searchButton = new Button("\uD83D\uDD0E");
         searchButton.setFont(Font.font(17));
         initializeInfoButtons();
     }
 
-    private void initializeInfoButtons(){
+    private void initializeInfoButtons() {
         locationButton = new Button("Locations");
         movesButton = new Button("Moves");
         typeButton = new Button("Types");
@@ -147,7 +150,7 @@ public class App extends Application {
         typeButton.setFont(labelFont);
     }
 
-    private void setDataLabels(){
+    private void setDataLabels() {
         pokemonName = new Label("Name: ");
         pokemonHeight = new Label("Height: ");
         pokemonType = new Label("Type: ");
@@ -155,7 +158,7 @@ public class App extends Application {
         setDataLabelFont();
     }
 
-    private void setDataLabelFont(){
+    private void setDataLabelFont() {
         pokemonName.setFont(labelFont);
         pokemonHeight.setFont(labelFont);
         pokemonType.setFont(labelFont);
@@ -168,18 +171,27 @@ public class App extends Application {
         pokemonWeightOutput = new TextField();
         pokemonTypeOutput = new TextField();
         disableEditingBasicInfoTextFields();
+        setColorBasicInfoTextFields();
     }
 
-    private void disableEditingBasicInfoTextFields () {
+    private void disableEditingBasicInfoTextFields() {
         pokemonNameOutput.setEditable(false);
         pokemonHeightOutput.setEditable(false);
         pokemonWeightOutput.setEditable(false);
         pokemonTypeOutput.setEditable(false);
     }
 
+    private void setColorBasicInfoTextFields() {
+        pokemonNameOutput.setStyle("-fx-background-color: lightcyan");
+        pokemonHeightOutput.setStyle("-fx-background-color: lightcyan");
+        pokemonWeightOutput.setStyle("-fx-background-color: lightcyan");
+        pokemonTypeOutput.setStyle("-fx-background-color: lightcyan");
+    }
+
     private Parent createLocationsGUI() {
         grid.setPrefSize(1080, 720);
-        grid.setStyle("-fx-background-color: azure;");
+        grid.setStyle("-fx-background-color: mistyrose" +
+                ";");
 
         alignUiBoxes();
         addElementsToUiBoxes();
@@ -209,12 +221,14 @@ public class App extends Application {
         pokemonWeightBox.getChildren().addAll(pokemonWeight, pokemonWeightOutput);
         pokemonTypeBox.getChildren().addAll(pokemonType, pokemonTypeOutput);
         infoSelectorBox.getChildren().addAll(locationButton, movesButton, typeButton);
-        outPutDataScrollPane.setStyle("-fx-background-color: azure;");
-        window.setStyle("-fx-background-color: azure;");
+        outPutDataScrollPane.setStyle("-fx-background-color: mistyrose" +
+                ";");
+        window.setStyle("-fx-background-color: mistyrose" +
+                ";");
         outPutDataScrollPane.setContent(window);
     }
 
-    private void scaleNameHeightWeightTypeBoxes () {
+    private void scaleNameHeightWeightTypeBoxes() {
         pokemonNameOutput.prefWidthProperty().bind(pokemonNameBox.widthProperty().multiply(.5));
         pokemonHeightOutput.prefWidthProperty().bind(pokemonHeightBox.widthProperty().multiply(.5));
         pokemonWeightOutput.prefWidthProperty().bind(pokemonWeightBox.widthProperty().multiply(.5));
@@ -222,14 +236,14 @@ public class App extends Application {
     }
 
     private void addElementsToGrid() {
-        grid.add(infoSelectorBox, 2,0,2,1);
-        grid.add(outPutDataScrollPane, 2,1,2,3);
-        grid.add(querySearchButtonBox, 0,0,2,1);
-        grid.add(imageView, 0,1,2,1);
-        grid.add(pokemonNameBox, 0,2,1,1);
-        grid.add(pokemonTypeBox, 0,3,1,1);
-        grid.add(pokemonHeightBox, 1,2,1,1);
-        grid.add(pokemonWeightBox, 1,3,1,1);
+        grid.add(infoSelectorBox, 2, 0, 2, 1);
+        grid.add(outPutDataScrollPane, 2, 1, 2, 3);
+        grid.add(querySearchButtonBox, 0, 0, 2, 1);
+        grid.add(imageView, 0, 1, 2, 1);
+        grid.add(pokemonNameBox, 0, 2, 1, 1);
+        grid.add(pokemonTypeBox, 0, 3, 1, 1);
+        grid.add(pokemonHeightBox, 1, 2, 1, 1);
+        grid.add(pokemonWeightBox, 1, 3, 1, 1);
     }
 
     private void createColumnConstraints() {
@@ -248,13 +262,13 @@ public class App extends Application {
         grid.getRowConstraints().addAll(smallRowConstraint, largeRowConstraint, smallRowConstraint, smallRowConstraint);
     }
 
-    private void scaleImage () {
+    private void scaleImage() {
         imageView.setPreserveRatio(true);
         imageView.fitHeightProperty().bind(outPutDataScrollPane.heightProperty().multiply(.85));
         imageView.fitWidthProperty().bind(outPutDataScrollPane.widthProperty().multiply(.85));
     }
 
-    private void scaleUiElements () {
+    private void scaleUiElements() {
         scaleImage();
         scaleNameHeightWeightTypeBoxes();
         infoSelectorBox.prefWidthProperty().bind(outPutDataScrollPane.widthProperty());
@@ -265,7 +279,7 @@ public class App extends Application {
     }
 
 
-    private void queryTask (String text) {
+    private void queryTask(String text) {
         checkIfEmpty();
         disableEditing();
         InputStream inputData;
@@ -285,36 +299,37 @@ public class App extends Application {
         }
         enableEditing();
     }
-        private void setBasicInfo (InputStream fourthClone) throws IOException {
-            List<String> infoList = basicInfoEngine.getBasicInfo(fourthClone);
-            pokemonNameOutput.setText(infoList.get(0));
-            pokemonTypeOutput.setText(infoList.get(1));
-            pokemonHeightOutput.setText(infoList.get(2));
-            pokemonWeightOutput.setText(infoList.get(3));
-            setBasicInfoFont();
-        }
 
-        private void setBasicInfoFont () {
-            pokemonNameOutput.setFont(dataFont);
-            pokemonTypeOutput.setFont(dataFont);
-            pokemonHeightOutput.setFont(dataFont);
-            pokemonWeightOutput.setFont(dataFont);
-        }
+    private void setBasicInfo(InputStream fourthClone) throws IOException {
+        List<String> infoList = basicInfoEngine.getBasicInfo(fourthClone);
+        pokemonNameOutput.setText(infoList.get(0));
+        pokemonTypeOutput.setText(infoList.get(1));
+        pokemonHeightOutput.setText(infoList.get(2));
+        pokemonWeightOutput.setText(infoList.get(3));
+        setBasicInfoFont();
+    }
 
-        private void enableEditing () {
-            userInput.setEditable(true);
-            searchButton.setDisable(false);
-        }
+    private void setBasicInfoFont() {
+        pokemonNameOutput.setFont(dataFont);
+        pokemonTypeOutput.setFont(dataFont);
+        pokemonHeightOutput.setFont(dataFont);
+        pokemonWeightOutput.setFont(dataFont);
+    }
 
-        private void disableEditing () {
-            userInput.setEditable(false);
-            searchButton.setDisable(true);
+    private void enableEditing() {
+        userInput.setEditable(true);
+        searchButton.setDisable(false);
+    }
 
-        }
+    private void disableEditing() {
+        userInput.setEditable(false);
+        searchButton.setDisable(true);
 
-        private void checkIfEmpty () {
-            if (userInput.getText().equals("")) {
-                enableEditing();
-            }
+    }
+
+    private void checkIfEmpty() {
+        if (userInput.getText().equals("")) {
+            enableEditing();
         }
     }
+}

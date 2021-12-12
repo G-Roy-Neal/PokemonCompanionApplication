@@ -10,17 +10,17 @@ public class TypeAdvantageBuilder {
 
     private final List<Type> typesList;
 
-    public TypeAdvantageBuilder(List<Type> types){
+    public TypeAdvantageBuilder(List<Type> types) {
         this.typesList = types;
     }
 
     public TypeAdvantage buildTypeAdvantage() throws IOException {
-        List<Double> allDamageRelations = new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0));
-        for(Type type: this.typesList){
+        List<Double> allDamageRelations = new ArrayList<>(Arrays.asList(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0));
+        for (Type type : this.typesList) {
             DamageRelations damageRelations = new DamageRelations(type);
             damageRelations.formatDamage();
             List<Double> typeDamageRelations = damageRelations.getDamageRelations();
-            for(int i = 0; i < 18; i++){
+            for (int i = 0; i < 18; i++) {
                 Double newDamage = allDamageRelations.get(i) * typeDamageRelations.get(i);
                 allDamageRelations.set(i, newDamage);
             }
@@ -28,57 +28,57 @@ public class TypeAdvantageBuilder {
         return setEffectiveNess(allDamageRelations);
     }
 
-    public List<String> getFourTimesEffective(List<Double> damageRelations){
+    public List<String> getFourTimesEffective(List<Double> damageRelations) {
         List<String> fourTimesEffective = new ArrayList<>();
-        for(int i = 0; i < damageRelations.size(); i++){
-            if (damageRelations.get(i) == 4.0){
+        for (int i = 0; i < damageRelations.size(); i++) {
+            if (damageRelations.get(i) == 4.0) {
                 fourTimesEffective.add(convertToType(i));
             }
         }
         return fourTimesEffective;
     }
 
-    public List<String> getTwoTimesEffective(List<Double> damageRelations){
+    public List<String> getTwoTimesEffective(List<Double> damageRelations) {
         List<String> twoTimesEffective = new ArrayList<>();
-        for(int i = 0; i < damageRelations.size(); i++){
-            if (damageRelations.get(i) == 2.0){
+        for (int i = 0; i < damageRelations.size(); i++) {
+            if (damageRelations.get(i) == 2.0) {
                 twoTimesEffective.add(convertToType(i));
             }
         }
         return twoTimesEffective;
     }
 
-    public List<String> getNormalEffective(List<Double> damageRelations){
+    public List<String> getNormalEffective(List<Double> damageRelations) {
         List<String> normalEffective = new ArrayList<>();
-        for(int i = 0; i < damageRelations.size(); i++){
-            if (damageRelations.get(i) == 1.0){
+        for (int i = 0; i < damageRelations.size(); i++) {
+            if (damageRelations.get(i) == 1.0) {
                 normalEffective.add(convertToType(i));
             }
         }
         return normalEffective;
     }
 
-    public List<String> getHalfEffective(List<Double> damageRelations){
+    public List<String> getHalfEffective(List<Double> damageRelations) {
         List<String> halfEffective = new ArrayList<>();
-        for(int i = 0; i < damageRelations.size(); i++){
-            if (damageRelations.get(i) == 0.5){
+        for (int i = 0; i < damageRelations.size(); i++) {
+            if (damageRelations.get(i) == 0.5) {
                 halfEffective.add(convertToType(i));
             }
         }
         return halfEffective;
     }
 
-    public List<String> getNotEffective(List<Double> damageRelations){
+    public List<String> getNotEffective(List<Double> damageRelations) {
         List<String> notEffective = new ArrayList<>();
-        for(int i = 0; i < damageRelations.size(); i++){
-            if (damageRelations.get(i) == 0.0){
+        for (int i = 0; i < damageRelations.size(); i++) {
+            if (damageRelations.get(i) == 0.0) {
                 notEffective.add(convertToType(i));
             }
         }
         return notEffective;
     }
 
-    public TypeAdvantage setEffectiveNess(List<Double> allDamageRelations){
+    public TypeAdvantage setEffectiveNess(List<Double> allDamageRelations) {
         TypeAdvantage typeAdvantage = new TypeAdvantage();
         typeAdvantage.setFourTimesEffective(getFourTimesEffective(allDamageRelations));
         typeAdvantage.setTwoTimesEffective(getTwoTimesEffective(allDamageRelations));
@@ -88,7 +88,7 @@ public class TypeAdvantageBuilder {
         return typeAdvantage;
     }
 
-    public String convertToType(int index){
+    public String convertToType(int index) {
         HashMap<Integer, String> typeMap = new HashMap<>();
         typeMap.put(0, "Normal");
         typeMap.put(1, "Fighting");

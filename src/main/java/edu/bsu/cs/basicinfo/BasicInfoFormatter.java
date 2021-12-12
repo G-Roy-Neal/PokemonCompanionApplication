@@ -6,7 +6,7 @@ import java.util.List;
 public class BasicInfoFormatter {
     private final BasicInfo basicInfo;
 
-    public BasicInfoFormatter(BasicInfo basicInfo){
+    public BasicInfoFormatter(BasicInfo basicInfo) {
         this.basicInfo = basicInfo;
     }
 
@@ -15,14 +15,13 @@ public class BasicInfoFormatter {
         char[] charArray = spacesAdded.toCharArray();
         boolean foundSpace = true;
 
-        for(int i = 0; i < charArray.length; i++) {
-            if(Character.isLetter(charArray[i])) {
-                if(foundSpace) {
+        for (int i = 0; i < charArray.length; i++) {
+            if (Character.isLetter(charArray[i])) {
+                if (foundSpace) {
                     charArray[i] = Character.toUpperCase(charArray[i]);
                     foundSpace = false;
                 }
-            }
-            else {
+            } else {
                 foundSpace = true;
             }
         }
@@ -33,7 +32,7 @@ public class BasicInfoFormatter {
         List<String> typesList = basicInfo.getTypes();
         StringBuilder formattedTypeString = new StringBuilder();
         String formattedType = typesList.get(0).substring(0, 1).toUpperCase() + typesList.get(0).substring(1);
-        if (typesList.size() > 1){
+        if (typesList.size() > 1) {
             formattedTypeString.append(formattedType).append(", ");
             formattedType = typesList.get(1).substring(0, 1).toUpperCase() + typesList.get(1).substring(1);
         }

@@ -41,7 +41,7 @@ public class InformationWindow extends VBox {
         getChildren().clear();
         LocationEngine locationEngine = new LocationEngine();
         List<HBox> locationList = locationEngine.generateLocationList(inputData);
-        for(HBox location: locationList){
+        for (HBox location : locationList) {
             getChildren().add(location);
         }
     }
@@ -51,7 +51,7 @@ public class InformationWindow extends VBox {
         getChildren().clear();
         MoveEngine moveEngine = new MoveEngine();
         List<HBox> moveList = moveEngine.generateMoveList(inputData);
-        for(HBox move: moveList){
+        for (HBox move : moveList) {
             getChildren().add(move);
         }
     }
@@ -61,10 +61,11 @@ public class InformationWindow extends VBox {
         getChildren().clear();
         TypeAdvantageEngine typeAdvantageEngine = new TypeAdvantageEngine();
         List<HBox> typeAdvantageList = typeAdvantageEngine.generateTypeAdvantageList(inputData);
-        for(HBox typeAdvantage: typeAdvantageList){
+        for (HBox typeAdvantage : typeAdvantageList) {
             getChildren().add(typeAdvantage);
         }
     }
+
     public void setPokemonNotFound() {
         getChildren().clear();
         Label label = new Label("The search is not a valid Pokemon");

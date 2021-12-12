@@ -7,25 +7,7 @@ public class Type {
     String type;
     URL typeUrl;
 
-    public static final class Builder{
-        public String type;
-        public URL typeURL;
-
-        public Builder withType(String type){
-            this.type = type;
-            return this;
-        }
-        public Builder withURL(URL typeURL){
-            this.typeURL = typeURL;
-            return this;
-        }
-
-        public Type build(){
-            return new Type(this);
-        }
-    }
-
-    private Type(Builder builder){
+    private Type(Builder builder) {
         this.type = builder.type;
         this.typeUrl = builder.typeURL;
     }
@@ -45,5 +27,24 @@ public class Type {
     @Override
     public int hashCode() {
         return Objects.hash(type, typeUrl);
+    }
+
+    public static final class Builder {
+        public String type;
+        public URL typeURL;
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withURL(URL typeURL) {
+            this.typeURL = typeURL;
+            return this;
+        }
+
+        public Type build() {
+            return new Type(this);
+        }
     }
 }

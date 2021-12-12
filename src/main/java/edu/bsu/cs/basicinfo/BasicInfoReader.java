@@ -2,6 +2,7 @@ package edu.bsu.cs.basicinfo;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class BasicInfoReader {
 
     public BasicInfo buildBasicInfo() {
         return new BasicInfo.Builder().withName(readName()).withHeight(readHeight())
-                   .withWeight(readWeight()).withTypes(readTypes()).build();
+                .withWeight(readWeight()).withTypes(readTypes()).build();
     }
 
     public String readName() {
@@ -29,11 +30,10 @@ public class BasicInfoReader {
         List<String> typeList = new ArrayList<>();
         JsonPath encountersPath = JsonPath.compile("$..types..type..name");
         JSONArray typesArray = encountersPath.read(this.data);
-        if (typesArray.size() > 1){
+        if (typesArray.size() > 1) {
             typeList.add(typesArray.get(0).toString());
             typeList.add(typesArray.get(1).toString());
-        }
-        else {
+        } else {
             typeList.add(typesArray.get(0).toString());
         }
         return typeList;

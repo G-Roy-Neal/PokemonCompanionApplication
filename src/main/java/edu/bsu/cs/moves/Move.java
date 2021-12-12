@@ -2,41 +2,28 @@ package edu.bsu.cs.moves;
 
 import java.util.Objects;
 
-public class Move implements Comparable<Move>{
+public class Move implements Comparable<Move> {
+
+    private final String name;
+    private final Integer level;
+
+    private Move(Builder builder) {
+        this.name = builder.name;
+        this.level = builder.level;
+    }
 
     @Override
     public int compareTo(Move move) {
         return this.getLevel().compareTo(move.getLevel());
     }
 
-    public static final class Builder{
-        public String name;
-        public Integer level;
-
-        public Builder withName(String name){
-            this.name = name;
-            return this;
-        }
-        public Builder withLevel(Integer level){
-            this.level = level;
-            return this;
-        }
-
-        public Move build(){
-            return new Move(this);
-        }
+    public String getName() {
+        return name;
     }
 
-    private final String name;
-    private final Integer level;
-
-    private Move(Builder builder){
-        this.name = builder.name;
-        this.level = builder.level;
+    public Integer getLevel() {
+        return level;
     }
-
-    public String getName() {return name;}
-    public Integer getLevel() {return level;}
 
     @Override
     public boolean equals(Object o) {
@@ -49,5 +36,24 @@ public class Move implements Comparable<Move>{
     @Override
     public int hashCode() {
         return Objects.hash(name, level);
+    }
+
+    public static final class Builder {
+        public String name;
+        public Integer level;
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withLevel(Integer level) {
+            this.level = level;
+            return this;
+        }
+
+        public Move build() {
+            return new Move(this);
+        }
     }
 }
