@@ -7,7 +7,7 @@ public class QueryEngine {
     public InputStream getInputStream(String search) throws IOException {
         UrlBuilder builder = new UrlBuilder();
         QuerySearcher searcher = new QuerySearcher();
-        String searchUrl = builder.buildSearchUrl(search);
+        String searchUrl = builder.buildSearchUrl(search.strip());
         return searcher.getInputStream(searchUrl);
     }
 }
