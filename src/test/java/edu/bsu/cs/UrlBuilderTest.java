@@ -3,21 +3,20 @@ package edu.bsu.cs;
 import edu.bsu.cs.query.UrlBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class UrlBuilderTest {
 
-    @Test
-    public void testBuildUrl() {
+    @ParameterizedTest
+    @CsvSource ({
+                "Ralts, https://pokeapi.co/api/v2/pokemon/ralts",
+                "Mr. Mime, https://pokeapi.co/api/v2/pokemon/mr-mime"
+            })
+    public void testBuildPokemonUrl(String pokemon, String url) {
         UrlBuilder builder = new UrlBuilder();
-        String result = builder.buildSearchUrl("Ralts");
-        Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/ralts", result);
-    }
-
-    @Test
-    public void testBuildUrl2() {
-        UrlBuilder builder = new UrlBuilder();
-        String result = builder.buildSearchUrl("Mr. Mime");
-        Assertions.assertEquals("https://pokeapi.co/api/v2/pokemon/mr-mime", result);
+        String result = builder.buildSearchUrl(pokemon);
+        Assertions.assertEquals(url, result);
     }
 
     @Test

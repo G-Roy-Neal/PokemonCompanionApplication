@@ -286,7 +286,7 @@ public class App extends Application {
         enableEditing();
     }
         private void setBasicInfo (InputStream fourthClone) throws IOException {
-            List<String> infoList = basicInfoEngine.getBaisicInfo(fourthClone);
+            List<String> infoList = basicInfoEngine.getBasicInfo(fourthClone);
             pokemonNameOutput.setText(infoList.get(0));
             pokemonTypeOutput.setText(infoList.get(1));
             pokemonHeightOutput.setText(infoList.get(2));
