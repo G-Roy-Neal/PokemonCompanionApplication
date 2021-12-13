@@ -1,7 +1,7 @@
 package edu.bsu.cs.image;
 
 import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs.query.QuerySearcher;
+import edu.bsu.cs.query.InputStreamSummoner;
 import edu.bsu.cs.query.UrlBuilder;
 import javafx.scene.image.Image;
 
@@ -24,7 +24,7 @@ public class ImageBuilder {
 
     public Image getPokemonImage(String pokemonId) throws IOException {
         UrlBuilder urlBuilder = new UrlBuilder();
-        QuerySearcher querySearcher = new QuerySearcher();
-        return new Image(querySearcher.getInputStream(urlBuilder.buildImageUrl(pokemonId)));
+        InputStreamSummoner inputStreamSummoner = new InputStreamSummoner();
+        return new Image(inputStreamSummoner.getInputStream(urlBuilder.buildImageUrl(pokemonId)));
     }
 }

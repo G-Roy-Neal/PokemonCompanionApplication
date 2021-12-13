@@ -1,7 +1,7 @@
 package edu.bsu.cs.typeadvantage;
 
 import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs.query.QuerySearcher;
+import edu.bsu.cs.query.InputStreamSummoner;
 import net.minidev.json.JSONArray;
 
 import java.io.ByteArrayInputStream;
@@ -41,7 +41,7 @@ public class DamageRelations {
     }
 
     public InputStream searchTypeUrl(URL typeUrl) throws IOException {
-        QuerySearcher searcher = new QuerySearcher();
+        InputStreamSummoner searcher = new InputStreamSummoner();
         return searcher.getInputStream(typeUrl.toString());
     }
 

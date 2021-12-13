@@ -1,7 +1,7 @@
 package edu.bsu.cs.locations;
 
 import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs.query.QuerySearcher;
+import edu.bsu.cs.query.InputStreamSummoner;
 import net.minidev.json.JSONArray;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class LocationBuilder {
     public List<Location> buildLocationList() throws IOException {
         List<Location> list = new ArrayList<>();
         String locationUrl = getUrl();
-        QuerySearcher searcher = new QuerySearcher();
+        InputStreamSummoner searcher = new InputStreamSummoner();
         InputStream rawLocations = searcher.getInputStream(locationUrl);
         JsonPath locationPath = JsonPath.compile("$..location_area..name");
         JSONArray locationsArray = locationPath.read(rawLocations);

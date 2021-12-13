@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class QuerySearcher {
+public class InputStreamSummoner {
     public InputStream getInputStream(String stringUrl) throws IOException {
         URL Url = new URL(stringUrl);
         URLConnection connection = Url.openConnection();
