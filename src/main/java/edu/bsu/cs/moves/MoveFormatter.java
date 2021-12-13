@@ -20,12 +20,12 @@ public class MoveFormatter {
         separateMoves(moveList);
         formatLearnedMoves();
         Collections.sort(formattedLearnedMoves);
-        return formattedLearnedMoves;
+        return new ArrayList<>(formattedLearnedMoves);
     }
 
     public List<Move> buildTaughtMoves() {
         formattedTaughtMoves.sort(Comparator.comparing(Move::getName));
-        return formattedTaughtMoves;
+        return new ArrayList<>(formattedTaughtMoves);
     }
 
     public void separateMoves(List<Move> movesList) {
@@ -45,10 +45,10 @@ public class MoveFormatter {
     }
 
     public List<Move> getFormattedLearnedMoves() {
-        return formattedLearnedMoves;
+        return new ArrayList<>(formattedLearnedMoves);
     }
 
     public List<Move> getFormattedTaughtMoves() {
-        return formattedTaughtMoves;
+        return new ArrayList<>(formattedTaughtMoves);
     }
 }

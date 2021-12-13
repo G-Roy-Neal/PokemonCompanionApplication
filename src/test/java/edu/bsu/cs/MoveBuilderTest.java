@@ -13,6 +13,8 @@ import java.util.List;
 
 public class MoveBuilderTest {
 
+    InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
+
     @ParameterizedTest
     @CsvSource({
             "ruby-sapphire, 5",
@@ -21,7 +23,6 @@ public class MoveBuilderTest {
             "x-y, 15"
     })
     public void testFormatLocation(String location, Integer expected) throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         Integer result = moveBuilder.convertGeneration(location);
@@ -36,7 +37,6 @@ public class MoveBuilderTest {
             "398, gold-silver"
     })
     public void testGetRawGenerations(Integer index, String expected) throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> generationsList = moveBuilder.getRawGenerations();
@@ -53,7 +53,6 @@ public class MoveBuilderTest {
             "92, power-up-punch"
     })
     public void testGetMoveNames(Integer index, String expected) throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> moveList = moveBuilder.getMoveNames();
@@ -69,13 +68,12 @@ public class MoveBuilderTest {
             "67, 764",
             "90, 937"
     })
-    public void testGetMoveIndecies(Integer index, Integer expected) throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
+    public void testGetMoveIndices(Integer index, Integer expected) throws IOException {
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<String> rawGenerations = moveBuilder.getRawGenerations();
-        List<Integer> moveIndecies = moveBuilder.getMoveIndices(rawGenerations);
-        Integer result = moveIndecies.get(index);
+        List<Integer> moveIndices = moveBuilder.getMoveIndices(rawGenerations);
+        Integer result = moveIndices.get(index);
         Assertions.assertEquals(result, expected);
     }
 
@@ -87,7 +85,6 @@ public class MoveBuilderTest {
             "86, 46",
     })
     public void testGetSelectLevels(Integer index, Integer expected) throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<Integer> selectLevels = moveBuilder.getSelectLevels();
@@ -97,7 +94,6 @@ public class MoveBuilderTest {
 
     @Test
     public void testBuildMoves() throws IOException {
-        InputStream testingData = Thread.currentThread().getContextClassLoader().getResourceAsStream("charmander-test.json");
         assert testingData != null;
         MoveBuilder moveBuilder = new MoveBuilder(testingData);
         List<Move> moves = moveBuilder.buildMoves();

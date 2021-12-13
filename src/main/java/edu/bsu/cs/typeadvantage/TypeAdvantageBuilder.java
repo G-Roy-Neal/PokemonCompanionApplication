@@ -25,7 +25,7 @@ public class TypeAdvantageBuilder {
                 allDamageRelations.set(i, newDamage);
             }
         }
-        return setEffectiveNess(allDamageRelations);
+        return setEffectiveness(allDamageRelations);
     }
 
     public List<String> getFourTimesEffective(List<Double> damageRelations) {
@@ -78,7 +78,7 @@ public class TypeAdvantageBuilder {
         return notEffective;
     }
 
-    public TypeAdvantage setEffectiveNess(List<Double> allDamageRelations) {
+    public TypeAdvantage setEffectiveness(List<Double> allDamageRelations) {
         TypeAdvantage typeAdvantage = new TypeAdvantage();
         typeAdvantage.setFourTimesEffective(getFourTimesEffective(allDamageRelations));
         typeAdvantage.setTwoTimesEffective(getTwoTimesEffective(allDamageRelations));

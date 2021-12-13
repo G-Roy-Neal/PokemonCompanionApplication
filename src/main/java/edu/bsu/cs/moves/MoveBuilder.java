@@ -24,7 +24,7 @@ public class MoveBuilder {
             Move newMove = new Move.Builder().withLevel(selectLevels.get(i)).withName(moveNames.get(i)).build();
             pokemonMoves.add(newMove);
         }
-        return pokemonMoves;
+        return new ArrayList<>(pokemonMoves);
     }
 
     public List<Integer> getSelectLevels() {

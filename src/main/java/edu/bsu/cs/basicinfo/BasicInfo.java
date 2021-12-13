@@ -1,5 +1,6 @@
 package edu.bsu.cs.basicinfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class BasicInfo {
     }
 
     public List<String> getTypes() {
-        return types;
+        return new ArrayList<>(types);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package edu.bsu.cs;
 
 import edu.bsu.cs.basicinfo.BasicInfo;
-import edu.bsu.cs.basicinfo.BasicInfoReader;
 import edu.bsu.cs.basicinfo.BasicInfoFormatter;
+import edu.bsu.cs.basicinfo.BasicInfoReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

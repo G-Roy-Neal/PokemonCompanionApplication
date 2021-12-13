@@ -19,9 +19,9 @@ public class TypeBuilderTest {
         assert testingData != null;
         TypeBuilder typeBuilder = new TypeBuilder(testingData);
         List<URL> expected = typeBuilder.getUrl();
-        URL urlOne = new URL("https://pokeapi.co/api/v2/type/14/");
-        URL urlTwo = new URL("https://pokeapi.co/api/v2/type/18/");
-        List<URL> actual = new ArrayList<>(Arrays.asList(urlOne, urlTwo));
+        URL psychicUrl = new URL("https://pokeapi.co/api/v2/type/14/");
+        URL fairyUrl = new URL("https://pokeapi.co/api/v2/type/18/");
+        List<URL> actual = new ArrayList<>(Arrays.asList(psychicUrl, fairyUrl));
         Assertions.assertEquals(actual, expected);
     }
 

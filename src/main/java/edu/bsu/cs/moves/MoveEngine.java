@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -63,12 +64,12 @@ public class MoveEngine {
         return new HBox(levelWord, level, colon, name);
     }
 
-    private List<HBox> setUpMoveList(){
+    private List<HBox> setUpMoveList() {
         List<HBox> moveList = new ArrayList<>();
         Label learned = new Label("Moves That Can Be Learned:");
         learned.setFont(labelFont);
         moveList.add(new HBox(learned));
-        return  moveList;
+        return moveList;
     }
 
     private String formatMove(String move) {
