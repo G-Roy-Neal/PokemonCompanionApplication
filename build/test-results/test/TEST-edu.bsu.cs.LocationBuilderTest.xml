@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bsu.cs.LocationBuilderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-12-13T09:51:11" hostname="METAL-MARIO" time="0.75">
-  <properties/>
-  <testcase name="testBuildLocationList()" classname="edu.bsu.cs.LocationBuilderTest" time="0.688"/>
-  <testcase name="testGetUrl()" classname="edu.bsu.cs.LocationBuilderTest" time="0.06"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

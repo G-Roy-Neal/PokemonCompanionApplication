@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bsu.cs.ImageBuilderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-12-13T09:51:10" hostname="METAL-MARIO" time="0.119">
-  <properties/>
-  <testcase name="testGetPokemonId()" classname="edu.bsu.cs.ImageBuilderTest" time="0.119"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

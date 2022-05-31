@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bsu.cs.TypeBuilderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-12-13T09:51:12" hostname="METAL-MARIO" time="0.043">
-  <properties/>
-  <testcase name="testGetType()" classname="edu.bsu.cs.TypeBuilderTest" time="0.022"/>
-  <testcase name="testGetUrl()" classname="edu.bsu.cs.TypeBuilderTest" time="0.02"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

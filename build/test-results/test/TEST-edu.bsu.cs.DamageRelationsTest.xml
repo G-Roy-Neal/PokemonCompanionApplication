@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bsu.cs.DamageRelationsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-12-13T09:51:10" hostname="METAL-MARIO" time="0.052">
-  <properties/>
-  <testcase name="testNoDamageFrom()" classname="edu.bsu.cs.DamageRelationsTest" time="0.035"/>
-  <testcase name="testDoubleDamageFrom()" classname="edu.bsu.cs.DamageRelationsTest" time="0.008"/>
-  <testcase name="testHalfDamageFrom()" classname="edu.bsu.cs.DamageRelationsTest" time="0.005"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
