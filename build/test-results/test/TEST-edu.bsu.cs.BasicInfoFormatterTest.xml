@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.bsu.cs.BasicInfoFormatterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-12-13T09:51:10" hostname="METAL-MARIO" time="0.5">
+  <properties/>
+  <testcase name="testFormatHeight()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.22"/>
+  <testcase name="testFormatTypesForCharmander()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.044"/>
+  <testcase name="testFormatWeight()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.057"/>
+  <testcase name="testFormatName()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.062"/>
+  <testcase name="testFormatTypesForRalts()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.054"/>
+  <testcase name="testFormatBasicInfo()" classname="edu.bsu.cs.BasicInfoFormatterTest" time="0.056"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>
